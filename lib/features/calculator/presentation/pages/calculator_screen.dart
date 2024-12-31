@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
@@ -41,37 +42,33 @@ class CalculatorView extends StatelessWidget {
             return Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Align(
+                Container(
                   alignment: Alignment.bottomRight,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: Text(
-                            state.equation,
-                            style: const TextStyle(
-                              color: Colors.white38,
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 40,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            state.result,
-                            textAlign: TextAlign.left,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'SFProDisplay',
-                              fontSize: 80,
-                            ),
-                          ),
-                        ),
-                      ],
+                  width: MediaQuery.sizeOf(context).width,
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: AutoSizeText(
+                    state.equation,
+                    maxLines: 1,
+                    minFontSize: 20,
+                    style: const TextStyle(
+                      color: Colors.white38,
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 40,
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.bottomRight,
+                  width: MediaQuery.sizeOf(context).width,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: AutoSizeText(
+                    state.result,
+                    maxLines: 1,
+                    minFontSize: 30,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'SFProDisplay',
+                      fontSize: 80,
                     ),
                   ),
                 ),
