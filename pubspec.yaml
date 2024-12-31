@@ -36,3 +36,18 @@ scripts: derry.yaml
 flutter:
   uses-material-design: true
   generate: true
+
+  assets:
+    - assets/
+    - assets/fonts/
+
+  fonts:
+    - family: SFProDisplay
+      # https://developer.apple.com/fonts/
+      fonts:
+        - asset: assets/fonts/SFProDisplay_Bold.otf
+          weight: 700
+        - asset: assets/fonts/SFProDisplay_Medium.otf
+          weight: 500
+        - asset: assets/fonts/SFProDisplay_Regular.otf
+          weight: 400
