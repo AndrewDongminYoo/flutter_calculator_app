@@ -1,6 +1,11 @@
-import 'package:calculator/l10n/l10n.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:flutter_test/flutter_test.dart';
+
+// 🌎 Project imports:
+import 'package:calculator/l10n/l10n.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(Widget widget) {

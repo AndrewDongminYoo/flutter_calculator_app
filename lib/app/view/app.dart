@@ -1,6 +1,9 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:calculator/features/counter/counter.dart';
 import 'package:calculator/l10n/l10n.dart';
-import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
