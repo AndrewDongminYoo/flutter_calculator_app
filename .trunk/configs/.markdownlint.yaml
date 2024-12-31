@@ -1,2 +1,19 @@
 # Prettier friendly markdownlint config (all formatting rules disabled)
 extends: markdownlint/style/prettier
+
+# Heading levels should only increment by one level at a time
+MD001: false
+# Multiple headings with the same content
+MD024: false
+# Multiple top-level headings in the same document
+MD025: false
+# Inline HTML
+MD033: false
+# Emphasis used instead of a heading
+MD036: false
+# First line in a file should be a top-level heading
+MD041: false
+# No empty links
+MD042: false
+# Emphasis style
+MD049: false
