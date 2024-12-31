@@ -101,8 +101,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                       child: Text(
                         equation,
                         style: const TextStyle(
-                          fontSize: 40,
                           color: Colors.white38,
+                          fontFamily: 'SFProDisplay',
+                          fontSize: 40,
                         ),
                       ),
                     ),
@@ -113,6 +114,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                         textAlign: TextAlign.left,
                         style: const TextStyle(
                           color: Colors.white,
+                          fontFamily: 'SFProDisplay',
                           fontSize: 80,
                         ),
                       ),

@@ -30,12 +30,14 @@ class CalculatorButton extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               shape: const CircleBorder(),
               backgroundColor: buttonColor,
+              visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
             ),
             child: Text(
               button.text,
               style: TextStyle(
-                fontSize: button.text.length > 1 ? 22 : 34,
                 color: Colors.white,
+                fontFamily: 'SFProDisplay',
+                fontSize: button.text.length > 1 ? 23 : 36,
               ),
             ),
           ),

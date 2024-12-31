@@ -15,8 +15,10 @@ class App extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
+        fontFamily: 'SFProDisplay',
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       home: const CalculatorScreen(),
