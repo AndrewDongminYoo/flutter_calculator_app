@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
+import 'package:calculator/core/utils/size_utils.dart';
 import 'package:calculator/features/calculator/presentation/bloc/calculator_bloc.dart';
 import 'package:calculator/features/calculator/presentation/enums/button_type.dart';
 import 'package:calculator/features/calculator/presentation/widgets/calculator_button.dart';
@@ -44,7 +45,7 @@ class CalculatorView extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.bottomRight,
-                  width: MediaQuery.sizeOf(context).width,
+                  width: context.getWidth(),
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: AutoSizeText(
                     state.equation,
@@ -59,7 +60,7 @@ class CalculatorView extends StatelessWidget {
                 ),
                 Container(
                   alignment: Alignment.bottomRight,
-                  width: MediaQuery.sizeOf(context).width,
+                  width: context.getWidth(),
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: AutoSizeText(
                     state.result,
