@@ -7,7 +7,7 @@ import 'package:calculator/features/counter/counter.dart';
 
 void main() {
   group('App', () {
-    testWidgets('renders CounterPage', (tester) async {
+    testWidgets('renders CounterPage', (WidgetTester tester) async {
       await tester.pumpWidget(const App());
       expect(find.byType(CounterPage), findsOneWidget);
     });

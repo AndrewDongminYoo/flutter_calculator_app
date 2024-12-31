@@ -28,7 +28,7 @@ class AppBlocObserver extends BlocObserver {
 }
 
 Future<void> main() async {
-  FlutterError.onError = (details) {
+  FlutterError.onError = (FlutterErrorDetails details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 

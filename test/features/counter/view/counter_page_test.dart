@@ -15,7 +15,7 @@ class MockCounterCubit extends MockCubit<int> implements CounterCubit {}
 
 void main() {
   group('CounterPage', () {
-    testWidgets('renders CounterView', (tester) async {
+    testWidgets('renders CounterView', (WidgetTester tester) async {
       await tester.pumpApp(const CounterPage());
       expect(find.byType(CounterView), findsOneWidget);
     });
@@ -28,11 +28,11 @@ void main() {
       counterCubit = MockCounterCubit();
     });
 
-    testWidgets('renders current count', (tester) async {
+    testWidgets('renders current count', (WidgetTester tester) async {
       const state = 42;
       when(() => counterCubit.state).thenReturn(state);
       await tester.pumpApp(
-        BlocProvider.value(
+        BlocProvider<CounterCubit>.value(
           value: counterCubit,
           child: const CounterView(),
         ),
@@ -40,11 +40,11 @@ void main() {
       expect(find.text('$state'), findsOneWidget);
     });
 
-    testWidgets('calls increment when increment button is tapped', (tester) async {
+    testWidgets('calls increment when increment button is tapped', (WidgetTester tester) async {
       when(() => counterCubit.state).thenReturn(0);
       when(() => counterCubit.increment()).thenReturn(null);
       await tester.pumpApp(
-        BlocProvider.value(
+        BlocProvider<CounterCubit>.value(
           value: counterCubit,
           child: const CounterView(),
         ),
@@ -53,11 +53,11 @@ void main() {
       verify(() => counterCubit.increment()).called(1);
     });
 
-    testWidgets('calls decrement when decrement button is tapped', (tester) async {
+    testWidgets('calls decrement when decrement button is tapped', (WidgetTester tester) async {
       when(() => counterCubit.state).thenReturn(0);
       when(() => counterCubit.decrement()).thenReturn(null);
       await tester.pumpApp(
-        BlocProvider.value(
+        BlocProvider<CounterCubit>.value(
           value: counterCubit,
           child: const CounterView(),
         ),

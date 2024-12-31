@@ -14,15 +14,15 @@ void main() {
     blocTest<CounterCubit, int>(
       'emits [1] when increment is called',
       build: CounterCubit.new,
-      act: (cubit) => cubit.increment(),
-      expect: () => [equals(1)],
+      act: (CounterCubit cubit) => cubit.increment(),
+      expect: () => <Matcher>[equals(1)],
     );
 
     blocTest<CounterCubit, int>(
       'emits [-1] when decrement is called',
       build: CounterCubit.new,
-      act: (cubit) => cubit.decrement(),
-      expect: () => [equals(-1)],
+      act: (CounterCubit cubit) => cubit.decrement(),
+      expect: () => <Matcher>[equals(-1)],
     );
   });
 }
