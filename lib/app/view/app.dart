@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:calculator/features/counter/counter.dart';
+import 'package:calculator/features/calculator/presentation/pages/calculator_screen.dart';
 import 'package:calculator/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -19,7 +19,7 @@ class App extends StatelessWidget {
       ),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: const CounterPage(),
+      home: const CalculatorScreen(),
     );
   }
 }
