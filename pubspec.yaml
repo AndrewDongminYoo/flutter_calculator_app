@@ -27,6 +27,10 @@ dev_dependencies:
   mocktail: ^1.0.4
   very_good_analysis: ^6.0.0
 
+# https://github.com/frencojobs/derry
+# `dart pub global activate derry`
+scripts: derry.yaml
+
 flutter:
   uses-material-design: true
   generate: true
