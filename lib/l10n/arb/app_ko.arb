@@ -1,0 +1,7 @@
+{
+    "@@locale": "ko",
+    "counterAppBarTitle": "카운터",
+    "@counterAppBarTitle": {
+        "description": "카운터 페이지의 앱바에 표시되는 텍스트"
+    }
+}

@@ -1,0 +1,32 @@
+name: calculator
+description: A Very Good Project created by Very Good CLI.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  bloc: ^8.1.4
+  equatable: ^2.0.7
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.6
+  flutter_localizations:
+    sdk: flutter
+  freezed: ^2.5.7
+  freezed_annotation: ^2.4.4
+  intl: ^0.19.0
+
+dev_dependencies:
+  bloc_test: ^9.1.7
+  build_runner: ^2.4.14
+  flutter_test:
+    sdk: flutter
+  import_sorter: ^4.6.0
+  mocktail: ^1.0.4
+  very_good_analysis: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
