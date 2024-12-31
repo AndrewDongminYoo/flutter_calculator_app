@@ -27,7 +27,7 @@ dev_dependencies:
     sdk: flutter
   import_sorter: ^4.6.0
   mocktail: ^1.0.4
-  very_good_analysis: ^6.0.0
+  very_good_analysis: ^7.0.0
 
 # https://github.com/frencojobs/derry
 # `dart pub global activate derry`
