@@ -8,14 +8,43 @@ import 'dart:io';
 import 'package:calculator/features/calculator/data/datasources/calculator_local_datasource.dart';
 
 void main() async {
-  print('CLI Calculator');
-  print('Enter a calculation (e.g., 2+3):');
+  print('======================================');
+  print('       CLI Calculator (v1.0)          ');
+  print('======================================');
+  print('Type "help" for usage instructions or "exit" to quit.');
+
+  final history = <String>[]; // Save the calculation record
+
+  void handleHistory() {
+    if (history.isEmpty) {
+      print('No history available.');
+    } else {
+      print('Calculation History:');
+      for (final entry in history) {
+        print('- $entry');
+      }
+    }
+  }
+
+  void clearConsole() {
+    if (Platform.isWindows) {
+      print(Process.runSync('cls', [], runInShell: true).stdout);
+    } else {
+      print(Process.runSync('clear', [], runInShell: true).stdout);
+    }
+  }
 
   void showHelp() {
+    print('--------------------------------------');
     print('Instructions:');
-    print('- Enter calculations in the format: number operator number');
-    print('- Supported operators: +, -, *, /');
-    print("- Type 'exit' to quit the application");
+    print('- Enter calculations (e.g., 2+3, 4*5/2).');
+    print('- Supported operators: +, -, *, /.');
+    print('- Commands:');
+    print("  'help'     - Show usage instructions.");
+    print("  'history'  - Show calculation history.");
+    print("  'clear'    - Clear the console.");
+    print("  'exit'     - Exit the application.");
+    print('--------------------------------------');
   }
 
   void handleError(Object e) {
@@ -37,12 +66,21 @@ void main() async {
     }
     if (input.toLowerCase() == 'help') {
       showHelp();
-      break;
+      continue;
+    }
+    if (input.toLowerCase() == 'history') {
+      handleHistory();
+      continue;
+    }
+    if (input.toLowerCase() == 'clear') {
+      clearConsole();
+      continue;
     }
 
     try {
       final result = CalculatorLocalDatasource().calculate(input);
       print('Result: $result');
+      history.add('$input = $result');
     } catch (e) {
       handleError(e);
     }
