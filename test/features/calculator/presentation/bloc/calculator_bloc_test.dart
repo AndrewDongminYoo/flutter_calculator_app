@@ -1,3 +1,5 @@
+// ignore_for_file: discarded_futures
+
 // 📦 Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -81,7 +83,6 @@ void main() {
     blocTest<CalculatorBloc, CalculatorState>(
       'emits correct state for complex calculation',
       build: () {
-        // ignore: discarded_futures
         when(mockRepository.calculate('2*3+4')).thenAnswer((_) async => 10.0);
         return calculatorBloc;
       },
@@ -94,12 +95,14 @@ void main() {
           result: '10',
         ),
       ],
+      verify: (_) {
+        verify(mockRepository.calculate('2*3+4')).called(1);
+      },
     );
 
     blocTest<CalculatorBloc, CalculatorState>(
       'handles decimal calculations correctly',
       build: () {
-        // ignore: discarded_futures
         when(mockRepository.calculate('10/3')).thenAnswer((_) async => 3.3333333333333335);
         return calculatorBloc;
       },
@@ -113,12 +116,14 @@ void main() {
               double.parse(state.result) - 3.3333333333333335 < 0.000001,
         ),
       ],
+      verify: (_) {
+        verify(mockRepository.calculate('10/3')).called(1);
+      },
     );
 
     blocTest<CalculatorBloc, CalculatorState>(
       'handles invalid expressions gracefully',
       build: () {
-        // ignore: discarded_futures
         when(mockRepository.calculate('1/0')).thenAnswer((_) async => double.infinity);
         return calculatorBloc;
       },
@@ -130,6 +135,9 @@ void main() {
               state.equation == '1÷0' && state.expression == '1/0' && double.parse(state.result) == double.infinity,
         ),
       ],
+      verify: (_) {
+        verify(mockRepository.calculate('1/0')).called(1);
+      },
     );
   });
 }
