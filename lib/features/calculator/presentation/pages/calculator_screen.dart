@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:calculator/core/utils/size_utils.dart';
+import 'package:calculator/features/calculator/data/datasources/calculator_local_datasource.dart';
+import 'package:calculator/features/calculator/data/datasources/calculator_remote_datasource.dart';
+import 'package:calculator/features/calculator/data/repositories/calculate_repository_impl.dart';
 import 'package:calculator/features/calculator/presentation/bloc/calculator_bloc.dart';
 import 'package:calculator/features/calculator/presentation/enums/button_type.dart';
 import 'package:calculator/features/calculator/presentation/widgets/calculator_button.dart';
@@ -17,7 +21,15 @@ class CalculatorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CalculatorBloc>(
-      create: (BuildContext context) => CalculatorBloc(),
+      create: (BuildContext context) {
+        return CalculatorBloc(
+          repository: CalculatorRepositoryImpl(
+            localDatasource: CalculatorLocalDatasource(),
+            remoteDatasource: CalculatorRemoteDatasource(),
+            connectivity: Connectivity(),
+          ),
+        );
+      },
       child: const CalculatorView(),
     );
   }

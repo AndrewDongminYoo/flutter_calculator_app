@@ -1,21 +1,26 @@
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:math_expressions/math_expressions.dart';
 
 // 🌎 Project imports:
+import 'package:calculator/features/calculator/domain/repositories/calculator_repository.dart';
+
 part 'calculator_event.dart';
 part 'calculator_state.dart';
 part 'calculator_bloc.freezed.dart';
 
 class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
-  CalculatorBloc() : super(const CalculatorState()) {
+  CalculatorBloc({required CalculatorRepository repository})
+      : _repository = repository,
+        super(const CalculatorState()) {
     on<Clear>(_onClear);
     on<Delete>(_onDelete);
     on<FlipSign>(_onFlipSign);
     on<Input>(_onInput);
     on<Evaluate>(_onEvaluate);
   }
+
+  final CalculatorRepository _repository;
 
   void _onClear(Clear event, Emitter<CalculatorState> emit) {
     // 모든 값을 초기화
@@ -57,15 +62,11 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     }
   }
 
-  void _onEvaluate(Evaluate event, Emitter<CalculatorState> emit) {
+  Future<void> _onEvaluate(Evaluate event, Emitter<CalculatorState> emit) async {
     final expression = state.equation.replaceAll('×', '*').replaceAll('÷', '/').replaceAll('%', '%');
 
     try {
-      final p = Parser();
-      final exp = p.parse(expression);
-      final cm = ContextModel();
-
-      var result = '${exp.evaluate(EvaluationType.REAL, cm)}';
+      var result = '${await _repository.calculate(expression)}';
 
       // 소수점 제거 로직(소수점 이하가 0이면 정수로 표시)
       if (result.contains('.')) {

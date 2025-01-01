@@ -1,16 +1,23 @@
 // 📦 Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
 
 // 🌎 Project imports:
+import 'package:calculator/features/calculator/domain/repositories/calculator_repository.dart';
 import 'package:calculator/features/calculator/presentation/bloc/calculator_bloc.dart';
+import 'calculator_bloc_test.mocks.dart';
 
+@GenerateMocks([CalculatorRepository])
 void main() {
   group('CalculatorBloc', () {
     late CalculatorBloc calculatorBloc;
+    late MockCalculatorRepository mockRepository;
 
     setUp(() {
-      calculatorBloc = CalculatorBloc();
+      mockRepository = MockCalculatorRepository();
+      calculatorBloc = CalculatorBloc(repository: mockRepository);
     });
 
     tearDown(() async {
@@ -73,7 +80,11 @@ void main() {
 
     blocTest<CalculatorBloc, CalculatorState>(
       'emits correct state for complex calculation',
-      build: () => calculatorBloc,
+      build: () {
+        // ignore: discarded_futures
+        when(mockRepository.calculate('2*3+4')).thenAnswer((_) async => 10.0);
+        return calculatorBloc;
+      },
       seed: () => const CalculatorState(equation: '2×3+4'),
       act: (bloc) => bloc.add(const Evaluate()),
       expect: () => [
@@ -87,7 +98,11 @@ void main() {
 
     blocTest<CalculatorBloc, CalculatorState>(
       'handles decimal calculations correctly',
-      build: () => calculatorBloc,
+      build: () {
+        // ignore: discarded_futures
+        when(mockRepository.calculate('10/3')).thenAnswer((_) async => 3.3333333333333335);
+        return calculatorBloc;
+      },
       seed: () => const CalculatorState(equation: '10÷3'),
       act: (bloc) => bloc.add(const Evaluate()),
       expect: () => [
@@ -102,7 +117,11 @@ void main() {
 
     blocTest<CalculatorBloc, CalculatorState>(
       'handles invalid expressions gracefully',
-      build: () => calculatorBloc,
+      build: () {
+        // ignore: discarded_futures
+        when(mockRepository.calculate('1/0')).thenAnswer((_) async => double.infinity);
+        return calculatorBloc;
+      },
       seed: () => const CalculatorState(equation: '1÷0'),
       act: (bloc) => bloc.add(const Evaluate()),
       expect: () => [
