@@ -12,60 +12,131 @@ void main() {
       datasource = CalculatorLocalDatasource();
     });
 
-    test('should perform addition correctly', () async {
-      final result = await datasource.calculate('5+3');
-      expect(result, equals(8.0));
+    group('calculate', () {
+      test('should perform addition correctly', () async {
+        final result = await datasource.calculate('5+3');
+        expect(result, equals(8.0));
+      });
+
+      test('should perform subtraction correctly', () async {
+        final result = await datasource.calculate('10-4');
+        expect(result, equals(6.0));
+      });
+
+      test('should perform multiplication correctly', () async {
+        final result = await datasource.calculate('6*7');
+        expect(result, equals(42.0));
+      });
+
+      test('should perform division correctly', () async {
+        final result = await datasource.calculate('15/3');
+        expect(result, equals(5.0));
+      });
+
+      test('should handle decimal numbers', () async {
+        final result = await datasource.calculate('3.5+2.7');
+        expect(result, equals(6.2));
+      });
+
+      test('should throw FormatException for invalid number format', () async {
+        expect(
+          () => datasource.calculate('abc+2'),
+          throwsA(isA<FormatException>()),
+        );
+      });
+
+      test('should throw ArgumentError for division by zero', () async {
+        expect(
+          () => datasource.calculate('5/0'),
+          throwsA(isA<ArgumentError>()),
+        );
+      });
+
+      test('should throw UnsupportedError for invalid operator', () async {
+        expect(
+          () => datasource.calculate('5%2'),
+          throwsA(isA<UnsupportedError>()),
+        );
+      });
+
+      test('should handle negative numbers', () async {
+        final result = await datasource.calculate('-5+3');
+        expect(result, equals(-2.0));
+      });
+
+      test('should handle very large numbers', () async {
+        final result = await datasource.calculate('999999*999999');
+        expect(result, equals(999998000001.0));
+      });
+
+      test('should calculate complex expressions without spaces', () async {
+        final result = await datasource.calculate('3+5*2-8/4');
+        expect(result, equals(11.0));
+      });
+
+      test('should throw FormatException for invalid characters', () async {
+        expect(() => datasource.calculate('3+5a'), throwsA(isA<UnsupportedError>()));
+      });
+
+      test('should throw ArgumentError for division by zero', () async {
+        expect(() => datasource.calculate('3/0'), throwsA(isA<ArgumentError>()));
+      });
+
+      test('should throw UnsupportedError for unsupported operators', () async {
+        expect(() => datasource.calculate('3%2'), throwsA(isA<UnsupportedError>()));
+      });
     });
 
-    test('should perform subtraction correctly', () async {
-      final result = await datasource.calculate('10-4');
-      expect(result, equals(6.0));
+    group('tokenize', () {
+      test('should tokenize a simple addition', () {
+        final tokens = datasource.tokenize('2+3');
+        expect(tokens, equals(['2', '+', '3']));
+      });
+
+      test('should tokenize a negative number', () {
+        final tokens = datasource.tokenize('-2+3');
+        expect(tokens, equals(['-2', '+', '3']));
+      });
+
+      test('should tokenize a complex expression', () {
+        final tokens = datasource.tokenize('3+5*2-8/4');
+        expect(tokens, equals(['3', '+', '5', '*', '2', '-', '8', '/', '4']));
+      });
+
+      test('should throw FormatException for invalid characters', () {
+        expect(() => datasource.tokenize('2+3a'), throwsA(isA<UnsupportedError>()));
+      });
     });
 
-    test('should perform multiplication correctly', () async {
-      final result = await datasource.calculate('6*7');
-      expect(result, equals(42.0));
-    });
+    group('evaluate', () {
+      test('should evaluate tokens for addition', () {
+        final result = datasource.evaluate(['2', '+', '3']);
+        expect(result, equals(5.0));
+      });
 
-    test('should perform division correctly', () async {
-      final result = await datasource.calculate('15/3');
-      expect(result, equals(5.0));
-    });
+      test('should evaluate tokens for subtraction', () {
+        final result = datasource.evaluate(['5', '-', '2']);
+        expect(result, equals(3.0));
+      });
 
-    test('should handle decimal numbers', () async {
-      final result = await datasource.calculate('3.5+2.7');
-      expect(result, equals(6.2));
-    });
+      test('should evaluate tokens for multiplication', () {
+        final result = datasource.evaluate(['4', '*', '2']);
+        expect(result, equals(8.0));
+      });
 
-    test('should throw FormatException for invalid number format', () async {
-      expect(
-        () => datasource.calculate('abc+2'),
-        throwsA(isA<FormatException>()),
-      );
-    });
+      test('should evaluate tokens for division', () {
+        final result = datasource.evaluate(['6', '/', '3']);
+        expect(result, equals(2.0));
+      });
 
-    test('should throw ArgumentError for division by zero', () async {
-      expect(
-        () => datasource.calculate('5/0'),
-        throwsA(isA<ArgumentError>()),
-      );
-    });
+      test('should evaluate tokens for a complex expression', () {
+        final result = datasource.evaluate(['3', '+', '5', '*', '2', '-', '8', '/', '4']);
+        expect(result, equals(11.0));
+      });
 
-    test('should throw UnsupportedError for invalid operator', () async {
-      expect(
-        () => datasource.calculate('5%2'),
-        throwsA(isA<UnsupportedError>()),
-      );
-    });
-
-    test('should handle negative numbers', () async {
-      final result = await datasource.calculate('-5+3');
-      expect(result, equals(-2.0));
-    });
-
-    test('should handle very large numbers', () async {
-      final result = await datasource.calculate('999999*999999');
-      expect(result, equals(999998000001.0));
+      test('should throw ArgumentError for division by zero', () {
+        expect(() => datasource.evaluate(['3', '/', '0']), throwsA(isA<ArgumentError>()));
+      });
     });
   });
 }
