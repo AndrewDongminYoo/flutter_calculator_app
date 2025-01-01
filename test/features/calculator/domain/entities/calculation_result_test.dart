@@ -50,4 +50,51 @@ void main() {
       expect(result1, isNot(equals(result2)));
     });
   });
+  test('should handle very small decimal numbers', () {
+    final result = CalculationResult(result: 0.0000001);
+    expect(result.result, 0.0000001);
+  });
+
+  test('should handle maximum double value', () {
+    final result = CalculationResult(result: double.maxFinite);
+    expect(result.result, double.maxFinite);
+  });
+
+  test('should handle minimum double value', () {
+    final result = CalculationResult(result: double.minPositive);
+    expect(result.result, double.minPositive);
+  });
+
+  test('should convert to json correctly', () {
+    final result = CalculationResult(result: 123.456);
+    final json = result.toJson();
+    expect(json, {'result': 123.456});
+  });
+
+  test('should handle NaN in fromJson', () {
+    final json = {'result': double.nan};
+    final result = CalculationResult.fromJson(json);
+    expect(result.result.isNaN, true);
+  });
+
+  test('should handle infinity in fromJson', () {
+    final json = {'result': double.infinity};
+    final result = CalculationResult.fromJson(json);
+    expect(result.result.isInfinite, true);
+    expect(!result.result.isNegative, true);
+  });
+
+  test('should handle negative infinity in fromJson', () {
+    final json = {'result': double.negativeInfinity};
+    final result = CalculationResult.fromJson(json);
+    expect(result.result.isInfinite, true);
+    expect(result.result.isNegative, true);
+  });
+
+  test('should maintain precision in json conversion', () {
+    final originalResult = CalculationResult(result: 3.14159265359);
+    final json = originalResult.toJson();
+    final parsedResult = CalculationResult.fromJson(json);
+    expect(parsedResult.result, 3.14159265359);
+  });
 }
