@@ -44,6 +44,7 @@ linter:
 
     prefer_mixin: true
     avoid_classes_with_only_static_members: false
+    one_member_abstracts: false
 
     use_build_context_synchronously: false
     discarded_futures: true
