@@ -38,10 +38,10 @@ void main() {
         expect(result, equals(6.2));
       });
 
-      test('should throw FormatException for invalid number format', () async {
+      test('should throw UnsupportedError for invalid number format', () async {
         expect(
           () => datasource.calculate('abc+2'),
-          throwsA(isA<FormatException>()),
+          throwsA(isA<UnsupportedError>()),
         );
       });
 
