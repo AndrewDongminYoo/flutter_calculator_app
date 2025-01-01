@@ -18,11 +18,11 @@ class CalculatorButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox.square(
-      dimension: 80,
-      child: Expanded(
-        child: AspectRatio(
-          aspectRatio: 1,
+    return Expanded(
+      child: AspectRatio(
+        aspectRatio: 1,
+        child: SizedBox.square(
+          dimension: 80,
           child: ElevatedButton(
             onPressed: () {
               buttonPressed(button.text);
