@@ -104,4 +104,78 @@ void main() {
       expect(printOutput, contains('ERROR: Invalid format. Please use a valid mathematical expression (e.g., 2+3).'));
     });
   });
+
+  test('should handle clear command', () {
+    final printOutput = <String>[];
+    final spec = ZoneSpecification(
+      print: (_, __, ___, String msg) => printOutput.add(msg),
+    );
+
+    Zone.current.fork(specification: spec).run(() {
+      calculatorCli.clearConsole();
+    });
+
+    expect(printOutput, isNotEmpty);
+  });
+
+  test('should handle empty history', () {
+    final printOutput = <String>[];
+    final spec = ZoneSpecification(
+      print: (_, __, ___, String msg) => printOutput.add(msg),
+    );
+
+    Zone.current.fork(specification: spec).run(() {
+      calculatorCli.history.clear();
+      calculatorCli.handleHistory();
+    });
+
+    expect(printOutput, contains('No history available.'));
+  });
+
+  test('should handle UnsupportedError gracefully', () {
+    final printOutput = <String>[];
+    final spec = ZoneSpecification(
+      print: (_, __, ___, String msg) => printOutput.add(msg),
+    );
+
+    Zone.current.fork(specification: spec).run(() {
+      calculatorCli.handleError(UnsupportedError('Invalid operator'));
+    });
+
+    expect(printOutput, contains('ERROR: Unsupported character or operator in the input.'));
+  });
+
+  test('should handle generic errors gracefully', () {
+    final printOutput = <String>[];
+    final spec = ZoneSpecification(
+      print: (_, __, ___, String msg) => printOutput.add(msg),
+    );
+
+    Zone.current.fork(specification: spec).run(() {
+      calculatorCli.handleError(Exception('Unknown error'));
+    });
+
+    expect(printOutput, contains('ERROR: An unexpected error occurred.'));
+  });
+
+  test('should handle calculation with multiple operations', () async {
+    when(mockDatasource.calculate('2+3*4')).thenReturn(14);
+
+    calculatorCli.history.clear();
+    final printOutput = <String>[];
+    final spec = ZoneSpecification(
+      print: (_, __, ___, String msg) => printOutput.add(msg),
+    );
+
+    await Zone.current.fork(specification: spec).run(() async {
+      final result = mockDatasource.calculate('2+3*4');
+      // ignore: avoid_print
+      print('Result: $result');
+      calculatorCli.history.add('2+3*4 = $result');
+    });
+
+    expect(printOutput, contains('Result: 14.0'));
+    expect(calculatorCli.history, contains('2+3*4 = 14.0'));
+    verify(mockDatasource.calculate('2+3*4')).called(1);
+  });
 }

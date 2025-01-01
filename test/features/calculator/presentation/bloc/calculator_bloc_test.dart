@@ -139,5 +139,91 @@ void main() {
         verify(mockRepository.calculate('1/0')).called(1);
       },
     );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'emits correct state when FlipSign event is added to negative number',
+      build: () => calculatorBloc,
+      seed: () => const CalculatorState(equation: '-42'),
+      act: (bloc) => bloc.add(const FlipSign()),
+      expect: () => [
+        const CalculatorState(equation: '42'),
+      ],
+    );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'does not emit new state when FlipSign event is added to empty equation',
+      build: () => calculatorBloc,
+      seed: () => const CalculatorState(equation: ''),
+      act: (bloc) => bloc.add(const FlipSign()),
+      expect: () => <CalculatorState>[],
+    );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'emits correct state when Input event is added with operator',
+      build: () => calculatorBloc,
+      seed: () => const CalculatorState(equation: '5'),
+      act: (bloc) => bloc.add(const Input('+')),
+      expect: () => [
+        const CalculatorState(equation: '5+'),
+      ],
+    );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'handles percentage calculations correctly',
+      build: () {
+        when(mockRepository.calculate('50%')).thenAnswer((_) async => 0.5);
+        return calculatorBloc;
+      },
+      seed: () => const CalculatorState(equation: '50%'),
+      act: (bloc) => bloc.add(const Evaluate()),
+      expect: () => [
+        const CalculatorState(
+          equation: '50%',
+          expression: '50%',
+          result: '0.5',
+        ),
+      ],
+      verify: (_) {
+        verify(mockRepository.calculate('50%')).called(1);
+      },
+    );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'handles error during calculation gracefully',
+      build: () {
+        when(mockRepository.calculate('invalid')).thenThrow(Exception());
+        return calculatorBloc;
+      },
+      seed: () => const CalculatorState(equation: 'invalid'),
+      act: (bloc) => bloc.add(const Evaluate()),
+      expect: () => [
+        predicate<CalculatorState>(
+          (state) => state.equation == 'invalid' && state.expression == 'invalid' && state.result == '_Exception',
+        ),
+      ],
+      verify: (_) {
+        verify(mockRepository.calculate('invalid')).called(1);
+      },
+    );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'handles integer result formatting correctly',
+      build: () {
+        when(mockRepository.calculate('4*2.5')).thenAnswer((_) async => 10.0);
+        return calculatorBloc;
+      },
+      seed: () => const CalculatorState(equation: '4×2.5'),
+      act: (bloc) => bloc.add(const Evaluate()),
+      expect: () => [
+        const CalculatorState(
+          equation: '4×2.5',
+          expression: '4*2.5',
+          result: '10',
+        ),
+      ],
+      verify: (_) {
+        verify(mockRepository.calculate('4*2.5')).called(1);
+      },
+    );
   });
 }
