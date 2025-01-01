@@ -1,3 +1,4 @@
+#!/usr/bin/env dart
 // ignore_for_file: avoid_print
 
 // 🎯 Dart imports:
@@ -30,7 +31,7 @@ void main() async {
     }
 
     try {
-      final result = await CalculatorLocalDatasource().calculate(input);
+      final result = CalculatorLocalDatasource().calculate(input);
       print('Result: $result');
     } catch (e) {
       print('ERROR: ${e.runtimeType.toString().toUpperCase()}');

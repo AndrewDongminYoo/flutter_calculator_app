@@ -17,7 +17,7 @@ class CalculatorRemoteDatasource implements CalculatorDatasource {
   /// Throws:
   ///   CalculatorException if evaluation fails.
   @override
-  Future<double> calculate(String expression) async {
+  double calculate(String expression) {
     try {
       final parsed = _parser.parse(expression);
       return parsed.evaluate(EvaluationType.REAL, _contextModel) as double;

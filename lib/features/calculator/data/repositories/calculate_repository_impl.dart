@@ -28,7 +28,7 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
     } else {
       try {
         // Online status: Use remote data source
-        return await remoteDatasource.calculate(expression);
+        return remoteDatasource.calculate(expression);
       } catch (e) {
         // Use local data source when remote call fails
         return localDatasource.calculate(expression);

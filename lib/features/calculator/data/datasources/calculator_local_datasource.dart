@@ -3,7 +3,7 @@ import 'package:calculator/features/calculator/data/datasources/calculator_datas
 
 class CalculatorLocalDatasource implements CalculatorDatasource {
   @override
-  Future<double> calculate(String expression) async {
+  double calculate(String expression) {
     final tokens = tokenize(expression);
     return evaluate(tokens);
   }

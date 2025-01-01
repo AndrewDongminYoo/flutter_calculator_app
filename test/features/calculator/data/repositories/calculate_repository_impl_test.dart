@@ -38,7 +38,7 @@ void main() {
     const result = 4.0;
 
     when(mockConnectivity.checkConnectivity()).thenAnswer((_) async => [ConnectivityResult.wifi]);
-    when(mockRemoteDatasource.calculate(expression)).thenAnswer((_) async => result);
+    when(mockRemoteDatasource.calculate(expression)).thenAnswer((_) => result);
 
     final actual = await repository.calculate(expression);
 
@@ -52,7 +52,7 @@ void main() {
     const result = 9.0;
 
     when(mockConnectivity.checkConnectivity()).thenAnswer((_) async => [ConnectivityResult.none]);
-    when(mockLocalDatasource.calculate(expression)).thenAnswer((_) async => result);
+    when(mockLocalDatasource.calculate(expression)).thenAnswer((_) => result);
 
     final actual = await repository.calculate(expression);
 
@@ -67,7 +67,7 @@ void main() {
 
     when(mockConnectivity.checkConnectivity()).thenAnswer((_) async => [ConnectivityResult.mobile]);
     when(mockRemoteDatasource.calculate(expression)).thenThrow(Exception('Remote error'));
-    when(mockLocalDatasource.calculate(expression)).thenAnswer((_) async => result);
+    when(mockLocalDatasource.calculate(expression)).thenAnswer((_) => result);
 
     final actual = await repository.calculate(expression);
 
@@ -83,7 +83,7 @@ void main() {
     when(mockConnectivity.checkConnectivity()).thenAnswer(
       (_) async => [ConnectivityResult.wifi, ConnectivityResult.mobile],
     );
-    when(mockRemoteDatasource.calculate(expression)).thenAnswer((_) async => result);
+    when(mockRemoteDatasource.calculate(expression)).thenAnswer((_) => result);
 
     final actual = await repository.calculate(expression);
 

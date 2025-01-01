@@ -13,75 +13,75 @@ void main() {
     });
 
     group('calculate', () {
-      test('should perform addition correctly', () async {
-        final result = await datasource.calculate('5+3');
+      test('should perform addition correctly', () {
+        final result = datasource.calculate('5+3');
         expect(result, equals(8.0));
       });
 
-      test('should perform subtraction correctly', () async {
-        final result = await datasource.calculate('10-4');
+      test('should perform subtraction correctly', () {
+        final result = datasource.calculate('10-4');
         expect(result, equals(6.0));
       });
 
-      test('should perform multiplication correctly', () async {
-        final result = await datasource.calculate('6*7');
+      test('should perform multiplication correctly', () {
+        final result = datasource.calculate('6*7');
         expect(result, equals(42.0));
       });
 
-      test('should perform division correctly', () async {
-        final result = await datasource.calculate('15/3');
+      test('should perform division correctly', () {
+        final result = datasource.calculate('15/3');
         expect(result, equals(5.0));
       });
 
-      test('should handle decimal numbers', () async {
-        final result = await datasource.calculate('3.5+2.7');
+      test('should handle decimal numbers', () {
+        final result = datasource.calculate('3.5+2.7');
         expect(result, equals(6.2));
       });
 
-      test('should throw UnsupportedError for invalid number format', () async {
+      test('should throw UnsupportedError for invalid number format', () {
         expect(
           () => datasource.calculate('abc+2'),
           throwsA(isA<UnsupportedError>()),
         );
       });
 
-      test('should return Infinity for division by zero', () async {
-        final result = await datasource.calculate('5/0');
+      test('should return Infinity for division by zero', () {
+        final result = datasource.calculate('5/0');
         expect(result, equals(double.infinity));
       });
 
-      test('should throw UnsupportedError for invalid operator', () async {
+      test('should throw UnsupportedError for invalid operator', () {
         expect(
           () => datasource.calculate('5%2'),
           throwsA(isA<UnsupportedError>()),
         );
       });
 
-      test('should handle negative numbers', () async {
-        final result = await datasource.calculate('-5+3');
+      test('should handle negative numbers', () {
+        final result = datasource.calculate('-5+3');
         expect(result, equals(-2.0));
       });
 
-      test('should handle very large numbers', () async {
-        final result = await datasource.calculate('999999*999999');
+      test('should handle very large numbers', () {
+        final result = datasource.calculate('999999*999999');
         expect(result, equals(999998000001.0));
       });
 
-      test('should calculate complex expressions without spaces', () async {
-        final result = await datasource.calculate('3+5*2-8/4');
+      test('should calculate complex expressions without spaces', () {
+        final result = datasource.calculate('3+5*2-8/4');
         expect(result, equals(11.0));
       });
 
-      test('should throw FormatException for invalid characters', () async {
+      test('should throw FormatException for invalid characters', () {
         expect(() => datasource.calculate('3+5a'), throwsA(isA<UnsupportedError>()));
       });
 
-      test('should return Infinity for division by zero', () async {
-        final result = await datasource.calculate('3/0');
+      test('should return Infinity for division by zero', () {
+        final result = datasource.calculate('3/0');
         expect(result, equals(double.infinity));
       });
 
-      test('should throw UnsupportedError for unsupported operators', () async {
+      test('should throw UnsupportedError for unsupported operators', () {
         expect(() => datasource.calculate('3%2'), throwsA(isA<UnsupportedError>()));
       });
     });

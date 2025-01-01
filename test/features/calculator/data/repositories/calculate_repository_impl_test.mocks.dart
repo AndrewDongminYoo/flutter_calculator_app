@@ -5,16 +5,16 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 // 🎯 Dart imports:
-import 'dart:async' as _i3;
+import 'dart:async' as _i5;
 
 // 📦 Package imports:
-import 'package:connectivity_plus/connectivity_plus.dart' as _i5;
+import 'package:connectivity_plus/connectivity_plus.dart' as _i4;
 import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart' as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 
 // 🌎 Project imports:
 import 'package:calculator/features/calculator/data/datasources/calculator_local_datasource.dart' as _i2;
-import 'package:calculator/features/calculator/data/datasources/calculator_remote_datasource.dart' as _i4;
+import 'package:calculator/features/calculator/data/datasources/calculator_remote_datasource.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -39,53 +39,71 @@ class MockCalculatorLocalDatasource extends _i1.Mock implements _i2.CalculatorLo
   }
 
   @override
-  _i3.Future<double> calculate(String? expression) => (super.noSuchMethod(
+  double calculate(String? expression) => (super.noSuchMethod(
         Invocation.method(
           #calculate,
           [expression],
         ),
-        returnValue: _i3.Future<double>.value(0.0),
-      ) as _i3.Future<double>);
+        returnValue: 0.0,
+      ) as double);
+
+  @override
+  List<String> tokenize(String? expression) => (super.noSuchMethod(
+        Invocation.method(
+          #tokenize,
+          [expression],
+        ),
+        returnValue: <String>[],
+      ) as List<String>);
+
+  @override
+  double evaluate(List<String>? tokens) => (super.noSuchMethod(
+        Invocation.method(
+          #evaluate,
+          [tokens],
+        ),
+        returnValue: 0.0,
+      ) as double);
 }
 
 /// A class which mocks [CalculatorRemoteDatasource].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockCalculatorRemoteDatasource extends _i1.Mock implements _i4.CalculatorRemoteDatasource {
+class MockCalculatorRemoteDatasource extends _i1.Mock implements _i3.CalculatorRemoteDatasource {
   MockCalculatorRemoteDatasource() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Future<double> calculate(String? expression) => (super.noSuchMethod(
+  double calculate(String? expression) => (super.noSuchMethod(
         Invocation.method(
           #calculate,
           [expression],
         ),
-        returnValue: _i3.Future<double>.value(0.0),
-      ) as _i3.Future<double>);
+        returnValue: 0.0,
+      ) as double);
 }
 
 /// A class which mocks [Connectivity].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockConnectivity extends _i1.Mock implements _i5.Connectivity {
+class MockConnectivity extends _i1.Mock implements _i4.Connectivity {
   MockConnectivity() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Stream<List<_i6.ConnectivityResult>> get onConnectivityChanged => (super.noSuchMethod(
+  _i5.Stream<List<_i6.ConnectivityResult>> get onConnectivityChanged => (super.noSuchMethod(
         Invocation.getter(#onConnectivityChanged),
-        returnValue: _i3.Stream<List<_i6.ConnectivityResult>>.empty(),
-      ) as _i3.Stream<List<_i6.ConnectivityResult>>);
+        returnValue: _i5.Stream<List<_i6.ConnectivityResult>>.empty(),
+      ) as _i5.Stream<List<_i6.ConnectivityResult>>);
 
   @override
-  _i3.Future<List<_i6.ConnectivityResult>> checkConnectivity() => (super.noSuchMethod(
+  _i5.Future<List<_i6.ConnectivityResult>> checkConnectivity() => (super.noSuchMethod(
         Invocation.method(
           #checkConnectivity,
           [],
         ),
-        returnValue: _i3.Future<List<_i6.ConnectivityResult>>.value(<_i6.ConnectivityResult>[]),
-      ) as _i3.Future<List<_i6.ConnectivityResult>>);
+        returnValue: _i5.Future<List<_i6.ConnectivityResult>>.value(<_i6.ConnectivityResult>[]),
+      ) as _i5.Future<List<_i6.ConnectivityResult>>);
 }
