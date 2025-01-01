@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
 import 'package:calculator/features/calculator/presentation/enums/button_type.dart';
+import 'package:calculator/gen/fonts.gen.dart';
 
 class CalculatorButton extends StatelessWidget {
   const CalculatorButton({
@@ -36,7 +37,7 @@ class CalculatorButton extends StatelessWidget {
               button.text,
               style: TextStyle(
                 color: Colors.white,
-                fontFamily: 'SFProDisplay',
+                fontFamily: FontFamily.sFProDisplay,
                 fontSize: button.text.length > 1 ? 23 : 36,
               ),
             ),

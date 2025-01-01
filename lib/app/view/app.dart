@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
 import 'package:calculator/features/calculator/presentation/pages/calculator_screen.dart';
+import 'package:calculator/gen/fonts.gen.dart';
 import 'package:calculator/l10n/l10n.dart';
 
 class App extends StatelessWidget {
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         ),
-        fontFamily: 'SFProDisplay',
+        fontFamily: FontFamily.sFProDisplay,
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
