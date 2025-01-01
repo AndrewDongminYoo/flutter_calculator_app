@@ -77,8 +77,7 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
         case '*':
           values.add(left * right);
         case '/':
-          if (right == 0) throw ArgumentError('Cannot divide by zero');
-          values.add(left / right);
+          values.add(right == 0 ? double.infinity : left / right);
         default:
           throw UnsupportedError('Unsupported operator: $operator');
       }

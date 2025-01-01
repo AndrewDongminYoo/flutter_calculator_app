@@ -45,11 +45,9 @@ void main() {
         );
       });
 
-      test('should throw ArgumentError for division by zero', () async {
-        expect(
-          () => datasource.calculate('5/0'),
-          throwsA(isA<ArgumentError>()),
-        );
+      test('should return Infinity for division by zero', () async {
+        final result = await datasource.calculate('5/0');
+        expect(result, equals(double.infinity));
       });
 
       test('should throw UnsupportedError for invalid operator', () async {
@@ -78,8 +76,9 @@ void main() {
         expect(() => datasource.calculate('3+5a'), throwsA(isA<UnsupportedError>()));
       });
 
-      test('should throw ArgumentError for division by zero', () async {
-        expect(() => datasource.calculate('3/0'), throwsA(isA<ArgumentError>()));
+      test('should return Infinity for division by zero', () async {
+        final result = await datasource.calculate('3/0');
+        expect(result, equals(double.infinity));
       });
 
       test('should throw UnsupportedError for unsupported operators', () async {
@@ -134,8 +133,9 @@ void main() {
         expect(result, equals(11.0));
       });
 
-      test('should throw ArgumentError for division by zero', () {
-        expect(() => datasource.evaluate(['3', '/', '0']), throwsA(isA<ArgumentError>()));
+      test('should return Infinity for division by zero', () {
+        final result = datasource.evaluate(['3', '/', '0']);
+        expect(result, equals(double.infinity));
       });
     });
   });
