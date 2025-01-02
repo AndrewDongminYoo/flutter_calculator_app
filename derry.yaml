@@ -2,6 +2,12 @@ dev:
   (description): Runs the Flutter application with hot reload enabled, ignoring deprecation warnings.
   (scripts): flutter run --target lib/main.dart --flavor development --hot --ignore-deprecation
 
+test:
+  (description): Runs all tests in the Flutter project with coverage enabled.
+  (scripts):
+    - very_good test -j 4 --no-optimization --coverage --test-randomize-ordering-seed random
+    - genhtml coverage/lcov.info -o coverage/html
+
 reinstall:
   (description): Cleans and reinstalls the Flutter project by removing old builds, fetching dependencies, running code generators, and formatting the code.
   (scripts):
