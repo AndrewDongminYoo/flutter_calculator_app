@@ -1,5 +1,6 @@
 # Calculator
 
+[![calculator][workflows_badge]][workflow_action]
 ![coverage][coverage_badge]
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
 [![License: MIT][license_badge]][license_link]
@@ -242,6 +243,8 @@ Alternatively, run `flutter run` and code generation will take place automatical
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+[workflows_badge]: https://github.com/AndrewDongminYoo/flutter_calculator_app/actions/workflows/main.yaml/badge.svg
+[workflow_action]: https://github.com/AndrewDongminYoo/flutter_calculator_app/actions/workflows/main.yaml
 [coverage_badge]: coverage_badge.svg
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
