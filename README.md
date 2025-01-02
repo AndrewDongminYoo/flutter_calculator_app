@@ -178,6 +178,21 @@ Instructions:
 >
 ```
 
+If you want to run a function that returns results immediately, please use the following command.
+
+```sh
+$ dart run calculator:calculate --help
+Building package executable...
+Built calculator:calculate.
+Usage: dart run calculator:calculate <expression>
+Example: dart run calculator:calculate "2+3"
+
+$ dart run calculator:calculate 2+3
+Building package executable...
+Built calculator:calculate.
+Result: 5.0
+```
+
 ---
 
 ## Localization 🌐
