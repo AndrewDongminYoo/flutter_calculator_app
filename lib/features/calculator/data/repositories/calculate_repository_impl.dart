@@ -1,3 +1,6 @@
+// 🎯 Dart imports:
+import 'dart:developer';
+
 // 📦 Package imports:
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -20,9 +23,12 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
   @override
   Future<double> calculate(String expression) async {
     final result = await connectivity.checkConnectivity();
-    final isConnected = result.any((ConnectivityResult con) => con != ConnectivityResult.none);
+    final connected = result.any((ConnectivityResult con) => con != ConnectivityResult.none);
 
-    if (!isConnected) {
+    log('Internet Connection is ${connected ? 'connected' : 'disconnected'}');
+    log('So, It calculates using a ${connected ? 'remote' : 'local'} datasource');
+
+    if (!connected) {
       // Offline status: Use local data source
       return localDatasource.calculate(expression);
     } else {
