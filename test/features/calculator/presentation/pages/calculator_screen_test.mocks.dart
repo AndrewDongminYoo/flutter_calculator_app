@@ -9,11 +9,12 @@ import 'dart:async' as _i3;
 
 // 📦 Package imports:
 import 'package:connectivity_plus/connectivity_plus.dart' as _i2;
+import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 
+// 🌎 Project imports:
 import 'package:calculator/features/calculator/data/datasources/calculator_local_datasource.dart' as _i5;
 import 'package:calculator/features/calculator/data/datasources/calculator_remote_datasource.dart' as _i6;
-import 'package:connectivity_plus_platform_interface/connectivity_plus_platform_interface.dart' as _i4;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
