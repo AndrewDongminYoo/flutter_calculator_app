@@ -1,7 +1,7 @@
 # Calculator
 
 [![calculator][workflows_badge]][workflow_action]
-![coverage][coverage_badge]
+[![codecov][coverage_badges]][codecov_webpage]
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
 [![License: MIT][license_badge]][license_link]
 
@@ -245,7 +245,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 [workflows_badge]: https://github.com/AndrewDongminYoo/flutter_calculator_app/actions/workflows/main.yaml/badge.svg
 [workflow_action]: https://github.com/AndrewDongminYoo/flutter_calculator_app/actions/workflows/main.yaml
-[coverage_badge]: coverage_badge.svg
+[coverage_badges]: https://codecov.io/github/AndrewDongminYoo/flutter_calculator_app/graph/badge.svg?token=DN8JFS4PFT
+[codecov_webpage]: https://codecov.io/github/AndrewDongminYoo/flutter_calculator_app
 [very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
 [very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
 [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
