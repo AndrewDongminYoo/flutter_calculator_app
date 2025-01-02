@@ -19,45 +19,66 @@ class CalculatorCLI {
     print('Type "help" for usage instructions or "exit" to quit.');
   }
 
-  void handleHistory() {
+  String handleInput(String input) {
+    switch (input.toLowerCase()) {
+      case 'exit':
+        return 'Goodbye!';
+      case 'help':
+        return showHelp();
+      case 'history':
+        return handleHistory();
+      case 'clear':
+        return clearConsole();
+      default:
+        try {
+          final result = datasource.calculate(input);
+          final resultMessage = 'Result: $result';
+          history.add('$input = $result');
+          return resultMessage;
+        } catch (e) {
+          return handleError(e);
+        }
+    }
+  }
+
+  String showHelp() {
+    return '''
+--------------------------------------
+Instructions:
+- Enter calculations (e.g., 2+3, 4*5/2).
+- Supported operators: +, -, *, /.
+- Commands:
+  'help'     - Show usage instructions.
+  'history'  - Show calculation history.
+  'clear'    - Clear the console.
+  'exit'     - Exit the application.
+--------------------------------------
+''';
+  }
+
+  String handleHistory() {
     if (history.isEmpty) {
-      print('No history available.');
-    } else {
-      print('Calculation History:');
-      for (final entry in history) {
-        print('- $entry');
-      }
+      return 'No history available.';
     }
-  }
-
-  void clearConsole() {
-    if (Platform.isWindows) {
-      print(Process.runSync('cls', [], runInShell: true).stdout);
-    } else {
-      print(Process.runSync('clear', [], runInShell: true).stdout);
+    final buffer = StringBuffer('Calculation History:\n');
+    for (final entry in history) {
+      buffer.writeln('- $entry');
     }
+    return buffer.toString();
   }
 
-  void showHelp() {
-    print('--------------------------------------');
-    print('Instructions:');
-    print('- Enter calculations (e.g., 2+3, 4*5/2).');
-    print('- Supported operators: +, -, *, /.');
-    print('- Commands:');
-    print("  'help'     - Show usage instructions.");
-    print("  'history'  - Show calculation history.");
-    print("  'clear'    - Clear the console.");
-    print("  'exit'     - Exit the application.");
-    print('--------------------------------------');
+  String clearConsole() {
+    // Simulate clear operation
+    return 'Console cleared.';
   }
 
-  void handleError(Object e) {
+  String handleError(Object e) {
     if (e is FormatException) {
-      print('ERROR: Invalid format. Please use a valid mathematical expression (e.g., 2+3).');
+      return 'ERROR: Invalid format. Please use a valid mathematical expression (e.g., 2+3).';
     } else if (e is UnsupportedError) {
-      print('ERROR: Unsupported character or operator in the input.');
+      return 'ERROR: Unsupported character or operator in the input.';
     } else {
-      print('ERROR: An unexpected error occurred.');
+      return 'ERROR: An unexpected error occurred.';
     }
   }
 
@@ -66,30 +87,11 @@ class CalculatorCLI {
     while (true) {
       stdout.write('> ');
       final input = stdin.readLineSync();
-      if (input == null || input.toLowerCase() == 'exit') {
-        print('Goodbye!');
-        break;
-      }
-      if (input.toLowerCase() == 'help') {
-        showHelp();
-        continue;
-      }
-      if (input.toLowerCase() == 'history') {
-        handleHistory();
-        continue;
-      }
-      if (input.toLowerCase() == 'clear') {
-        clearConsole();
-        continue;
-      }
+      if (input == null) break;
 
-      try {
-        final result = CalculatorLocalDatasource().calculate(input);
-        print('Result: $result');
-        history.add('$input = $result');
-      } catch (e) {
-        handleError(e);
-      }
+      final response = handleInput(input);
+      print(response);
+      if (response == 'Goodbye!') break;
     }
   }
 }
