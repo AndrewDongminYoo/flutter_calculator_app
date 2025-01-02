@@ -15,6 +15,7 @@ This project demonstrates a layered architecture for calculating expressions wit
 
 - [Overview](#overview)
 - [Features](#features)
+- [Screenshots](#screenshots-)
 - [Getting Started](#getting-started-)
 - [Running Tests](#running-tests-)
 - [Project Structure](#project-structure)
@@ -76,6 +77,18 @@ $ flutter run --flavor production --target lib/main.dart
 _\*Calculator works on iOS, Android, Web, and Windows._
 
 ---
+
+## Screenshots 📸
+
+Below are screenshots demonstrating the application:
+
+| **Initial Screen**                                                                   | **Successful Calculation**                                                                   | **Error Handling**                                                                   |
+| ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| ![Initial Screen](doc/images/Screenshot%202025-01-02%20at%2010.52.49%E2%80%AFAM.png) | ![Successful Calculation](doc/images/Screenshot%202025-01-02%20at%2010.53.13%E2%80%AFAM.png) | ![Error Handling](doc/images/Screenshot%202025-01-02%20at%2010.53.30%E2%80%AFAM.png) |
+
+- **Initial Screen**: The home screen where users can input mathematical expressions.
+- **Successful Calculation**: An example of a correct calculation being performed.
+- **Error Handling**: How the app displays errors for invalid input or unsupported operations.
 
 ## Running Tests 🧪
 
