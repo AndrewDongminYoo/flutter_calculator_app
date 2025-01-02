@@ -8,7 +8,7 @@ enum ButtonType {
   // 4열
   division('÷'),
   multiple('×'),
-  minus('−'),
+  minus('-'),
   plus('+'),
   result('='),
 
