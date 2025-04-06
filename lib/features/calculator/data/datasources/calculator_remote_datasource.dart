@@ -5,7 +5,7 @@ import 'package:math_expressions/math_expressions.dart';
 import 'package:calculator/features/calculator/data/datasources/calculator_datasource.dart';
 
 class CalculatorRemoteDatasource implements CalculatorDatasource {
-  final _parser = Parser();
+  final _parser = ShuntingYardParser();
   final _contextModel = ContextModel();
 
   /// Evaluates a mathematical expression and returns the result.
