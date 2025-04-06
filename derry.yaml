@@ -1,18 +1,15 @@
-dev:
-  (description): Runs the Flutter application with hot reload enabled, ignoring deprecation warnings.
-  (scripts): flutter run --target lib/main.dart --flavor development --hot --ignore-deprecation
-
 test:
   (description): Runs all tests in the Flutter project with coverage enabled.
   (scripts):
-    - very_good test -j 4 --no-optimization --coverage --test-randomize-ordering-seed random
-    - genhtml coverage/lcov.info -o coverage/html
+    - very_good test -j 4 --no-optimization --coverage --test-randomize-ordering-seed random --dart-define=FLUTTER_TEST=true
+    - lcov --quiet --remove coverage/lcov.info "**/*.g.dart" -o coverage/lcov_filtered.info
+    - genhtml coverage/lcov_filtered.info -o coverage/ --quiet
 
 reinstall:
   (description): Cleans and reinstalls the Flutter project by removing old builds, fetching dependencies, running code generators, and formatting the code.
   (scripts):
     - flutter clean
-    - flutter pub get
+    - very_good packages get --recursive --ignore .trunk
     - $bootstrap
 
 bootstrap:
@@ -30,58 +27,40 @@ format:
   (description): Applies automated fixes, sorts imports, and formats the codebase to ensure consistent code quality.
   (scripts):
     - dart fix --apply
-    - dart run import_sorter:main -e
     - dart format --line-length 120 .
-
-ci:
-  (description): Ensures that the lockfile is enforced by getting dependencies in a CI environment.
-  (scripts): flutter pub get --enforce-lockfile
-
-dry:
-  (description): Checks for outdated dependencies and saves the results in JSON format.
-  (scripts): flutter pub outdated --json > logs/outdated.json
+    - dart run import_sorter:main -e
 
 hard:
-  (description): Forces an upgrade of Flutter and its packages to their latest versions and updates CocoaPods dependencies for iOS and macOS.
+  (description): Forces an upgrade of Flutter and its packages to their latest versions and updates CocoaPods dependencies for iOS.
   (scripts):
     - flutter upgrade --force
-    - $up --major-versions --tighten
-    - (cd macos && pod update)
+    - flutter packages upgrade
     - (cd ios && pod update)
-
-up:
-  (description): Upgrades Flutter dependencies to their latest compatible versions.
-  (scripts): flutter packages upgrade
 
 build:
   aab:
     (description): Builds an Android App Bundle file for production, opens the output in Android Studio.
     (scripts): >
-      flutter build appbundle
-      --target=lib/main.dart --flavor production
-      --release --tree-shake-icons --build-number $(date +'%y%m%d%H') &&
-      open -a 'Android Studio' build/app/outputs/bundle/productionRelease
+      flutter build appbundle --flavor production
+      --release --tree-shake-icons --build-number $(TZ='Asia/Seoul' date +'%y%m%d%H')
+      --verbose > build-appbundle.log 2> build-error.log
+      && open -a 'Android Studio' build/app/outputs/bundle/productionRelease
+      || echo "Build failed. Check build-error.log for details."
 
   ipa:
     (description): Builds an iOS archive bundle (.xcarchive) and IPA for production (.ipa), opens it in Xcode.
     (scripts): >
-      flutter build ipa
-      --target=lib/main.dart --flavor production
-      --release --tree-shake-icons --build-number $(date +'%y%m%d%H') &&
-      open -a 'Xcode' build/ios/archive/Runner.xcarchive
+      flutter build ipa --flavor production
+      --release --tree-shake-icons --build-number $(TZ='Asia/Seoul' date +'%y%m%d%H')
+      --verbose > build-ipa.log 2> build-error.log
+      && open -a 'Xcode' build/ios/archive/Runner.xcarchive
+      || echo "Build failed. Check build-error.log for details."
 
   apk:
     (description): Builds an Android APK file for production and opens the output directory.
     (scripts): >
-      flutter build apk
-      --target=lib/main.dart --flavor production
-      --release --tree-shake-icons --build-number $(date +'%y%m%d%H') &&
-      open build/app/outputs/flutter-apk
-
-  ios:
-    (description): Builds an iOS application bundle (.app file) for production.
-    (scripts): >
-      flutter build ios
-      --target=lib/main.dart --flavor production
-      --release --tree-shake-icons --build-number $(date +'%y%m%d%H') &&
-      open -a 'Xcode' build/ios/iphoneos/Runner.app
+      flutter build apk --flavor production --dart-define=APP_DISTRIBUTION=true
+      --release --tree-shake-icons --build-number $(TZ='Asia/Seoul' date +'%y%m%d%H')
+      --verbose > build-apk.log 2> build-error.log
+      && open build/app/outputs/flutter-apk
+      || echo "Build failed. Check build-error.log for details."
