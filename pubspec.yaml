@@ -19,7 +19,7 @@ dependencies:
   freezed: ^3.0.6
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
-  json_serializable: ^6.9.4
+  json_serializable: ^6.9.5
   math_expressions: ^2.7.0
 
 dev_dependencies:
