@@ -4,6 +4,13 @@ import 'package:calculator/features/calculator/data/datasources/calculator_datas
 class CalculatorLocalDatasource implements CalculatorDatasource {
   @override
   double calculate(String expression) {
+    /// Validates that the input expression is not an empty string.
+    ///
+    /// Throws an [ArgumentError] if the expression is empty or contains only whitespace.
+    /// This prevents processing of invalid or blank mathematical expressions.
+    if (expression.trim().isEmpty) {
+      throw ArgumentError('Expression cannot be empty');
+    }
     final tokens = tokenize(expression);
     return evaluate(tokens);
   }
