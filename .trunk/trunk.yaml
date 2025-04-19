@@ -19,6 +19,7 @@ runtimes:
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
   enabled:
+    - dart@3.2.6
     - cspell@8.19.0
     - actionlint@1.7.7
     - checkov@3.2.405
@@ -48,7 +49,16 @@ lint:
       paths:
         - .github/PULL_REQUEST_TEMPLATE.md
 actions:
+  definitions:
+    - id: dart-actions
+      description: Run 'dart run import_sorter:main' whenever you run 'git commit'
+      display_name: Dart Import Sorter Pre-Commit Hook
+      run: source ./import_sorter.sh
+      packages_file: pubspec.yaml
+      triggers:
+        - git_hooks: [pre-commit]
   enabled:
+    - dart-actions
     - trunk-announce
     - trunk-check-pre-push
     - trunk-fmt-pre-commit
