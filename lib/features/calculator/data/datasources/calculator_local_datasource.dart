@@ -8,6 +8,16 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
     return evaluate(tokens);
   }
 
+  /// A constant string containing valid numeric characters for parsing mathematical expressions.
+  ///
+  /// Includes digits 0-9 and the decimal point for supporting numeric parsing.
+  static const String _validNumbers = '0123456789.';
+
+  /// A constant string containing valid mathematical operators for parsing expressions.
+  ///
+  /// Includes basic arithmetic operators: addition (+), subtraction (-), multiplication (*), and division (/).
+  static const String _validOperators = '+-*/';
+
   List<String> tokenize(String expression) {
     final tokens = <String>[];
     final buffer = StringBuffer();
@@ -15,14 +25,15 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
     for (var i = 0; i < expression.length; i++) {
       final char = expression[i];
 
-      if ('0123456789.'.contains(char)) {
+      if (_validNumbers.contains(char)) {
         buffer.write(char); // Add a number or a decimal point
-      } else if ('+-*/'.contains(char)) {
+      } else if (_validOperators.contains(char)) {
         if (buffer.isNotEmpty) {
           tokens.add(buffer.toString());
           buffer.clear();
         }
-        if (char == '-' && (i == 0 || '+-*/'.contains(expression[i - 1]))) {
+        if (char == '-' &&
+            (i == 0 || _validOperators.contains(expression[i - 1]))) {
           // Negative water processing
           buffer.write(char);
         } else {
@@ -48,7 +59,7 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
           throw FormatException('Invalid number: $token');
         }
       } else {
-        if (!'+-*/'.contains(token)) {
+        if (!_validOperators.contains(token)) {
           throw FormatException('Invalid operator: $token');
         }
       }
@@ -89,7 +100,7 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
     for (final token in tokens) {
       if (double.tryParse(token) != null) {
         values.add(double.parse(token));
-      } else if ('+-*/'.contains(token)) {
+      } else if (_validOperators.contains(token)) {
         while (operators.isNotEmpty &&
             precedence(operators.last) >= precedence(token)) {
           applyOperator();
