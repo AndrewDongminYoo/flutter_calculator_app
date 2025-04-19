@@ -37,6 +37,9 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
       tokens.add(buffer.toString()); // Add the last number
     }
 
+    // Explicitly cleaning up buffers
+    buffer.clear();
+
     // Token verification: Check if the numbers and operators are arranged in the correct order
     for (var i = 0; i < tokens.length; i++) {
       final token = tokens[i];
@@ -87,7 +90,8 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
       if (double.tryParse(token) != null) {
         values.add(double.parse(token));
       } else if ('+-*/'.contains(token)) {
-        while (operators.isNotEmpty && precedence(operators.last) >= precedence(token)) {
+        while (operators.isNotEmpty &&
+            precedence(operators.last) >= precedence(token)) {
           applyOperator();
         }
         operators.add(token);
