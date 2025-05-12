@@ -39,8 +39,7 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
           tokens.add(buffer.toString());
           buffer.clear();
         }
-        if (char == '-' &&
-            (i == 0 || _validOperators.contains(expression[i - 1]))) {
+        if (char == '-' && (i == 0 || _validOperators.contains(expression[i - 1]))) {
           // Negative water processing
           buffer.write(char);
         } else {
@@ -108,8 +107,7 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
       if (double.tryParse(token) != null) {
         values.add(double.parse(token));
       } else if (_validOperators.contains(token)) {
-        while (operators.isNotEmpty &&
-            precedence(operators.last) >= precedence(token)) {
+        while (operators.isNotEmpty && precedence(operators.last) >= precedence(token)) {
           applyOperator();
         }
         operators.add(token);
