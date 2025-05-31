@@ -94,6 +94,9 @@ packages/**/pubspec.lock
 # Web related
 lib/generated_plugin_registrant.dart
 
+# L10n related
+lib/l10n/arb/app_localizations*.dart
+
 # Symbolication related
 app.*.symbols
 
