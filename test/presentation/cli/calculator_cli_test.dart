@@ -50,7 +50,10 @@ void main() {
       expect(printOutput, contains('======================================'));
       expect(printOutput, contains('       CLI Calculator (v1.0)          '));
       expect(printOutput, contains('======================================'));
-      expect(printOutput, contains('Type "help" for usage instructions or "exit" to quit.'));
+      expect(
+        printOutput,
+        contains('Type "help" for usage instructions or "exit" to quit.'),
+      );
     });
 
     test('should handle input for help command', () {
@@ -249,8 +252,14 @@ void main() {
         }
       });
 
-      expect(calculatorCli.history.where((h) => h == '5+5 = 10.0').length, equals(3));
-      expect(calculatorCli.history.where((h) => h == '10+5 = 15.0').length, equals(3));
+      expect(
+        calculatorCli.history.where((h) => h == '5+5 = 10.0').length,
+        equals(3),
+      );
+      expect(
+        calculatorCli.history.where((h) => h == '10+5 = 15.0').length,
+        equals(3),
+      );
     });
 
     test('should handle rapid consecutive calculations', () async {
@@ -290,6 +299,40 @@ void main() {
       final result = calculatorCli.handleInput('2+3');
       expect(result, contains('Result: 5.0'));
       expect(calculatorCli.history, contains('2+3 = 5.0'));
+    });
+
+    test('should handle input for exit command', () {
+      final result = calculatorCli.handleInput('exit');
+      expect(result, equals('Goodbye!'));
+    });
+
+    test('should handle input for clear command', () {
+      final result = calculatorCli.handleInput('clear');
+      expect(result, equals('Console cleared.'));
+    });
+
+    test('should return "No history available." when history is empty', () {
+      calculatorCli.history.clear();
+      final result = calculatorCli.handleInput('history');
+      expect(result, equals('No history available.'));
+    });
+
+    test('should handleError for FormatException', () {
+      final message = calculatorCli.handleError(const FormatException('Invalid!'));
+      expect(message, contains('ERROR: Invalid format.'));
+    });
+
+    test('should handleError for UnsupportedError', () {
+      final message = calculatorCli.handleError(UnsupportedError('Nope'));
+      expect(
+        message,
+        contains('ERROR: Unsupported character or operator in the input.'),
+      );
+    });
+
+    test('should handleError for unknown error type', () {
+      final message = calculatorCli.handleError(Exception('Unknown'));
+      expect(message, contains('ERROR: An unexpected error occurred.'));
     });
   });
 }
