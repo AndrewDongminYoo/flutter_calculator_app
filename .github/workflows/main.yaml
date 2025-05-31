@@ -70,6 +70,7 @@ jobs:
           files: coverage/lcov.info
           flags: unittests
           name: codecov-umbrella
+          exclude: lib/l10n/arb/app_localizations*.dart
           fail_ci_if_error: true
           verbose: true
 
