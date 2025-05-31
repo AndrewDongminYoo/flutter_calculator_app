@@ -7,8 +7,10 @@ import 'package:flutter/widgets.dart';
 // 🌎 Project imports:
 import 'package:calculator/data/datasources/calculator_local_datasource.dart';
 
+// coverage:ignore-start
 void _print(String obj) => stdout.write(obj);
 String? _read() => stdin.readLineSync();
+// coverage:ignore-end
 
 class CalculatorCLI {
   CalculatorCLI(

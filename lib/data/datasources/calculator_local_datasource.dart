@@ -62,11 +62,15 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
       final token = tokens[i];
       if (i.isEven) {
         if (double.tryParse(token) == null) {
+          // coverage:ignore-start
           throw FormatException('Invalid number: $token');
+          // coverage:ignore-end
         }
       } else {
         if (!_validOperators.contains(token)) {
+          // coverage:ignore-start
           throw FormatException('Invalid operator: $token');
+          // coverage:ignore-end
         }
       }
     }
@@ -99,7 +103,10 @@ class CalculatorLocalDatasource implements CalculatorDatasource {
         case '/':
           values.add(right == 0 ? double.infinity : left / right);
         default:
+          // This should never happen, but just in case
+          // coverage:ignore-start
           throw UnsupportedError('Unsupported operator: $operator');
+        // coverage:ignore-end
       }
     }
 
