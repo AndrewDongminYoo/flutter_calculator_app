@@ -1,14 +1,11 @@
 // 📦 Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 // 🌎 Project imports:
-import 'package:calculator/domain/repositories/calculator_repository.dart';
 import 'package:calculator/domain/usecases/calculate_expression.dart';
-import 'calculate_expression_test.mocks.dart';
+import '../../calculator_test.mocks.dart';
 
-@GenerateMocks([CalculatorRepository])
 void main() {
   late CalculateExpression calculateExpression;
   late MockCalculatorRepository mockRepository;

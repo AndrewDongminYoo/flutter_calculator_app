@@ -4,16 +4,12 @@ import 'package:flutter/widgets.dart';
 // 📦 Package imports:
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 // 🌎 Project imports:
-import 'package:calculator/data/datasources/calculator_local_datasource.dart';
-import 'package:calculator/data/datasources/calculator_remote_datasource.dart';
 import 'package:calculator/data/repositories/calculate_repository_impl.dart';
-import 'calculate_repository_impl_test.mocks.dart';
+import '../../calculator_test.mocks.dart';
 
-@GenerateMocks([CalculatorLocalDatasource, CalculatorRemoteDatasource, Connectivity])
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 

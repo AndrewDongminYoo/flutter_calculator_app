@@ -1,13 +1,10 @@
 // 📦 Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 // 🌎 Project imports:
-import 'package:calculator/data/datasources/calculator_datasource.dart';
-import 'calculator_datasource_test.mocks.dart';
+import '../../calculator_test.mocks.dart';
 
-@GenerateMocks([CalculatorDatasource])
 void main() {
   late MockCalculatorDatasource mockCalculatorDatasource;
 

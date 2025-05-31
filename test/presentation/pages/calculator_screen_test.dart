@@ -2,20 +2,15 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 
 // 🌎 Project imports:
-import 'package:calculator/data/datasources/calculator_local_datasource.dart';
-import 'package:calculator/data/datasources/calculator_remote_datasource.dart';
 import 'package:calculator/data/repositories/calculate_repository_impl.dart';
 import 'package:calculator/presentation/bloc/calculator_bloc.dart';
 import 'package:calculator/presentation/pages/calculator_screen.dart';
-import 'calculator_screen_test.mocks.dart';
+import '../../calculator_test.mocks.dart';
 
-@GenerateMocks([Connectivity, CalculatorLocalDatasource, CalculatorRemoteDatasource])
 void main() {
   late MockConnectivity mockConnectivity;
   late MockCalculatorLocalDatasource mockLocalDatasource;

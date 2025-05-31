@@ -5,15 +5,13 @@ import 'dart:async';
 
 // 📦 Package imports:
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 // 🌎 Project imports:
 import 'package:calculator/data/datasources/calculator_local_datasource.dart';
 import 'package:calculator/presentation/cli/calculator_cli.dart';
-import 'calculator_cli_test.mocks.dart';
+import '../../calculator_test.mocks.dart';
 
-@GenerateMocks([CalculatorLocalDatasource])
 void main() {
   late MockCalculatorLocalDatasource mockDatasource;
   late CalculatorCLI calculatorCli;

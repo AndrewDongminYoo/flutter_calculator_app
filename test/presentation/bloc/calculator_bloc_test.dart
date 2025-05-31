@@ -3,15 +3,12 @@
 // 📦 Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
 // 🌎 Project imports:
-import 'package:calculator/domain/repositories/calculator_repository.dart';
 import 'package:calculator/presentation/bloc/calculator_bloc.dart';
-import 'calculator_bloc_test.mocks.dart';
+import '../../calculator_test.mocks.dart';
 
-@GenerateMocks([CalculatorRepository])
 void main() {
   group('CalculatorBloc', () {
     late CalculatorBloc calculatorBloc;
