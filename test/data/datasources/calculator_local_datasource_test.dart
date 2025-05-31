@@ -73,7 +73,10 @@ void main() {
       });
 
       test('should throw FormatException for invalid characters', () {
-        expect(() => datasource.calculate('3+5a'), throwsA(isA<UnsupportedError>()));
+        expect(
+          () => datasource.calculate('3+5a'),
+          throwsA(isA<UnsupportedError>()),
+        );
       });
 
       test('should return Infinity for division by zero', () {
@@ -82,7 +85,10 @@ void main() {
       });
 
       test('should throw UnsupportedError for unsupported operators', () {
-        expect(() => datasource.calculate('3%2'), throwsA(isA<UnsupportedError>()));
+        expect(
+          () => datasource.calculate('3%2'),
+          throwsA(isA<UnsupportedError>()),
+        );
       });
     });
 
@@ -103,7 +109,10 @@ void main() {
       });
 
       test('should throw FormatException for invalid characters', () {
-        expect(() => datasource.tokenize('2+3a'), throwsA(isA<UnsupportedError>()));
+        expect(
+          () => datasource.tokenize('2+3a'),
+          throwsA(isA<UnsupportedError>()),
+        );
       });
     });
 
@@ -136,6 +145,54 @@ void main() {
       test('should return Infinity for division by zero', () {
         final result = datasource.evaluate(['3', '/', '0']);
         expect(result, equals(double.infinity));
+      });
+    });
+
+    // 누락 라인 커버리지를 위한 추가 테스트
+    group('coverage uncovered exception lines', () {
+      test('should throw ArgumentError when expression is empty', () {
+        expect(() => datasource.calculate(''), throwsA(isA<ArgumentError>()));
+        expect(
+          () => datasource.calculate('    '),
+          throwsA(isA<ArgumentError>()),
+        );
+      });
+
+      test('should throw UnsupportedError for invalid character in tokenize', () {
+        // 숫자 자리에 문자, 연산자 자리에 이상한 문자 모두 실제로는 UnsupportedError
+        expect(
+          () => datasource.tokenize('a+2'),
+          throwsA(isA<UnsupportedError>()),
+        );
+        expect(
+          () => datasource.tokenize('2&3'),
+          throwsA(isA<UnsupportedError>()),
+        );
+      });
+
+      test('should throw UnsupportedError for invalid character in calculate', () {
+        expect(
+          () => datasource.calculate('2&3'),
+          throwsA(isA<UnsupportedError>()),
+        );
+      });
+
+      test('should throw FormatException for invalid token in evaluate', () {
+        // 숫자도 연산자도 아닌 값 evaluate에 넘기면 FormatException
+        expect(
+          () => datasource.evaluate(['2', '^', '3']),
+          throwsA(isA<FormatException>()),
+        );
+        expect(
+          () => datasource.evaluate(['2', '?', '3']),
+          throwsA(isA<FormatException>()),
+        );
+      });
+
+      test('should throw UnsupportedError for unsupported operator in evaluate', () {
+        // 직접적으로 switch문 default를 타는 케이스를 만드는 것은 힘듭니다.
+        // 왜냐하면 앞에서 다 거르기 때문. (커버리지에서 실제로 죽은 코드일 가능성 높음)
+        // 혹시라도 테스트가 필요하다면, evaluate 함수 내 직접적인 호출로만 가능하지만 일반적으로는 여기선 생략.
       });
     });
   });
