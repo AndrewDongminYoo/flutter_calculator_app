@@ -14,7 +14,6 @@ import 'package:calculator/features/calculator/data/repositories/calculate_repos
 import 'package:calculator/features/calculator/presentation/bloc/calculator_bloc.dart';
 import 'package:calculator/features/calculator/presentation/enums/button_type.dart';
 import 'package:calculator/features/calculator/presentation/widgets/calculator_button.dart';
-import 'package:calculator/gen/fonts.gen.dart';
 
 class CalculatorScreen extends StatelessWidget {
   const CalculatorScreen({super.key});
@@ -68,7 +67,7 @@ class CalculatorView extends StatelessWidget {
                       minFontSize: 20,
                       style: const TextStyle(
                         color: Colors.white38,
-                        fontFamily: FontFamily.sFProDisplay,
+                        fontFamily: 'SFProDisplay',
                         fontSize: 40,
                       ),
                     ),
@@ -83,7 +82,7 @@ class CalculatorView extends StatelessWidget {
                       minFontSize: 30,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontFamily: FontFamily.sFProDisplay,
+                        fontFamily: 'SFProDisplay',
                         fontSize: 80,
                       ),
                     ),
