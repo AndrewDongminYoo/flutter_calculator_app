@@ -1,15 +1,25 @@
-// ignore_for_file: avoid_print
-
 // 🎯 Dart imports:
 import 'dart:io';
+
+// 🐦 Flutter imports:
+import 'package:flutter/widgets.dart';
 
 // 🌎 Project imports:
 import 'package:calculator/data/datasources/calculator_local_datasource.dart';
 
+void _print(String obj) => stdout.write(obj);
+String? _read() => stdin.readLineSync();
+
 class CalculatorCLI {
-  CalculatorCLI(this.datasource);
+  CalculatorCLI(
+    this.datasource, {
+    this.print = _print,
+    this.scanner = _read,
+  });
 
   final CalculatorLocalDatasource datasource;
+  final ValueChanged<String> print;
+  final ValueGetter<String?> scanner;
   final List<String> history = [];
 
   void printBanner() {
@@ -85,8 +95,8 @@ Instructions:
   Future<void> run() async {
     printBanner();
     while (true) {
-      stdout.write('> ');
-      final input = stdin.readLineSync();
+      print('> ');
+      final input = scanner();
       if (input == null) break;
 
       final response = handleInput(input);

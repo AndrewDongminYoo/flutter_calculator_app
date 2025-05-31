@@ -37,14 +37,16 @@ void main() {
     test('should print the banner on startup', () {
       // Capture stdout
       final printOutput = <String>[];
+      final calculatorCli = CalculatorCLI(
+        mockDatasource,
+        print: printOutput.add,
+      );
       final spec = ZoneSpecification(
         print: (_, __, ___, String msg) => printOutput.add(msg),
       );
 
       // Run test in zone
-      Zone.current.fork(specification: spec).run(() {
-        calculatorCli.printBanner();
-      });
+      Zone.current.fork(specification: spec).run(calculatorCli.printBanner);
 
       // Verify banner output
       expect(printOutput, contains('======================================'));
@@ -333,6 +335,35 @@ void main() {
     test('should handleError for unknown error type', () {
       final message = calculatorCli.handleError(Exception('Unknown'));
       expect(message, contains('ERROR: An unexpected error occurred.'));
+    });
+
+    test('run() covers full flow: help, calc, history, clear, exit', () async {
+      final inputs = [
+        'help',
+        '2+3',
+        'history',
+        'clear',
+        'exit',
+      ];
+      final outputs = <String>[];
+      var index = 0;
+
+      final cli = CalculatorCLI(
+        mockDatasource,
+        print: outputs.add,
+        scanner: () => index < inputs.length ? inputs[index++] : null,
+      );
+
+      when(mockDatasource.calculate('2+3')).thenReturn(5);
+
+      await cli.run();
+
+      expect(outputs.any((o) => o.contains('CLI Calculator')), isTrue);
+      expect(outputs.any((o) => o.contains('Instructions:')), isTrue);
+      expect(outputs.any((o) => o.contains('Result: 5.0')), isTrue);
+      expect(outputs.any((o) => o.contains('Calculation History')), isTrue);
+      expect(outputs.any((o) => o.contains('Console cleared.')), isTrue);
+      expect(outputs.any((o) => o.contains('Goodbye!')), isTrue);
     });
   });
 }
