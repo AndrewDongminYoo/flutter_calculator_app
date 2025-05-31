@@ -1,6 +1,6 @@
 {
   "name": "calculator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A cross-platform calculator project supporting CLI and Flutter-based UI.",
   "directories": {
     "lib": "lib",

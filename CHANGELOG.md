@@ -1,5 +1,29 @@
 # Changelog
 
+## <small>1.0.1 (2025-05-31)</small>
+
+- feat: ✨ add dart formatter to trunk ([3cd09d1](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/3cd09d1))
+- feat: ✨ add dart import sorter pre-commit hook ([f564e56](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/f564e56))
+- feat: ✨ clear buffer after tokenizing input ([1c95b52](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/1c95b52))
+- feat: ✨ configure localization ([349fda9](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/349fda9))
+- feat: ✨ improve calculator tokenization with constants ([2f689a3](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/2f689a3))
+- feat: ✨ initial project setup with package.json and gitignore ([1a0217c](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/1a0217c))
+- feat: ✨ prevent calculation of empty expressions ([6fac0d9](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/6fac0d9))
+- feat: ✨ upgrade very_good_analysis and update linting rules ([033a874](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/033a874))
+- fix: 🐛 add "infile" to cspell flutter dictionary ([a0a4e47](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/a0a4e47))
+- fix: 🐛 correct documentation and imports ([694f744](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/694f744))
+- fix: 🐛 fix dart import sorter pre-commit hook to check for sorted files ([db7236f](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/db7236f))
+- fix: 🐛 update pubspec dependencies ([9d74f20](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/9d74f20))
+- fix: 🐛 update trunk linters ([6d07d18](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/6d07d18))
+- fix: 🐛 upgrade cspell-action to v7 ([42dc88f](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/42dc88f))
+- chore: ⬆️ bump dependencies ([00837c5](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/00837c5))
+- chore: ⬆️ bump trunk cli and linters ([9b5d1ff](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/9b5d1ff))
+- chore: ⬆️ upgrade trunk tooling ([cbf1e06](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/cbf1e06))
+- chore: ⬆️ upgrade very_good_analysis to v8.0.0 ([c6663da](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/c6663da))
+- chore(deps): bump streetsidesoftware/cspell-action from 7.0.0 to 7.0.1 ([2a4d16d](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/2a4d16d))
+- refactor: ♻️ update derry commands and add posttest command ([e667e56](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/e667e56))
+- refactor: ♻️ update imports for localization ([741a875](https://github.com/AndrewDongminYoo/flutter_calculator_app/commit/741a875))
+
 ## 1.0.0 (2025-04-06)
 
 ### Features
