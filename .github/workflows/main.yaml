@@ -53,7 +53,9 @@ jobs:
           very_good packages get --recursive --ignore="!*"
 
       - name: ✨ Check Formatting
-        run: dart format --line-length 120 --set-exit-if-changed lib test
+        run: |
+          git restore lib/l10n/arb/app_localizations*.dart
+          dart format --line-length 120 --set-exit-if-changed lib test
 
       - name: 🕵️ Analyze
         run: flutter analyze lib test
