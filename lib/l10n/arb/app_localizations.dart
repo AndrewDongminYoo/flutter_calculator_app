@@ -10,10 +10,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 // 🌎 Project imports:
-import 'app_localizations_en.dart';
-import 'app_localizations_ko.dart';
-
-// ignore_for_file: type=lint
+import 'package:calculator/l10n/arb/app_localizations_en.dart';
+import 'package:calculator/l10n/arb/app_localizations_ko.dart';
 
 /// Callers can lookup localized strings with an instance of AppLocalizations
 /// returned by `AppLocalizations.of(context)`.
@@ -67,7 +65,7 @@ import 'app_localizations_ko.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale);
 
   final String localeName;
 

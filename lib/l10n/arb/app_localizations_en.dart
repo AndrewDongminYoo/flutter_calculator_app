@@ -1,11 +1,9 @@
 // 🌎 Project imports:
-import 'app_localizations.dart';
-
-// ignore_for_file: type=lint
+import 'package:calculator/l10n/arb/app_localizations.dart';
 
 /// The translations for English (`en`).
 class AppLocalizationsEn extends AppLocalizations {
-  AppLocalizationsEn([String locale = 'en']) : super(locale);
+  AppLocalizationsEn([super.locale = 'en']);
 
   @override
   String get counterAppBarTitle => 'Counter';
