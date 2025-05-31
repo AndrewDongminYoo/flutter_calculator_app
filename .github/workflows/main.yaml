@@ -63,14 +63,18 @@ jobs:
       - name: 🧪 Run Tests
         run: very_good test -j 4 --no-optimization --coverage --test-randomize-ordering-seed random
 
-      - name: 📈 Upload coverage reports to Codecov
+      - name: 🎯 Filter Coverage Files
+        run: |
+          sudo apt-get update && sudo apt-get install -y lcov
+          lcov --remove coverage/lcov.info "**/*.g.dart" "**/l10n/arb/**.dart" -o coverage/lcov_filtered.info --ignore-errors unused
+
+      - name: 📈 Upload filtered coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage/lcov.info
+          files: coverage/lcov_filtered.info
           flags: unittests
           name: codecov-umbrella
-          exclude: lib/l10n/arb/app_localizations*.dart
           fail_ci_if_error: true
           verbose: true
 
