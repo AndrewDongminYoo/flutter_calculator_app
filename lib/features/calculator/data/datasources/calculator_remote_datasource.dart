@@ -13,7 +13,7 @@ class CalculatorRemoteDatasource implements CalculatorDatasource {
   /// Parameters:
   ///   expression: A string containing a valid mathematical expression
   /// Returns:
-  ///   A Future<double> containing the calculated result
+  ///   A `Future<double>` containing the calculated result
   /// Throws:
   ///   CalculatorException if evaluation fails.
   @override
