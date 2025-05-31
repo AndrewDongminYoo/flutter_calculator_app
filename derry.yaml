@@ -1,15 +1,18 @@
 test:
   (description): Runs all tests in the Flutter project with coverage enabled.
   (scripts):
-    - very_good test -j 4 --no-optimization --coverage --test-randomize-ordering-seed random --dart-define=FLUTTER_TEST=true
-    - lcov --quiet --remove coverage/lcov.info "**/*.g.dart" -o coverage/lcov_filtered.info
-    - genhtml coverage/lcov_filtered.info -o coverage/ --quiet
+    - flutter test --coverage --concurrency=4 --test-randomize-ordering-seed=random --dart-define="FLUTTER_TEST=true"
+
+posttest:
+  (description): Generates a coverage report from the test coverage data.
+  (scripts):
+    - genhtml coverage/lcov.info -o coverage/ --quiet
 
 reinstall:
   (description): Cleans and reinstalls the Flutter project by removing old builds, fetching dependencies, running code generators, and formatting the code.
   (scripts):
     - flutter clean
-    - very_good packages get --recursive --ignore .trunk
+    - flutter packages get
     - $bootstrap
 
 bootstrap:
@@ -34,7 +37,7 @@ hard:
   (description): Forces an upgrade of Flutter and its packages to their latest versions and updates CocoaPods dependencies for iOS.
   (scripts):
     - flutter upgrade --force
-    - flutter packages upgrade
+    - flutter packages upgrade --major-versions --tighten
     - (cd ios && pod update)
 
 build:
@@ -59,7 +62,7 @@ build:
   apk:
     (description): Builds an Android APK file for production and opens the output directory.
     (scripts): >
-      flutter build apk --flavor production --dart-define=APP_DISTRIBUTION=true
+      flutter build apk --flavor production --dart-define="APP_DISTRIBUTION=true"
       --release --tree-shake-icons --build-number $(TZ='Asia/Seoul' date +'%y%m%d%H')
       --verbose > build-apk.log 2> build-error.log
       && open build/app/outputs/flutter-apk
