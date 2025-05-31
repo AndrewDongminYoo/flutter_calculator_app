@@ -6,10 +6,10 @@ part of 'calculation_result.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$CalculationResultImpl _$$CalculationResultImplFromJson(Map<String, dynamic> json) => _$CalculationResultImpl(
+_CalculationResult _$CalculationResultFromJson(Map<String, dynamic> json) => _CalculationResult(
       result: (json['result'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$$CalculationResultImplToJson(_$CalculationResultImpl instance) => <String, dynamic>{
+Map<String, dynamic> _$CalculationResultToJson(_CalculationResult instance) => <String, dynamic>{
       'result': instance.result,
     };
