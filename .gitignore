@@ -115,3 +115,7 @@ app.*.map.json
 !.idea/codeStyles/
 !.idea/dictionaries/
 !.idea/runConfigurations/
+
+# Dependency directories
+node_modules/
+jspm_packages/

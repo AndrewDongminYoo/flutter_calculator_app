@@ -1,0 +1,31 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "A cross-platform calculator project supporting CLI and Flutter-based UI.",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "bump": "node bump.js",
+    "format": "trunk check --fix",
+    "release": "npx release-it patch"
+  },
+  "author": "<ydm2790@gmail.cim AndrewDongminYoo>",
+  "license": "ISC",
+  "engines": {
+    "node": "^20.19.0 || ^22.12.0 || >=23"
+  },
+  "packageManager": "yarn@1.22.22+sha1.ac34549e6aa8e7ead463a7407e1c7390f61a6610",
+  "devDependencies": {
+    "@commitlint/config-conventional": "^19.8.1",
+    "@release-it/bumper": "^7.0.5",
+    "@release-it/conventional-changelog": "^10.0.1",
+    "@trunkio/launcher": "^1.3.4",
+    "@types/node": ">=22.15.26",
+    "commitlint": "^19.8.1",
+    "release-it": "^19.0.2",
+    "semver": "^7.7.2",
+    "yargs": "^18.0.0"
+  }
+}
