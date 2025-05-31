@@ -5,7 +5,7 @@
 import 'dart:io';
 
 // 🌎 Project imports:
-import 'package:calculator/features/calculator/data/datasources/calculator_local_datasource.dart';
+import 'package:calculator/data/datasources/calculator_local_datasource.dart';
 
 void main(List<String> args) {
   // Display help message if no arguments are provided
