@@ -29,7 +29,7 @@ dev_dependencies:
   import_sorter: ^4.6.0
   mockito: ^5.4.6
   mocktail: ^1.0.4
-  very_good_analysis: ^8.0.0
+  very_good_analysis: ^9.0.0
 
 # https://github.com/frencojobs/derry
 # `dart pub global activate derry`
