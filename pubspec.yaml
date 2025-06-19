@@ -23,7 +23,7 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^10.0.0
-  build_runner: ^2.4.15
+  build_runner: ^2.5.2
   flutter_test:
     sdk: flutter
   import_sorter: ^4.6.0
