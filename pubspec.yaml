@@ -16,7 +16,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   freezed: ^3.0.6
-  freezed_annotation: ^3.0.0
+  freezed_annotation: ^3.1.0
   intl: ^0.20.2
   json_serializable: ^6.9.5
   math_expressions: ^2.7.0
