@@ -41,10 +41,12 @@ class MockCalculatorDatasource extends _i1.Mock implements _i2.CalculatorDatasou
   }
 
   @override
-  double calculate(String? expression) => (super.noSuchMethod(
-        Invocation.method(#calculate, [expression]),
-        returnValue: 0.0,
-      ) as double);
+  double calculate(String? expression) =>
+      (super.noSuchMethod(
+            Invocation.method(#calculate, [expression]),
+            returnValue: 0.0,
+          )
+          as double);
 }
 
 /// A class which mocks [CalculatorLocalDatasource].
@@ -56,22 +58,28 @@ class MockCalculatorLocalDatasource extends _i1.Mock implements _i3.CalculatorLo
   }
 
   @override
-  double calculate(String? expression) => (super.noSuchMethod(
-        Invocation.method(#calculate, [expression]),
-        returnValue: 0.0,
-      ) as double);
+  double calculate(String? expression) =>
+      (super.noSuchMethod(
+            Invocation.method(#calculate, [expression]),
+            returnValue: 0.0,
+          )
+          as double);
 
   @override
-  List<String> tokenize(String? expression) => (super.noSuchMethod(
-        Invocation.method(#tokenize, [expression]),
-        returnValue: <String>[],
-      ) as List<String>);
+  List<String> tokenize(String? expression) =>
+      (super.noSuchMethod(
+            Invocation.method(#tokenize, [expression]),
+            returnValue: <String>[],
+          )
+          as List<String>);
 
   @override
-  double evaluate(List<String>? tokens) => (super.noSuchMethod(
-        Invocation.method(#evaluate, [tokens]),
-        returnValue: 0.0,
-      ) as double);
+  double evaluate(List<String>? tokens) =>
+      (super.noSuchMethod(
+            Invocation.method(#evaluate, [tokens]),
+            returnValue: 0.0,
+          )
+          as double);
 }
 
 /// A class which mocks [CalculatorRemoteDatasource].
@@ -83,10 +91,12 @@ class MockCalculatorRemoteDatasource extends _i1.Mock implements _i4.CalculatorR
   }
 
   @override
-  double calculate(String? expression) => (super.noSuchMethod(
-        Invocation.method(#calculate, [expression]),
-        returnValue: 0.0,
-      ) as double);
+  double calculate(String? expression) =>
+      (super.noSuchMethod(
+            Invocation.method(#calculate, [expression]),
+            returnValue: 0.0,
+          )
+          as double);
 }
 
 /// A class which mocks [CalculatorRepository].
@@ -98,10 +108,12 @@ class MockCalculatorRepository extends _i1.Mock implements _i5.CalculatorReposit
   }
 
   @override
-  _i6.Future<double> calculate(String? expression) => (super.noSuchMethod(
-        Invocation.method(#calculate, [expression]),
-        returnValue: _i6.Future<double>.value(0.0),
-      ) as _i6.Future<double>);
+  _i6.Future<double> calculate(String? expression) =>
+      (super.noSuchMethod(
+            Invocation.method(#calculate, [expression]),
+            returnValue: _i6.Future<double>.value(0.0),
+          )
+          as _i6.Future<double>);
 }
 
 /// A class which mocks [Connectivity].
@@ -113,16 +125,20 @@ class MockConnectivity extends _i1.Mock implements _i7.Connectivity {
   }
 
   @override
-  _i6.Stream<List<_i8.ConnectivityResult>> get onConnectivityChanged => (super.noSuchMethod(
-        Invocation.getter(#onConnectivityChanged),
-        returnValue: _i6.Stream<List<_i8.ConnectivityResult>>.empty(),
-      ) as _i6.Stream<List<_i8.ConnectivityResult>>);
+  _i6.Stream<List<_i8.ConnectivityResult>> get onConnectivityChanged =>
+      (super.noSuchMethod(
+            Invocation.getter(#onConnectivityChanged),
+            returnValue: _i6.Stream<List<_i8.ConnectivityResult>>.empty(),
+          )
+          as _i6.Stream<List<_i8.ConnectivityResult>>);
 
   @override
-  _i6.Future<List<_i8.ConnectivityResult>> checkConnectivity() => (super.noSuchMethod(
-        Invocation.method(#checkConnectivity, []),
-        returnValue: _i6.Future<List<_i8.ConnectivityResult>>.value(
-          <_i8.ConnectivityResult>[],
-        ),
-      ) as _i6.Future<List<_i8.ConnectivityResult>>);
+  _i6.Future<List<_i8.ConnectivityResult>> checkConnectivity() =>
+      (super.noSuchMethod(
+            Invocation.method(#checkConnectivity, []),
+            returnValue: _i6.Future<List<_i8.ConnectivityResult>>.value(
+              <_i8.ConnectivityResult>[],
+            ),
+          )
+          as _i6.Future<List<_i8.ConnectivityResult>>);
 }

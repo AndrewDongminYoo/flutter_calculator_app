@@ -1,6 +1,6 @@
 part of 'calculator_bloc.dart';
 
-@freezed
+@Freezed(copyWith: true)
 sealed class CalculatorState with _$CalculatorState {
   const factory CalculatorState({
     @Default('0') String equation,

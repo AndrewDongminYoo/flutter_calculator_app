@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'calculation_model.freezed.dart';
 part 'calculation_model.g.dart';
 
-@freezed
+@Freezed(fromJson: true, toJson: true)
 abstract class CalculationModel with _$CalculationModel {
   factory CalculationModel({required double result}) = _CalculationModel;
 

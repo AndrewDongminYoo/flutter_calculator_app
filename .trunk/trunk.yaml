@@ -23,7 +23,7 @@ lint:
       affects_cache:
         - analysis_options.yaml
         - pubspec.yaml
-      known_good_version: 3.8.0
+      known_good_version: 3.9.2
       commands:
         - name: format
           output: rewrite
@@ -33,7 +33,7 @@ lint:
           formatter: true
           success_codes: [0]
   enabled:
-    - dart@3.2.6
+    - dart@3.9.2
     - cspell@9.2.2
     - actionlint@1.7.8
     - checkov@3.2.489

@@ -1,0 +1,17 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        options:
+          format: true # default: true
+          copy_with: false # default: true
+          equal: true # default: only if the class does not have a custom `==`
+          union_key: type # default: 'runtimeType'
+          union_value_case: snake # default: "none"
+          map: false # default: map: true, map_or_null: true, maybe_map: true
+          when: false # default: when: true, when_or_null: true, maybe_when: true
+          from_json: false # default: it has `fromJson(Map json) =>`, not return block
+          # to_json: false # default: (target has a `fromJson`)
+          make_collections_unmodifiable: true # default: true
+          add_implicit_final: true # default: true
+          generic_argument_factories: false # default: false

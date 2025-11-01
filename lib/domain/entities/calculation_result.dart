@@ -8,7 +8,7 @@ part 'calculation_result.g.dart';
 ///
 /// This class is used to encapsulate the result of a calculation, which is a
 /// [double] value.
-@freezed
+@Freezed(fromJson: true, toJson: true)
 abstract class CalculationResult with _$CalculationResult {
   factory CalculationResult({required double result}) = _CalculationResult;
 

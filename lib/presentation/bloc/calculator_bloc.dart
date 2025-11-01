@@ -11,8 +11,8 @@ part 'calculator_bloc.freezed.dart';
 
 class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   CalculatorBloc({required CalculatorRepository repository})
-      : _repository = repository,
-        super(const CalculatorState()) {
+    : _repository = repository,
+      super(const CalculatorState()) {
     on<Clear>(_onClear);
     on<Delete>(_onDelete);
     on<FlipSign>(_onFlipSign);
