@@ -23,6 +23,7 @@ lint:
       affects_cache:
         - analysis_options.yaml
         - pubspec.yaml
+      known_good_version: 3.8.0
       commands:
         - name: format
           output: rewrite

@@ -20,7 +20,7 @@ class CalculatorRemoteDatasource implements CalculatorDatasource {
   double calculate(String expression) {
     try {
       final parsed = _parser.parse(expression);
-      return parsed.evaluate(EvaluationType.REAL, _contextModel) as double;
+      return RealEvaluator(_contextModel).evaluate(parsed) as double;
     } catch (exception) {
       throw Exception('Failed to evaluate expression: $exception');
     }
