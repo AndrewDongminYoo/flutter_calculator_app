@@ -4,22 +4,22 @@ version: 1.0.1+1
 publish_to: none
 
 environment:
-  sdk: ^3.5.0
+  sdk: ^3.8.0
 
 dependencies:
   auto_size_text: ^3.0.0
-  bloc: ^9.0.0
-  connectivity_plus: ^6.1.4
+  bloc: ^9.1.0
+  connectivity_plus: ^7.0.0
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
-  freezed: ^3.0.6
-  freezed_annotation: ^3.0.0
+  freezed: ^3.2.3
+  freezed_annotation: ^3.1.0
   intl: ^0.20.2
-  json_serializable: ^6.9.5
-  math_expressions: ^2.7.0
+  json_serializable: ^6.11.1
+  math_expressions: ^3.1.0
 
 dev_dependencies:
   bloc_test: ^10.0.0
@@ -27,7 +27,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   import_sorter: ^4.6.0
-  mockito: ^5.4.6
+  mockito: ^5.5.0
   mocktail: ^1.0.4
   very_good_analysis: ^10.0.0
 
