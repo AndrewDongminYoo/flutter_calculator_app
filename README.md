@@ -119,11 +119,10 @@ lib/
 ├── app/                         # Core app files
 ├── core/                        # Shared utilities
 ├── features/                    # Feature-based modular structure
-│   ├── calculator/              # Calculator feature
-│   │   ├── data/                # Data layer (datasources, models)
-│   │   ├── domain/              # Domain layer (entities, usecases)
-│   │   ├── presentation/        # Presentation layer (UI, CLI)
-│   └── counter/                 # Example counter feature
+│   └── calculator/              # Calculator feature
+│       ├── data/                # Data layer (datasources, models)
+│       ├── domain/              # Domain layer (entities, usecases)
+│       ├── presentation/        # Presentation layer (UI, CLI)
 ├── l10n/                        # Localization resources
 ```
 

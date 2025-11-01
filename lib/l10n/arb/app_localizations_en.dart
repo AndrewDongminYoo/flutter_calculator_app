@@ -6,5 +6,5 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([super.locale = 'en']);
 
   @override
-  String get counterAppBarTitle => 'Counter';
+  String get calculatorAppBarTitle => 'Calculator';
 }

@@ -42,7 +42,7 @@ void main() {
         print: printOutput.add,
       );
       final spec = ZoneSpecification(
-        print: (_, __, ___, String msg) => printOutput.add(msg),
+        print: (_, _, _, String msg) => printOutput.add(msg),
       );
 
       // Run test in zone
@@ -76,7 +76,7 @@ void main() {
       calculatorCli.history.clear();
       final printOutput = <String>[];
       final spec = ZoneSpecification(
-        print: (_, __, ___, String msg) => printOutput.add(msg),
+        print: (_, _, _, String msg) => printOutput.add(msg),
       );
 
       await Zone.current.fork(specification: spec).run(() async {
@@ -96,7 +96,7 @@ void main() {
       calculatorCli.history.clear();
       final printOutput = <String>[];
       final spec = ZoneSpecification(
-        print: (_, __, ___, String msg) => printOutput.add(msg),
+        print: (_, _, _, String msg) => printOutput.add(msg),
       );
 
       await Zone.current.fork(specification: spec).run(() async {
@@ -115,7 +115,7 @@ void main() {
       calculatorCli.history.clear();
       final printOutput = <String>[];
       final spec = ZoneSpecification(
-        print: (_, __, ___, String msg) => printOutput.add(msg),
+        print: (_, _, _, String msg) => printOutput.add(msg),
       );
 
       await Zone.current.fork(specification: spec).run(() async {
@@ -135,7 +135,7 @@ void main() {
       calculatorCli.history.clear();
       final printOutput = <String>[];
       final spec = ZoneSpecification(
-        print: (_, __, ___, String msg) => printOutput.add(msg),
+        print: (_, _, _, String msg) => printOutput.add(msg),
       );
 
       await Zone.current.fork(specification: spec).run(() async {
@@ -154,7 +154,7 @@ void main() {
       calculatorCli.history.clear();
       final printOutput = <String>[];
       final spec = ZoneSpecification(
-        print: (_, __, ___, String msg) => printOutput.add(msg),
+        print: (_, _, _, String msg) => printOutput.add(msg),
       );
 
       await Zone.current.fork(specification: spec).run(() async {
@@ -174,7 +174,7 @@ void main() {
       calculatorCli.history.clear();
       final printOutput = <String>[];
       final spec = ZoneSpecification(
-        print: (_, __, ___, String msg) => printOutput.add(msg),
+        print: (_, _, _, String msg) => printOutput.add(msg),
       );
 
       await Zone.current.fork(specification: spec).run(() async {
@@ -200,7 +200,7 @@ void main() {
       calculatorCli.history.clear();
       final printOutput = <String>[];
       final spec = ZoneSpecification(
-        print: (_, __, ___, String msg) => printOutput.add(msg),
+        print: (_, _, _, String msg) => printOutput.add(msg),
       );
 
       await Zone.current.fork(specification: spec).run(() async {
@@ -222,7 +222,7 @@ void main() {
       calculatorCli.history.clear();
       final printOutput = <String>[];
       final spec = ZoneSpecification(
-        print: (_, __, ___, String msg) => printOutput.add(msg),
+        print: (_, _, _, String msg) => printOutput.add(msg),
       );
 
       await Zone.current.fork(specification: spec).run(() async {
@@ -242,7 +242,7 @@ void main() {
       calculatorCli.history.clear();
       final printOutput = <String>[];
       final spec = ZoneSpecification(
-        print: (_, __, ___, String msg) => printOutput.add(msg),
+        print: (_, _, _, String msg) => printOutput.add(msg),
       );
 
       await Zone.current.fork(specification: spec).run(() async {

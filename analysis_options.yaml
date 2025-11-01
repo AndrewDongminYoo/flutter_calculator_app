@@ -57,3 +57,9 @@ analyzer:
     - lib/l10n/arb/app_localizations*.dart
   plugins:
     - custom_lint
+
+# Formatter settings
+# https://github.com/dart-lang/dart_style/wiki/Configuration
+formatter:
+  page_width: 120
+  trailing_commas: preserve

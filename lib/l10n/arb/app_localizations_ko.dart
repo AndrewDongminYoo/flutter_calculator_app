@@ -6,5 +6,5 @@ class AppLocalizationsKo extends AppLocalizations {
   AppLocalizationsKo([super.locale = 'ko']);
 
   @override
-  String get counterAppBarTitle => '카운터';
+  String get calculatorAppBarTitle => '계산기';
 }
