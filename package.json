@@ -27,5 +27,8 @@
     "release-it": "^19.0.5",
     "semver": "^7.7.3",
     "yargs": "^18.0.0"
+  },
+  "resolutions": {
+    "@conventional-changelog/git-client": ">= 2.0.0"
   }
 }

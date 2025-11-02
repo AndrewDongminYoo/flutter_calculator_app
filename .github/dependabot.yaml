@@ -4,7 +4,25 @@ updates:
     directory: /
     schedule:
       interval: daily
+    labels: [dependencies, bot, github_actions]
+    commit-message:
+      prefix: ci
+    groups: { "GitHub Actions": { patterns: ["*"] } }
   - package-ecosystem: pub
     directory: /
     schedule:
       interval: daily
+    labels: [dependencies, bot, dart]
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+    allow:
+      dependency-type: direct
+    # Configure groups for dependencies.
+    groups:
+      - "Flutter App Dependencies":
+        applies-to: production
+      - "Flutter Dev Dependencies":
+        applies-to: development
+    # Leave the constraint if the original constraint allows the new version, otherwise, bump the constraint.
+    versioning-strategy: increase-if-necessary

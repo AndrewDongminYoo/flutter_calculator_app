@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: 🤖 Ensure Commit is Semantic
         if: github.event_name == 'pull_request'
-        uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5.5.3
+        uses: amannn/action-semantic-pull-request@v6.1.1
         with:
           validateSingleCommit: false
           ignoreLabels: |
@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - name: 📚 Git Checkout with Submodules
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
@@ -87,7 +87,7 @@ jobs:
 
     steps:
       - name: 📚 Git Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: 🪄 Spell Check
         uses: streetsidesoftware/cspell-action@v7.2.1
