@@ -12,6 +12,7 @@ import 'package:calculator/presentation/enums/button_type.dart';
 import 'package:calculator/presentation/pages/calculator_screen.dart';
 import 'package:calculator/presentation/widgets/calculator_button.dart';
 import '../../calculator_test.mocks.dart';
+import '../../helpers/helpers.dart';
 
 void main() {
   late MockConnectivity mockConnectivity;
@@ -25,29 +26,23 @@ void main() {
   });
 
   testWidgets('CalculatorScreen creates BlocProvider with correct dependencies', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: CalculatorScreen(),
-      ),
-    );
+    await tester.pumpApp(const CalculatorScreen());
 
     expect(find.byType(BlocProvider<CalculatorBloc>), findsOneWidget);
     expect(find.byType(CalculatorView), findsOneWidget);
   });
 
   testWidgets('CalculatorScreen initializes repository with correct datasources', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: BlocProvider<CalculatorBloc>(
-          create: (context) => CalculatorBloc(
-            repository: CalculatorRepositoryImpl(
-              localDatasource: mockLocalDatasource,
-              remoteDatasource: mockRemoteDatasource,
-              connectivity: mockConnectivity,
-            ),
+    await tester.pumpApp(
+      BlocProvider<CalculatorBloc>(
+        create: (context) => CalculatorBloc(
+          repository: CalculatorRepositoryImpl(
+            localDatasource: mockLocalDatasource,
+            remoteDatasource: mockRemoteDatasource,
+            connectivity: mockConnectivity,
           ),
-          child: const CalculatorView(),
         ),
+        child: const CalculatorView(),
       ),
     );
 
@@ -58,29 +53,22 @@ void main() {
   });
 
   testWidgets('CalculatorScreen handles widget tree disposal properly', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      const MaterialApp(
-        home: CalculatorScreen(),
-      ),
-    );
-
-    await tester.pumpWidget(const MaterialApp(home: SizedBox()));
+    await tester.pumpApp(const CalculatorScreen());
+    await tester.pumpApp(const SizedBox());
     expect(find.byType(CalculatorScreen), findsNothing);
   });
 
   testWidgets('CalculatorScreen buttonPressed triggers correct events', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: BlocProvider<CalculatorBloc>(
-          create: (context) => CalculatorBloc(
-            repository: CalculatorRepositoryImpl(
-              localDatasource: mockLocalDatasource,
-              remoteDatasource: mockRemoteDatasource,
-              connectivity: mockConnectivity,
-            ),
+    await tester.pumpApp(
+      BlocProvider<CalculatorBloc>(
+        create: (context) => CalculatorBloc(
+          repository: CalculatorRepositoryImpl(
+            localDatasource: mockLocalDatasource,
+            remoteDatasource: mockRemoteDatasource,
+            connectivity: mockConnectivity,
           ),
-          child: const CalculatorView(),
         ),
+        child: const CalculatorView(),
       ),
     );
 
@@ -106,18 +94,16 @@ void main() {
   });
 
   testWidgets('CalculatorScreen buttonPressed for delete and flipSign', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: BlocProvider<CalculatorBloc>(
-          create: (context) => CalculatorBloc(
-            repository: CalculatorRepositoryImpl(
-              localDatasource: mockLocalDatasource,
-              remoteDatasource: mockRemoteDatasource,
-              connectivity: mockConnectivity,
-            ),
+    await tester.pumpApp(
+      BlocProvider<CalculatorBloc>(
+        create: (context) => CalculatorBloc(
+          repository: CalculatorRepositoryImpl(
+            localDatasource: mockLocalDatasource,
+            remoteDatasource: mockRemoteDatasource,
+            connectivity: mockConnectivity,
           ),
-          child: const CalculatorView(),
         ),
+        child: const CalculatorView(),
       ),
     );
 
@@ -147,18 +133,16 @@ void main() {
   });
 
   testWidgets('Press the remaining buttons and clear.', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-        home: BlocProvider<CalculatorBloc>(
-          create: (context) => CalculatorBloc(
-            repository: CalculatorRepositoryImpl(
-              localDatasource: mockLocalDatasource,
-              remoteDatasource: mockRemoteDatasource,
-              connectivity: mockConnectivity,
-            ),
+    await tester.pumpApp(
+      BlocProvider<CalculatorBloc>(
+        create: (context) => CalculatorBloc(
+          repository: CalculatorRepositoryImpl(
+            localDatasource: mockLocalDatasource,
+            remoteDatasource: mockRemoteDatasource,
+            connectivity: mockConnectivity,
           ),
-          child: const CalculatorView(),
         ),
+        child: const CalculatorView(),
       ),
     );
 

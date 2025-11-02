@@ -11,6 +11,7 @@ import 'package:calculator/core/utils/size_utils.dart';
 import 'package:calculator/data/datasources/calculator_local_datasource.dart';
 import 'package:calculator/data/datasources/calculator_remote_datasource.dart';
 import 'package:calculator/data/repositories/calculate_repository_impl.dart';
+import 'package:calculator/l10n/l10n.dart';
 import 'package:calculator/presentation/bloc/calculator_bloc.dart';
 import 'package:calculator/presentation/enums/button_type.dart';
 import 'package:calculator/presentation/widgets/calculator_button.dart';
@@ -47,6 +48,7 @@ class CalculatorView extends StatelessWidget {
         backgroundColor: Colors.black54,
         appBar: AppBar(
           elevation: 0,
+          title: Text(context.l10n.calculatorAppBarTitle),
           backgroundColor: Colors.black54,
           leading: const Icon(Icons.list_sharp, size: 40, color: Color(0xFFFFA00A)),
         ),
