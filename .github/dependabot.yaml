@@ -19,7 +19,7 @@ updates:
       prefix: fix
       prefix-development: chore
     allow:
-      dependency-type: direct
+      - dependency-type: direct
     # Configure groups for dependencies.
     groups:
       flutter-app:
