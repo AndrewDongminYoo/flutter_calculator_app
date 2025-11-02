@@ -7,7 +7,9 @@ updates:
     labels: [dependencies, bot, github_actions]
     commit-message:
       prefix: ci
-    groups: { "GitHub Actions": { patterns: ["*"] } }
+    groups:
+      - "GitHub Actions":
+        patterns: ["*"]
   - package-ecosystem: pub
     directory: /
     schedule:
