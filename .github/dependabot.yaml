@@ -8,7 +8,7 @@ updates:
     commit-message:
       prefix: ci
     groups:
-      - "GitHub Actions":
+      actions:
         patterns: ["*"]
   - package-ecosystem: pub
     directory: /
@@ -22,9 +22,9 @@ updates:
       dependency-type: direct
     # Configure groups for dependencies.
     groups:
-      - "Flutter App Dependencies":
-        applies-to: production
-      - "Flutter Dev Dependencies":
-        applies-to: development
+      flutter-app:
+        dependency-type: production
+      flutter-dev:
+        dependency-type: development
     # Leave the constraint if the original constraint allows the new version, otherwise, bump the constraint.
     versioning-strategy: increase-if-necessary
