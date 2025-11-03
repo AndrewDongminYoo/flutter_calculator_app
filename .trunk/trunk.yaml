@@ -18,22 +18,7 @@ runtimes:
     - python@3.10.8
 # This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
 lint:
-  definitions:
-    - name: dart
-      affects_cache:
-        - analysis_options.yaml
-        - pubspec.yaml
-      known_good_version: 3.9.2
-      commands:
-        - name: format
-          output: rewrite
-          run: dart format --line-length 120 ${target}
-          batch: true
-          in_place: true
-          formatter: true
-          success_codes: [0]
   enabled:
-    - dart@3.9.2
     - cspell@9.2.2
     - actionlint@1.7.8
     - checkov@3.2.489
