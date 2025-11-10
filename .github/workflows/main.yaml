@@ -90,7 +90,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: 🪄 Spell Check
-        uses: streetsidesoftware/cspell-action@v7.2.1
+        uses: streetsidesoftware/cspell-action@v8.0.0
         with:
           incremental_files_only: false
           root: .
