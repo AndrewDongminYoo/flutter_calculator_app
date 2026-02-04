@@ -32,6 +32,9 @@ dev_dependencies:
   mocktail: ^1.0.4
   very_good_analysis: ^10.1.0
 
+import_sorter:
+  emojis: true
+
 # https://github.com/frencojobs/derry
 # `dart pub global activate derry`
 scripts: derry.yaml

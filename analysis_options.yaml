@@ -53,8 +53,8 @@ linter:
     discarded_futures: true
 
 analyzer:
-  exclude:
-    - lib/l10n/arb/app_localizations*.dart
+  errors:
+    dangling_library_doc_comments: ignore
   plugins:
     - custom_lint
 

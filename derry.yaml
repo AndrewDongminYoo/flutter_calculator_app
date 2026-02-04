@@ -1,3 +1,8 @@
+# --- Quality gates ----------------------------------------------------------
+pretest:
+  (description): Clean Existing Coverage reports
+  (scripts): rm -rf coverage
+
 test:
   (description): Runs all tests in the Flutter project with coverage enabled.
   (scripts):
@@ -9,6 +14,7 @@ posttest:
     - lcov --quiet --remove coverage/lcov.info "**/*.g.dart" "**/l10n/arb/**.dart" -o coverage/lcov_filtered.info
     - genhtml coverage/lcov_filtered.info -o coverage/ --quiet
 
+# --- Maintenance scripts ----------------------------------------------------
 reinstall:
   (description): Cleans and reinstalls the Flutter project by removing old builds, fetching dependencies, running code generators, and formatting the code.
   (scripts):
@@ -19,6 +25,7 @@ reinstall:
 bootstrap:
   (description): Initializes the project by generating necessary code, sorting imports, applying fixes, and formatting.
   (scripts):
+    - flutter pub get
     - $generate
     - $format
 
@@ -33,7 +40,7 @@ format:
   (scripts):
     - dart fix --apply
     - dart format --line-length 120 .
-    - dart run import_sorter:main -e
+    - dart run import_sorter:main
 
 hard:
   (description): Forces an upgrade of Flutter and its packages to their latest versions and updates CocoaPods dependencies for iOS.
@@ -41,7 +48,9 @@ hard:
     - flutter upgrade --force
     - flutter packages upgrade --major-versions --tighten
     - (cd ios && pod update)
+    - (cd macos && pod update)
 
+# --- Build artifacts --------------------------------------------------------
 build:
   aab:
     (description): Builds an Android App Bundle file for production, opens the output in Android Studio.
