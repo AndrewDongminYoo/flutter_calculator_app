@@ -1,5 +1,3 @@
-// ignore_for_file: discarded_futures
-
 // 📦 Package imports:
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';

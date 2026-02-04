@@ -1,5 +1,5 @@
-# https://github.com/VeryGoodOpenSource/very_good_analysis/blob/main/lib/analysis_options.8.0.0.yaml
-include: package:very_good_analysis/analysis_options.8.0.0.yaml
+# https://github.com/VeryGoodOpenSource/very_good_analysis/blob/main/lib/analysis_options.yaml
+include: package:very_good_analysis/analysis_options.yaml
 linter:
   rules:
     public_member_api_docs: false
@@ -53,6 +53,8 @@ linter:
     discarded_futures: true
 
 analyzer:
+  exclude:
+    - lib/l10n/gen/app_localizations*.dart
   errors:
     dangling_library_doc_comments: ignore
   plugins:
