@@ -1,3 +1,11 @@
+// coverage:ignore-file
+// ignore_for_file: unused_import, duplicate_ignore
+/// ********************************************************************************************************
+/// ▄▄▄▄▄ ▄▄    ▄▄ ▄▄ ▄▄▄▄▄▄ ▄▄▄▄▄▄ ▄▄▄▄▄ ▄▄▄▄     ▄▄▄▄  ▄▄▄  ▄▄     ▄▄▄▄ ▄▄ ▄▄ ▄▄     ▄▄▄ ▄▄▄▄▄▄ ▄▄▄  ▄▄▄▄
+/// ██▄▄  ██    ██ ██   ██     ██   ██▄▄  ██▄█▄   ██▀▀▀ ██▀██ ██    ██▀▀▀ ██ ██ ██    ██▀██  ██  ██▀██ ██▄█▄
+/// ██    ██▄▄▄ ▀███▀   ██     ██   ██▄▄▄ ██ ██   ▀████ ██▀██ ██▄▄▄ ▀████ ▀███▀ ██▄▄▄ ██▀██  ██  ▀███▀ ██ ██
+/// ********************************************************************************************************
+
 // 🎯 Dart imports:
 import 'dart:async';
 
@@ -10,8 +18,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 // 🌎 Project imports:
-import 'package:calculator/l10n/arb/app_localizations_en.dart';
-import 'package:calculator/l10n/arb/app_localizations_ko.dart';
+import 'package:calculator/l10n/gen/app_localizations_en.dart';
+import 'package:calculator/l10n/gen/app_localizations_ko.dart';
 
 /// Callers can lookup localized strings with an instance of AppLocalizations
 /// returned by `AppLocalizations.of(context)`.
@@ -21,7 +29,7 @@ import 'package:calculator/l10n/arb/app_localizations_ko.dart';
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'arb/app_localizations.dart';
+/// import 'gen/app_localizations.dart';
 ///
 /// return MaterialApp(
 ///   localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -95,10 +103,10 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('ko')];
 
-  /// Text shown in the AppBar of the Calculator Page
+  /// 계산기 페이지의 앱바에 표시되는 텍스트
   ///
-  /// In en, this message translates to:
-  /// **'Calculator'**
+  /// In ko, this message translates to:
+  /// **'계산기'**
   String get calculatorAppBarTitle;
 }
 

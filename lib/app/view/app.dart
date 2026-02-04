@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:calculator/l10n/arb/app_localizations.dart';
+import 'package:calculator/l10n/gen/app_localizations.dart';
 import 'package:calculator/presentation/pages/calculator_screen.dart';
 
 class App extends StatelessWidget {

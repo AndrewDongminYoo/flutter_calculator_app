@@ -26,6 +26,7 @@ generate:
   (description): Runs code generation builders and sorts imports to set up project files.
   (scripts):
     - dart run build_runner build --delete-conflicting-outputs
+    - $gen-l10n
 
 format:
   (description): Applies automated fixes, sorts imports, and formats the codebase to ensure consistent code quality.
@@ -68,3 +69,17 @@ build:
       --verbose > build-apk.log 2> build-error.log
       && open build/app/outputs/flutter-apk
       || echo "Build failed. Check build-error.log for details."
+
+# --- Localization scripts ----------------------------------------------------
+gen-l10n:
+  (scripts): |
+    flutter gen-l10n \
+      --format \
+      --arb-dir=lib/l10n/arb \
+      --template-arb-file=app_ko.arb \
+      --output-localization-file=app_localizations.dart \
+      --output-dir=lib/l10n/gen \
+      --required-resource-attributes \
+      --no-nullable-getter \
+      --preferred-supported-locales=ko,en \
+      --header-file=gen_header
