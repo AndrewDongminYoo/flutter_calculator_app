@@ -83,9 +83,9 @@ _\*Calculator works on iOS, Android, Web, and Windows._
 
 Below are screenshots demonstrating the application:
 
-| **Initial Screen**                                                                   | **Successful Calculation**                                                                   | **Error Handling**                                                                   |
-| ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| ![Initial Screen](doc/images/Screenshot%202025-01-02%20at%2010.52.49%E2%80%AFAM.png) | ![Successful Calculation](doc/images/Screenshot%202025-01-02%20at%2010.53.13%E2%80%AFAM.png) | ![Error Handling](doc/images/Screenshot%202025-01-02%20at%2010.53.30%E2%80%AFAM.png) |
+| **Initial Screen**                                                            | **Successful Calculation**                                                            | **Error Handling**                                                            |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| ![Initial Screen](./doc/images/Screenshot%202026-02-13%20at%202.09.24 AM.png) | ![Successful Calculation](./doc/images/Screenshot%202026-02-13%20at%202.09.43 AM.png) | ![Error Handling](./doc/images/Screenshot%202026-02-13%20at%202.09.12 AM.png) |
 
 - **Initial Screen**: The home screen where users can input mathematical expressions.
 - **Successful Calculation**: An example of a correct calculation being performed.
