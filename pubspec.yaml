@@ -11,11 +11,15 @@ dependencies:
   auto_size_text: ^3.0.0
   bloc: ^9.2.0
   connectivity_plus: ^7.0.0
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_localizations:
     sdk: flutter
+  flutter_svg: ^2.2.3
   freezed: ^3.2.5
   freezed_annotation: ^3.1.0
   intl: ^0.20.2
@@ -26,6 +30,7 @@ dependencies:
 dev_dependencies:
   bloc_test: ^10.0.0
   build_runner: ^2.11.1
+  flutter_gen_runner: ^5.12.0
   flutter_test:
     sdk: flutter
   import_sorter: ^4.6.0
@@ -47,6 +52,7 @@ flutter:
   assets:
     - assets/
     - assets/fonts/
+    - assets/svgs/
 
   fonts:
     - family: SFProDisplay
@@ -58,3 +64,11 @@ flutter:
           weight: 500
         - asset: assets/fonts/SFProDisplay_Regular.otf
           weight: 400
+
+# https://pub.dev/packages/flutter_gen_runner
+flutter_gen:
+  line_length: 120 # Optional (default: 80)
+
+  # Optional
+  integrations:
+    flutter_svg: true
