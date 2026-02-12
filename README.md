@@ -18,6 +18,7 @@ This project demonstrates a layered architecture for calculating expressions wit
 - [Screenshots](#screenshots-)
 - [Getting Started](#getting-started-)
 - [Running Tests](#running-tests-)
+- [Windows Platform Support](#windows-platform-support)
 - [Project Structure](#project-structure)
 - [CLI Usage](#cli-usage)
 - [Localization](#localization-)
@@ -107,6 +108,85 @@ $ genhtml coverage/lcov.info -o coverage/
 # Open Coverage Report
 $ open coverage/index.html
 ```
+
+---
+
+## Windows Platform Support
+
+This section explains how to manage dependencies and build the Windows app, especially when your main development machine is macOS.
+
+### 1) Dependency Management Principles
+
+- The single source of truth for app/plugin dependencies is `pubspec.yaml`.
+- Use `flutter pub get` (or `flutter pub upgrade`) to resolve and update dependencies.
+- On Windows, plugin wiring for CMake is generated automatically by Flutter:
+  - `windows/flutter/generated_plugins.cmake`
+  - `windows/flutter/generated_plugin_registrant.cc`
+- Do not edit generated files under `windows/flutter/generated_*` or `windows/flutter/ephemeral/*`.
+
+#### What to edit (and what not to edit)
+
+- `windows/flutter/CMakeLists.txt`: Flutter-managed; avoid manual edits.
+- `windows/CMakeLists.txt`: Top-level Windows build settings; edit only when you need custom native build behavior.
+- `windows/runner/CMakeLists.txt`: Runner target settings; edit only when adding custom C++ source files, compile flags, or manual native linking.
+
+In most Flutter-only feature work, you do not need to edit any of these CMake files.
+
+### 2) Build Constraints on macOS
+
+- You cannot build a Windows desktop binary directly on macOS.
+- Windows builds require a Windows toolchain (Visual Studio C++ and Windows SDK), so build on:
+  - a physical Windows machine
+  - a Windows VM
+  - a CI runner (for example, GitHub Actions `windows-latest`)
+
+### 3) Local Windows Build (on a Windows machine)
+
+Prerequisites:
+
+- Install Flutter SDK
+- Install Visual Studio 2022 with `Desktop development with C++`
+- Enable Windows desktop support:
+
+```sh
+flutter config --enable-windows-desktop
+```
+
+Build and run:
+
+```sh
+flutter pub get
+flutter run -d windows
+flutter build windows --release
+```
+
+Release output path:
+
+```text
+build/windows/x64/runner/Release/
+```
+
+### 4) CI/CD Setup Example (GitHub Actions)
+
+If you develop on macOS, add a Windows build job so pull requests and pushes validate Windows continuously.
+
+```yaml
+windows-build:
+  runs-on: windows-latest
+  steps:
+    - uses: actions/checkout@v4
+    - uses: subosito/flutter-action@v2
+      with:
+        channel: stable
+    - run: flutter pub get
+    - run: flutter build windows --release
+    - uses: actions/upload-artifact@v4
+      with:
+        name: windows-release
+        path: build/windows/x64/runner/Release/
+```
+
+Tip: keep your existing Linux analysis/test jobs and add this Windows job in parallel for platform coverage.
 
 ---
 
