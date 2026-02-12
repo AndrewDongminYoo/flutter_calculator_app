@@ -42,6 +42,9 @@ Dorg
 DPICHANGED
 dsym
 DUNICODE
+dwmapi
+DWMCOLORIZATIONCOLORCHANGED
+DWMWA
 ehthumbs
 endforeach
 endfunction
@@ -60,6 +63,8 @@ flutterfire
 FMWK
 FONTCHANGE
 gapless
+gboolean
+gchar
 gcno
 getenv
 gradlew
@@ -83,8 +88,10 @@ iphonesimulator
 JAVACMD
 JTTV
 jvmargs
+klass
 libc
 LLDB
+lldbinit
 localizable
 lotties
 LPARAM
@@ -92,6 +99,7 @@ lpfn
 lproj
 lpsz
 LRESULT
+LSTATUS
 MACCATALYST
 MAKEINTRESOURCE
 markdownlint
@@ -101,6 +109,7 @@ MSGSEND
 msys
 MULTICONFIG
 NCCREATE
+NDEBUG
 nflutterfire
 NOACTIVATE
 nodoc
@@ -125,6 +134,7 @@ podhelper
 podspec
 potenti
 Pressable
+prgname
 PRODUCTVERSION
 Proguard
 registar
@@ -144,6 +154,8 @@ spinkit
 sqflite
 SRCROOT
 stdlib
+strdupv
+strfreev
 SUBLANG
 subosito
 subprojects
@@ -164,6 +176,7 @@ verygoodcore
 vivaxy
 VREDRAW
 Wconditional
+Werror
 WHENINUSE
 wholemodule
 Windowz
