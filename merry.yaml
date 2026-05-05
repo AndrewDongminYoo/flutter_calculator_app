@@ -11,7 +11,7 @@ test:
 posttest:
   (description): Generates a coverage report from the test coverage data.
   (scripts):
-    - lcov --quiet --remove coverage/lcov.info "**/*.g.dart" "**/l10n/arb/**.dart" -o coverage/lcov_filtered.info
+    - lcov --quiet --remove coverage/lcov.info "**/*.g.dart" -o coverage/lcov_filtered.info
     - genhtml coverage/lcov_filtered.info -o coverage/ --quiet
 
 # --- Maintenance scripts ----------------------------------------------------
