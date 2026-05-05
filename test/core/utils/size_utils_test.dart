@@ -14,7 +14,7 @@ void main() {
       await tester.pumpApp(
         Builder(
           builder: (BuildContext context) {
-            expect(context.getWidth(), 800.0);
+            expect(context.getWidth(), 390.0);
             return const Scaffold();
           },
         ),
@@ -25,7 +25,7 @@ void main() {
       await tester.pumpApp(
         Builder(
           builder: (BuildContext context) {
-            expect(context.getHeight(), 600.0);
+            expect(context.getHeight(), 844.0);
             return const Scaffold();
           },
         ),

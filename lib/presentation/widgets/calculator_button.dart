@@ -54,7 +54,7 @@ class CalculatorButton extends StatelessWidget {
               style: TextStyle(
                 color: Colors.white,
                 fontFamily: FontFamily.sFProDisplay,
-                fontSize: button.text.length > 1 ? 28 : 42,
+                fontSize: button.text.length > 1 ? 23 : 36,
                 fontWeight: FontWeight.w500,
               ),
             ),
