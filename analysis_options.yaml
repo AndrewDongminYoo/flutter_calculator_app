@@ -56,6 +56,7 @@ analyzer:
   exclude:
     - lib/l10n/gen/app_localizations*.dart
   errors:
+    cascade_invocations: ignore
     dangling_library_doc_comments: ignore
   plugins:
     - custom_lint

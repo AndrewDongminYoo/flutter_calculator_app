@@ -11,7 +11,6 @@ const _sections = {
 final Uri _root = Platform.script.resolve('../');
 
 Future<void> main() async {
-  // 1. Read current version from pubspec.yaml
   final pubspecFile = File.fromUri(_root.resolve('pubspec.yaml'));
   final pubspec = await pubspecFile.readAsString();
   final versionRe = RegExp(r'^version:\s*(\d+)\.(\d+)\.(\d+)\+(\d+)', multiLine: true);
@@ -24,14 +23,20 @@ Future<void> main() async {
   final newVersionFull = '$newVersion+${vm[4]}';
   print('Releasing $newVersion (was ${vm[1]}.${vm[2]}.${vm[3]})');
 
-  // 2. Resolve repo URL from git remote for commit hyperlinks
-  final remote = (await _capture('git', ['remote', 'get-url', 'origin'])).trim();
+  // Fire both reads in parallel — no dependency between them
+  final remoteFuture = _capture('git', ['remote', 'get-url', 'origin']);
+  final lastTagFuture = Process.run(
+    'git',
+    ['describe', '--tags', '--abbrev=0'],
+    workingDirectory: _root.toFilePath(),
+  );
+  final remote = (await remoteFuture).trim();
+  final lastTagResult = await lastTagFuture;
+
   final repoUrl = remote
       .replaceFirstMapped(RegExp('^git@([^:]+):'), (m) => 'https://${m[1]}/')
       .replaceFirst(RegExp(r'\.git$'), '');
 
-  // 3. Collect commits since the last tag (or all commits when no tag exists)
-  final lastTagResult = await Process.run('git', ['describe', '--tags', '--abbrev=0']);
   final rangeArg = lastTagResult.exitCode == 0 ? '${(lastTagResult.stdout as String).trim()}..HEAD' : null;
   final log = await _capture('git', [
     'log',
@@ -40,7 +45,6 @@ Future<void> main() async {
     '--no-merges',
   ]);
 
-  // 4. Parse conventional commits and group by section
   final groups = <String, List<String>>{for (final k in _sections.keys) k: []};
   final commitRe = RegExp(r'^([a-z]+)(?:\([^)]+\))?!?: (.+)$');
   for (final line in log.trim().split('\n').where((l) => l.isNotEmpty)) {
@@ -53,67 +57,58 @@ Future<void> main() async {
     groups[cm[1]]!.add('- ${cm[2]} ([${hash.substring(0, 7)}]($repoUrl/commit/$hash))');
   }
 
-  // 5. Build CHANGELOG entry
   final date = DateTime.now().toIso8601String().substring(0, 10);
-  final entry = StringBuffer()..writeln('## $newVersion ($date)');
-  for (final MapEntry(:key, :value) in _sections.entries) {
-    final items = groups[key]!;
-    if (items.isEmpty) continue;
-    entry
-      ..writeln()
-      ..writeln('### $value')
-      ..writeln();
-    items.forEach(entry.writeln);
-  }
+  final sections = _renderSections(groups);
 
-  // 6. Prepend entry to CHANGELOG.md
   const header = '# Changelog\n';
   final clFile = File.fromUri(_root.resolve('CHANGELOG.md'));
-  final existing = clFile.existsSync() ? await clFile.readAsString() : '$header\n';
+  String existing;
+  try {
+    existing = await clFile.readAsString();
+  } on FileSystemException {
+    existing = '$header\n';
+  }
   final tail = existing.startsWith(header) ? existing.substring(header.length) : '\n$existing';
-  await clFile.writeAsString('$header\n$entry$tail');
+  await clFile.writeAsString('$header\n## $newVersion ($date)\n\n$sections$tail');
 
-  // 7. Bump version in pubspec.yaml
   await pubspecFile.writeAsString(pubspec.replaceFirst(versionRe, 'version: $newVersionFull'));
   print('pubspec.yaml updated to $newVersionFull');
 
-  // 8. Commit, tag, push
   await _exec('git', ['add', 'pubspec.yaml', 'CHANGELOG.md']);
   await _exec('git', ['commit', '-m', 'chore: release v$newVersion']);
   await _exec('git', ['tag', '-a', 'v$newVersion', '-m', 'Release v$newVersion']);
-  await _exec('git', ['push', 'origin', 'HEAD']);
-  await _exec('git', ['push', 'origin', 'v$newVersion']);
+  await _exec('git', ['push', 'origin', 'HEAD', 'v$newVersion']);
 
-  // 9. Create GitHub release — write notes to a temp file to avoid any escaping issues
-  final notes = _buildNotes(groups);
   final tmp = File('${Directory.systemTemp.path}/calc_release_notes.md');
-  await tmp.writeAsString(notes);
-  await _exec('gh', [
-    'release',
-    'create',
-    'v$newVersion',
-    '--title',
-    'Release v$newVersion',
-    '--notes-file',
-    tmp.path,
-  ]);
-  await tmp.delete();
+  await tmp.writeAsString(sections.trimRight());
+  try {
+    await _exec('gh', [
+      'release',
+      'create',
+      'v$newVersion',
+      '--title',
+      'Release v$newVersion',
+      '--notes-file',
+      tmp.path,
+    ]);
+  } finally {
+    if (tmp.existsSync()) await tmp.delete();
+  }
 
   print('Released v$newVersion successfully!');
 }
 
-String _buildNotes(Map<String, List<String>> groups) {
+String _renderSections(Map<String, List<String>> groups) {
   final buf = StringBuffer();
   for (final MapEntry(:key, :value) in _sections.entries) {
     final items = groups[key]!;
     if (items.isEmpty) continue;
-    buf
-      ..writeln('### $value')
-      ..writeln();
+    buf.writeln('### $value');
+    buf.writeln();
     items.forEach(buf.writeln);
     buf.writeln();
   }
-  return buf.toString().trimRight();
+  return buf.toString();
 }
 
 Future<String> _capture(String cmd, List<String> args) async {
