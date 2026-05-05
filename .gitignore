@@ -114,9 +114,6 @@ app.*.map.json
 !.idea/dictionaries/
 !.idea/runConfigurations/
 
-# Dependency directories
-node_modules/
-jspm_packages/
 
 # Claude Local Permissions
 .claude/settings.local.json
