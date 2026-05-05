@@ -30,9 +30,9 @@ flutter test test/calculator_test.dart
 dart run calculator:interpreter          # interactive REPL
 dart run calculator:calculate "2+3*4"    # one-shot expression evaluation
 
-# Version management (scripts live in scripts/)
+# Version management — pure Dart scripts in scripts/
 merry version bump      # bumps pubspec.yaml patch version
-merry version release   # full release: bump → CHANGELOG → git tag → GitHub release
+merry version release   # bump → CHANGELOG → git commit + tag + push → GitHub release (requires gh CLI)
 
 # Production builds
 merry build ipa         # iOS archive + IPA

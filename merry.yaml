@@ -83,11 +83,11 @@ build:
 version:
   bump:
     (description): Bumps the patch version in pubspec.yaml.
-    (scripts): node scripts/bump.js
+    (scripts): dart scripts/bump.dart
 
   release:
-    (description): Creates a patch release — bumps version, generates CHANGELOG, commits, tags, and publishes a GitHub release.
-    (scripts): npx release-it patch --config scripts/release-it.json
+    (description): Bumps version, generates CHANGELOG, commits, tags, and publishes a GitHub release.
+    (scripts): dart scripts/release.dart
 
 # --- Localization scripts ----------------------------------------------------
 gen-l10n:
