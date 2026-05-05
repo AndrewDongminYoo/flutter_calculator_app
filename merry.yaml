@@ -79,6 +79,16 @@ build:
       && open build/app/outputs/flutter-apk
       || echo "Build failed. Check build-error.log for details."
 
+# --- Version management -----------------------------------------------------
+version:
+  bump:
+    (description): Bumps the patch version in pubspec.yaml.
+    (scripts): node scripts/bump.js
+
+  release:
+    (description): Creates a patch release — bumps version, generates CHANGELOG, commits, tags, and publishes a GitHub release.
+    (scripts): npx release-it patch --config scripts/release-it.json
+
 # --- Localization scripts ----------------------------------------------------
 gen-l10n:
   (scripts): |

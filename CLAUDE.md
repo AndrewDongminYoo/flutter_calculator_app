@@ -17,7 +17,7 @@ flutter run --flavor development --target lib/main.dart
 # Code generation (freezed, json_serializable, flutter_gen, l10n)
 merry generate
 
-# Format + import sort
+# Format + import sort (dart fix, dart format, import_sorter)
 merry format
 
 # Tests with coverage
@@ -29,6 +29,10 @@ flutter test test/calculator_test.dart
 # CLI interfaces
 dart run calculator:interpreter          # interactive REPL
 dart run calculator:calculate "2+3*4"    # one-shot expression evaluation
+
+# Version management (scripts live in scripts/)
+merry version bump      # bumps pubspec.yaml patch version
+merry version release   # full release: bump → CHANGELOG → git tag → GitHub release
 
 # Production builds
 merry build ipa         # iOS archive + IPA

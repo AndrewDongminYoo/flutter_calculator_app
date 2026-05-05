@@ -6,11 +6,6 @@
     "lib": "lib",
     "test": "test"
   },
-  "scripts": {
-    "bump": "node bump.js",
-    "format": "prettier --write .",
-    "release": "release-it patch"
-  },
   "author": "<ydm2790@gmail.cim AndrewDongminYoo>",
   "license": "ISC",
   "engines": {
