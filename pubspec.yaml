@@ -41,9 +41,9 @@ dev_dependencies:
 import_sorter:
   emojis: true
 
-# https://github.com/frencojobs/derry
-# `dart pub global activate derry`
-scripts: derry.yaml
+# https://github.com/AndrewDongminYoo/merry
+# `dart pub global activate merry`
+scripts: merry.yaml
 
 flutter:
   uses-material-design: true
