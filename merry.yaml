@@ -32,7 +32,7 @@ bootstrap:
 generate:
   (description): Runs code generation builders and sorts imports to set up project files.
   (scripts):
-    - dart run build_runner build --delete-conflicting-outputs
+    - dart run build_runner build
     - $gen-l10n
 
 format:
