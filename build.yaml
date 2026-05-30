@@ -15,3 +15,7 @@ targets:
           make_collections_unmodifiable: true # default: true
           add_implicit_final: true # default: true
           generic_argument_factories: false # default: false
+      flutter_gen_runner:
+        options:
+          output: lib/gen/
+          line_length: 120
