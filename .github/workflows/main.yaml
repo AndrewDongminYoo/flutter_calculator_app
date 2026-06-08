@@ -71,7 +71,7 @@ jobs:
           lcov --remove coverage/lcov.info "**/*.g.dart" "**/l10n/gen/**.dart" -o coverage/lcov_filtered.info --ignore-errors unused
 
       - name: 📈 Upload filtered coverage to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage/lcov_filtered.info
