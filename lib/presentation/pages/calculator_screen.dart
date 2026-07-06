@@ -125,9 +125,12 @@ class CalculatorView extends StatelessWidget {
                   child: LayoutBuilder(
                     builder: (BuildContext context, BoxConstraints constraints) {
                       const gap = 12.0;
-                      const digitColor = Color(0xFF2B2B2D);
-                      const functionColor = Color(0xFF5C5C60);
-                      const operatorColor = Color(0xFFFFA00A);
+                      // iOS 계산기 팔레트에 맞춘 색상.
+                      const digitColor = Color(0xFF333333);
+                      const functionColor = Color(0xFFA5A5A5);
+                      const operatorColor = Color(0xFFFF9F0A);
+                      // iOS 함수 키(AC/±/%)는 밝은 회색 배경에 검정 글리프를 쓴다.
+                      const functionForeground = Colors.black;
                       // 4열 + 3 간격을 제외한 폭을 4등분한 것이 버튼 한 칸(unit)이다.
                       final unit = (constraints.maxWidth - gap * 3) / 4;
 
@@ -168,6 +171,7 @@ class CalculatorView extends StatelessWidget {
                                       ? ButtonType.clear
                                       : ButtonType.delete,
                                   buttonColor: functionColor,
+                                  foregroundColor: functionForeground,
                                   buttonPressed: (String val) {
                                     if (val == 'AC') {
                                       bloc.add(const CalculatorEvent.clear());
@@ -181,6 +185,7 @@ class CalculatorView extends StatelessWidget {
                                 CalculatorButton(
                                   button: ButtonType.plusMinus,
                                   buttonColor: functionColor,
+                                  foregroundColor: functionForeground,
                                   buttonPressed: (_) => bloc.add(const CalculatorEvent.flipSign()),
                                 ),
                               ),
@@ -188,6 +193,7 @@ class CalculatorView extends StatelessWidget {
                                 CalculatorButton(
                                   button: ButtonType.percent,
                                   buttonColor: functionColor,
+                                  foregroundColor: functionForeground,
                                   buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
                                 ),
                               ),

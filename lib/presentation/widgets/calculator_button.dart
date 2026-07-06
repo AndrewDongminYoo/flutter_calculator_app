@@ -15,6 +15,7 @@ class CalculatorButton extends StatelessWidget {
     this.isSelected = false,
     this.wide = false,
     this.contentPadding = EdgeInsets.zero,
+    this.foregroundColor = Colors.white,
   });
 
   final ButtonType button;
@@ -30,11 +31,14 @@ class CalculatorButton extends StatelessWidget {
   /// 자식(글리프) 주변 패딩. 넓은 '0' 키의 글리프를 첫 칸 위로 좌측 정렬할 때 사용한다.
   final EdgeInsetsGeometry contentPadding;
 
+  /// 글리프 색. iOS 함수 키(AC/±/%)는 밝은 회색 배경에 검정 글리프를 쓴다.
+  final Color foregroundColor;
+
   @override
   Widget build(BuildContext context) {
     // 선택된 연산자는 배경/전경 색을 반전한다.
-    final backgroundColor = isSelected ? Colors.white : buttonColor;
-    final foregroundColor = isSelected ? buttonColor : Colors.white;
+    final background = isSelected ? Colors.white : buttonColor;
+    final foreground = isSelected ? buttonColor : foregroundColor;
 
     // 부모(SizedBox)가 정한 크기를 채운다. 넓은 버튼은 알약형(StadiumBorder).
     return ElevatedButton(
@@ -45,14 +49,14 @@ class CalculatorButton extends StatelessWidget {
         shape: wide ? const StadiumBorder() : const CircleBorder(),
         minimumSize: Size.zero,
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: backgroundColor,
-        disabledBackgroundColor: backgroundColor,
+        backgroundColor: background,
+        disabledBackgroundColor: background,
         elevation: 0,
         padding: contentPadding,
       ),
       child: switch (button) {
         .delete => Assets.svgs.delete.svg(
-          colorFilter: ColorFilter.mode(foregroundColor, BlendMode.srcIn),
+          colorFilter: ColorFilter.mode(foreground, BlendMode.srcIn),
           semanticsLabel: button.name,
           width: 40,
           height: 40,
@@ -60,7 +64,7 @@ class CalculatorButton extends StatelessWidget {
         _ => Text(
           button.text,
           style: TextStyle(
-            color: foregroundColor,
+            color: foreground,
             fontFamily: FontFamily.sFProDisplay,
             fontSize: button.text.length > 1 ? 23 : 36,
             fontWeight: FontWeight.w500,
