@@ -22,6 +22,10 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
 
   @override
   Future<double> calculate(String expression) async {
+    // iPhone식 단항 퍼센트("50%" → "0.5")로 정규화한다. 로컬/원격 datasource가
+    // 모두 처리할 수 있도록 괄호 없이 리터럴 값으로 치환한다.
+    final normalized = _normalizePercent(expression);
+
     final result = await connectivity.checkConnectivity();
     final connected = result.any((ConnectivityResult con) => con != ConnectivityResult.none);
 
@@ -30,15 +34,26 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
 
     if (!connected) {
       // Offline status: Use local data source
-      return localDatasource.calculate(expression);
+      return localDatasource.calculate(normalized);
     } else {
       try {
         // Online status: Use remote data source
-        return remoteDatasource.calculate(expression);
+        return remoteDatasource.calculate(normalized);
       } catch (e) {
         // Use local data source when remote call fails
-        return localDatasource.calculate(expression);
+        return localDatasource.calculate(normalized);
       }
     }
+  }
+
+  /// 단항 퍼센트를 리터럴 분수로 변환한다.
+  ///
+  /// 예: `50%` → `0.5`, `89%*98%` → `0.89*0.98`.
+  /// 로컬 datasource가 괄호를 지원하지 않으므로 값 자체로 치환한다.
+  String _normalizePercent(String expression) {
+    return expression.replaceAllMapped(
+      RegExp(r'(\d+\.?\d*)%'),
+      (Match match) => '${double.parse(match.group(1)!) / 100}',
+    );
   }
 }

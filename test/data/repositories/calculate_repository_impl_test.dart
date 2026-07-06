@@ -7,6 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 // 🌎 Project imports:
+import 'package:calculator/data/datasources/calculator_local_datasource.dart';
 import 'package:calculator/data/repositories/calculate_repository_impl.dart';
 import '../../calculator_test.mocks.dart';
 
@@ -86,5 +87,27 @@ void main() {
     expect(actual, equals(result));
     verify(mockRemoteDatasource.calculate(expression));
     verifyNever(mockLocalDatasource.calculate(expression));
+  });
+
+  test('normalizes unary percent before delegating to a datasource', () async {
+    when(mockConnectivity.checkConnectivity()).thenAnswer((_) async => [ConnectivityResult.none]);
+    when(mockLocalDatasource.calculate('0.5')).thenAnswer((_) => 0.5);
+
+    final actual = await repository.calculate('50%');
+
+    expect(actual, equals(0.5));
+    verify(mockLocalDatasource.calculate('0.5'));
+  });
+
+  test('evaluates percent end to end through the real local datasource', () async {
+    final realRepository = CalculatorRepositoryImpl(
+      localDatasource: CalculatorLocalDatasource(),
+      remoteDatasource: mockRemoteDatasource,
+      connectivity: mockConnectivity,
+    );
+    when(mockConnectivity.checkConnectivity()).thenAnswer((_) async => [ConnectivityResult.none]);
+
+    expect(await realRepository.calculate('50%'), equals(0.5));
+    expect(await realRepository.calculate('200*10%'), equals(20.0));
   });
 }
