@@ -40,7 +40,7 @@ jobs:
 
     steps:
       - name: 📚 Git Checkout with Submodules
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
@@ -71,7 +71,7 @@ jobs:
           lcov --remove coverage/lcov.info "**/*.g.dart" "**/l10n/gen/**.dart" -o coverage/lcov_filtered.info --ignore-errors unused
 
       - name: 📈 Upload filtered coverage to Codecov
-        uses: codecov/codecov-action@v6
+        uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage/lcov_filtered.info
@@ -90,7 +90,7 @@ jobs:
 
     steps:
       - name: 📚 Git Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: 🪄 Spell Check
         uses: streetsidesoftware/cspell-action@v8.4.0
