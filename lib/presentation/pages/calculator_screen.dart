@@ -118,157 +118,136 @@ class CalculatorView extends StatelessWidget {
                     ],
                   ),
                 ),
-                // 버튼 영역
+                // 버튼 영역: iPhone처럼 4열 그리드에 '0'이 두 칸을 차지하도록
+                // unit 크기를 계산해 배치한다.
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  child: Column(
-                    children: [
-                      Row(
-                        spacing: 12,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  child: LayoutBuilder(
+                    builder: (BuildContext context, BoxConstraints constraints) {
+                      const gap = 12.0;
+                      const digitColor = Color(0xFF2B2B2D);
+                      const functionColor = Color(0xFF5C5C60);
+                      const operatorColor = Color(0xFFFFA00A);
+                      // 4열 + 3 간격을 제외한 폭을 4등분한 것이 버튼 한 칸(unit)이다.
+                      final unit = (constraints.maxWidth - gap * 3) / 4;
+
+                      SizedBox cell(Widget child, {bool wide = false}) {
+                        return SizedBox(
+                          width: wide ? unit * 2 + gap : unit,
+                          height: unit,
+                          child: child,
+                        );
+                      }
+
+                      CalculatorButton digit(ButtonType type) {
+                        return CalculatorButton(
+                          button: type,
+                          buttonColor: digitColor,
+                          buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
+                        );
+                      }
+
+                      CalculatorButton operatorButton(ButtonType type) {
+                        return CalculatorButton(
+                          button: type,
+                          buttonColor: operatorColor,
+                          isSelected: pendingOperator == type.text,
+                          buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
+                        );
+                      }
+
+                      return Column(
                         children: [
-                          CalculatorButton(
-                            button: state.result != '0' ? ButtonType.clear : ButtonType.delete,
-                            buttonColor: const Color(0xFF5C5C60),
-                            buttonPressed: (String val) {
-                              if (val == 'AC') {
-                                bloc.add(const CalculatorEvent.clear());
-                              } else {
-                                bloc.add(const CalculatorEvent.delete());
-                              }
-                            },
+                          Row(
+                            spacing: gap,
+                            children: [
+                              cell(
+                                CalculatorButton(
+                                  button: state.result != '0' ? ButtonType.clear : ButtonType.delete,
+                                  buttonColor: functionColor,
+                                  buttonPressed: (String val) {
+                                    if (val == 'AC') {
+                                      bloc.add(const CalculatorEvent.clear());
+                                    } else {
+                                      bloc.add(const CalculatorEvent.delete());
+                                    }
+                                  },
+                                ),
+                              ),
+                              cell(
+                                CalculatorButton(
+                                  button: ButtonType.plusMinus,
+                                  buttonColor: functionColor,
+                                  buttonPressed: (_) => bloc.add(const CalculatorEvent.flipSign()),
+                                ),
+                              ),
+                              cell(
+                                CalculatorButton(
+                                  button: ButtonType.percent,
+                                  buttonColor: functionColor,
+                                  buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
+                                ),
+                              ),
+                              cell(operatorButton(ButtonType.division)),
+                            ],
                           ),
-                          CalculatorButton(
-                            button: ButtonType.plusMinus,
-                            buttonColor: const Color(0xFF5C5C60),
-                            buttonPressed: (_) => bloc.add(const CalculatorEvent.flipSign()),
+                          const SizedBox(height: gap),
+                          Row(
+                            spacing: gap,
+                            children: [
+                              cell(digit(ButtonType.seven)),
+                              cell(digit(ButtonType.eight)),
+                              cell(digit(ButtonType.nine)),
+                              cell(operatorButton(ButtonType.multiple)),
+                            ],
                           ),
-                          CalculatorButton(
-                            button: ButtonType.percent,
-                            buttonColor: const Color(0xFF5C5C60),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
+                          const SizedBox(height: gap),
+                          Row(
+                            spacing: gap,
+                            children: [
+                              cell(digit(ButtonType.four)),
+                              cell(digit(ButtonType.five)),
+                              cell(digit(ButtonType.six)),
+                              cell(operatorButton(ButtonType.minus)),
+                            ],
                           ),
-                          CalculatorButton(
-                            button: ButtonType.division,
-                            buttonColor: const Color(0xFFFFA00A),
-                            isSelected: pendingOperator == ButtonType.division.text,
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
+                          const SizedBox(height: gap),
+                          Row(
+                            spacing: gap,
+                            children: [
+                              cell(digit(ButtonType.one)),
+                              cell(digit(ButtonType.two)),
+                              cell(digit(ButtonType.three)),
+                              cell(operatorButton(ButtonType.plus)),
+                            ],
                           ),
+                          const SizedBox(height: gap),
+                          Row(
+                            spacing: gap,
+                            children: [
+                              cell(
+                                CalculatorButton(
+                                  button: ButtonType.zero,
+                                  buttonColor: digitColor,
+                                  wide: true,
+                                  buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
+                                ),
+                                wide: true,
+                              ),
+                              cell(digit(ButtonType.dot)),
+                              cell(
+                                CalculatorButton(
+                                  button: ButtonType.result,
+                                  buttonColor: operatorColor,
+                                  buttonPressed: (_) => bloc.add(const CalculatorEvent.evaluate()),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 24),
                         ],
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        spacing: 12,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CalculatorButton(
-                            button: ButtonType.seven,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.eight,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.nine,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.multiple,
-                            buttonColor: const Color(0xFFFFA00A),
-                            isSelected: pendingOperator == ButtonType.multiple.text,
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        spacing: 12,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CalculatorButton(
-                            button: ButtonType.four,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.five,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.six,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.minus,
-                            buttonColor: const Color(0xFFFFA00A),
-                            isSelected: pendingOperator == ButtonType.minus.text,
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        spacing: 12,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CalculatorButton(
-                            button: ButtonType.one,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.two,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.three,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.plus,
-                            buttonColor: const Color(0xFFFFA00A),
-                            isSelected: pendingOperator == ButtonType.plus.text,
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 12),
-                      Row(
-                        spacing: 12,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          CalculatorButton(
-                            button: ButtonType.calculator,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) {},
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.zero,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.dot,
-                            buttonColor: const Color(0xFF2B2B2D),
-                            buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
-                          ),
-                          CalculatorButton(
-                            button: ButtonType.result,
-                            buttonColor: const Color(0xFFFFA00A),
-                            buttonPressed: (_) => bloc.add(const CalculatorEvent.evaluate()),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 24),
-                    ],
+                      );
+                    },
                   ),
                 ),
               ],

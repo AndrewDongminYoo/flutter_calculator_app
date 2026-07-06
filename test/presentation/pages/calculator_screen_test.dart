@@ -113,9 +113,6 @@ void main() {
     // FlipSign(+/-) 버튼 누름
     await tester.tapButton(ButtonType.plusMinus);
 
-    // empty 버튼 누름 (아무 기능도 하지 않음)
-    await tester.tapButton(ButtonType.calculator);
-
     // 음수로 바뀌었는지 확인
     expect(find.text('-7'), findsWidgets);
 
