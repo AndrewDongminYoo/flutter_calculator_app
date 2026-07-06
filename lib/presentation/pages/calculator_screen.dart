@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -17,6 +16,17 @@ import 'package:calculator/gen/fonts.gen.dart';
 import 'package:calculator/presentation/bloc/calculator_bloc.dart';
 import 'package:calculator/presentation/enums/button_type.dart';
 import 'package:calculator/presentation/widgets/calculator_button.dart';
+
+/// 식 말단이 산술 연산자로 끝나면 그 연산자 글리프를, 아니면 빈 문자열을 반환한다.
+///
+/// iPhone처럼 대기 중인 연산자 버튼을 강조하기 위해 사용한다.
+String _pendingOperator(String equation) {
+  if (equation.isEmpty) {
+    return '';
+  }
+  final last = equation[equation.length - 1];
+  return const ['÷', '×', '-', '+'].contains(last) ? last : '';
+}
 
 class CalculatorScreen extends StatelessWidget {
   const CalculatorScreen({super.key});
@@ -57,67 +67,56 @@ class CalculatorView extends StatelessWidget {
       backgroundColor: Colors.black,
       body: BlocBuilder<CalculatorBloc, CalculatorState>(
         builder: (BuildContext context, CalculatorState state) {
+          // 대기 중인 연산자(식 말단의 연산자)를 강조 표시에 사용한다.
+          final pendingOperator = _pendingOperator(state.equation);
           return SafeArea(
             bottom: false,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // 상단 메뉴 아이콘 (AppBar 대신)
-                Padding(
-                  padding: const EdgeInsets.only(left: 8, top: 8),
-                  child: Align(
-                    alignment: Alignment.topLeft,
-                    child: IconButton(
-                      icon: const Icon(
-                        CupertinoIcons.list_bullet,
-                        size: 36,
-                        color: Color(0xFFFFA00A),
+                // 계산식 및 결과 표시 영역 (키패드 바로 위에 하단 정렬)
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        width: context.getWidth(),
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: AutoSizeText(
+                          state.equation,
+                          maxLines: 1,
+                          minFontSize: 24,
+                          textAlign: TextAlign.right,
+                          style: const TextStyle(
+                            color: Colors.white54,
+                            fontFamily: FontFamily.sFProDisplay,
+                            fontSize: 48,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
                       ),
-                      onPressed: () {},
-                    ),
+                      const SizedBox(height: 8),
+                      Container(
+                        alignment: Alignment.bottomRight,
+                        width: context.getWidth(),
+                        padding: const EdgeInsets.symmetric(horizontal: 24),
+                        child: AutoSizeText(
+                          state.result,
+                          maxLines: 1,
+                          minFontSize: 40,
+                          textAlign: TextAlign.right,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontFamily: FontFamily.sFProDisplay,
+                            fontSize: 96,
+                            fontWeight: FontWeight.w200,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                    ],
                   ),
-                ),
-                // 계산식 및 결과 표시 영역
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      width: context.getWidth(),
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: AutoSizeText(
-                        state.equation,
-                        maxLines: 1,
-                        minFontSize: 24,
-                        textAlign: TextAlign.right,
-                        style: const TextStyle(
-                          color: Colors.white54,
-                          fontFamily: FontFamily.sFProDisplay,
-                          fontSize: 48,
-                          fontWeight: FontWeight.w300,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      alignment: Alignment.bottomRight,
-                      width: context.getWidth(),
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: AutoSizeText(
-                        state.result,
-                        maxLines: 1,
-                        minFontSize: 40,
-                        textAlign: TextAlign.right,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontFamily: FontFamily.sFProDisplay,
-                          fontSize: 96,
-                          fontWeight: FontWeight.w200,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                  ],
                 ),
                 // 버튼 영역
                 Padding(
@@ -152,6 +151,7 @@ class CalculatorView extends StatelessWidget {
                           CalculatorButton(
                             button: ButtonType.division,
                             buttonColor: const Color(0xFFFFA00A),
+                            isSelected: pendingOperator == ButtonType.division.text,
                             buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
                           ),
                         ],
@@ -179,6 +179,7 @@ class CalculatorView extends StatelessWidget {
                           CalculatorButton(
                             button: ButtonType.multiple,
                             buttonColor: const Color(0xFFFFA00A),
+                            isSelected: pendingOperator == ButtonType.multiple.text,
                             buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
                           ),
                         ],
@@ -206,6 +207,7 @@ class CalculatorView extends StatelessWidget {
                           CalculatorButton(
                             button: ButtonType.minus,
                             buttonColor: const Color(0xFFFFA00A),
+                            isSelected: pendingOperator == ButtonType.minus.text,
                             buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
                           ),
                         ],
@@ -233,6 +235,7 @@ class CalculatorView extends StatelessWidget {
                           CalculatorButton(
                             button: ButtonType.plus,
                             buttonColor: const Color(0xFFFFA00A),
+                            isSelected: pendingOperator == ButtonType.plus.text,
                             buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
                           ),
                         ],
