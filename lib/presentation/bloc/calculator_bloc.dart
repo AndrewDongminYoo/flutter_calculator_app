@@ -37,15 +37,32 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   }
 
   void _onFlipSign(FlipSign event, Emitter<CalculatorState> emit) {
-    // +/- 부호 전환
+    // +/- 부호 전환: 전체 식이 아니라 말단 피연산자에만 적용한다.
     final currentEquation = state.equation;
     if (currentEquation.isEmpty || currentEquation == '0') {
       return;
     }
-    if (currentEquation.startsWith('-')) {
-      emit(state.copyWith(equation: currentEquation.substring(1)));
+
+    // 식 끝의 숫자(피연산자)를 찾는다.
+    final match = RegExp(r'(\d*\.?\d+)$').firstMatch(currentEquation);
+    if (match == null) {
+      return;
+    }
+
+    final start = match.start;
+    final number = match.group(0)!;
+    final prefix = currentEquation.substring(0, start);
+
+    // 피연산자 바로 앞의 '-'가 (뺄셈이 아닌) 부호인지 판별한다.
+    final signedByMinus = start > 0 && currentEquation[start - 1] == '-';
+    final minusIsSign = signedByMinus && (start == 1 || '+-×÷*/'.contains(currentEquation[start - 2]));
+
+    if (minusIsSign) {
+      // 기존 부호 제거
+      emit(state.copyWith(equation: prefix.substring(0, prefix.length - 1) + number));
     } else {
-      emit(state.copyWith(equation: '-$currentEquation'));
+      // 부호 추가
+      emit(state.copyWith(equation: '$prefix-$number'));
     }
   }
 
@@ -82,8 +99,9 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
           expression: expression,
         ),
       );
-    } catch (e) {
-      emit(state.copyWith(result: e.runtimeType.toString(), expression: expression));
+    } catch (_) {
+      // Dart 예외 타입명을 노출하지 않고 사용자용 에러 라벨을 표시한다.
+      emit(state.copyWith(result: 'Error', expression: expression));
     }
   }
 }

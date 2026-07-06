@@ -193,7 +193,7 @@ void main() {
       act: (bloc) => bloc.add(const Evaluate()),
       expect: () => [
         predicate<CalculatorState>(
-          (state) => state.equation == 'invalid' && state.expression == 'invalid' && state.result == '_Exception',
+          (state) => state.equation == 'invalid' && state.expression == 'invalid' && state.result == 'Error',
         ),
       ],
       verify: (_) {
