@@ -80,7 +80,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   }
 
   Future<void> _onEvaluate(Evaluate event, Emitter<CalculatorState> emit) async {
-    final expression = state.equation.replaceAll('×', '*').replaceAll('÷', '/').replaceAll('%', '%');
+    final expression = state.equation.replaceAll('×', '*').replaceAll('÷', '/');
 
     try {
       var result = '${await _repository.calculate(expression)}';
