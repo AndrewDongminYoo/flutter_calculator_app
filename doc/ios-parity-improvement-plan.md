@@ -3,6 +3,23 @@
 Comparison of the current app (see `doc/images/`) against the stock iPhone Calculator (Apple), grounded in the current source.
 Each gap cites the responsible code so the plan is actionable rather than aesthetic.
 
+## Status
+
+The visible and functional parity gaps are shipped. Delivered across PRs #78–#83:
+
+- Error label instead of a raw exception name, and sign-flip on the trailing operand only (#78).
+- Removed the non-functional menu icon; pending-operator highlight (white background, orange glyph) (#78).
+- Wide `0` key on a unit-based keypad grid; removed the scientific placeholder (#79); `0` glyph left-aligned over the first column (#82).
+- Unary `%` evaluation, fixing the previous `UnsupportedError` (#80), including leading-dot literals like `.5%`.
+- `AC` on the empty screen, backspace while entering (#81).
+- iOS key color palette: digit `#333333`, function `#A5A5A5` with black glyphs, operator `#FF9F0A` (#83).
+
+Intentional non-goals:
+
+- **Haptics** — the stock iPhone Calculator has none, so adding them would diverge, not match.
+- **Contextual `%`** (`200 + 10%` = `220`) — needs evaluator-level running-total logic, not a normalization pass; deferred as a large, low-ROI change. Current behavior is unary (`N%` = `N / 100`).
+- **Two-line tape display** — kept deliberately (see Open decisions); not converged to the iPhone single-line model.
+
 ## Verdict
 
 The visual language is already close: dark background, circular buttons, orange operators, SF Pro Display, right-aligned auto-sizing display.
