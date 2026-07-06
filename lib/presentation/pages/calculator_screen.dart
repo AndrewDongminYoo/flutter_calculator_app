@@ -129,8 +129,6 @@ class CalculatorView extends StatelessWidget {
                       const digitColor = Color(0xFF333333);
                       const functionColor = Color(0xFFA5A5A5);
                       const operatorColor = Color(0xFFFF9F0A);
-                      // iOS 함수 키(AC/±/%)는 밝은 회색 배경에 검정 글리프를 쓴다.
-                      const functionForeground = Colors.black;
                       // 4열 + 3 간격을 제외한 폭을 4등분한 것이 버튼 한 칸(unit)이다.
                       final unit = (constraints.maxWidth - gap * 3) / 4;
 
@@ -159,20 +157,26 @@ class CalculatorView extends StatelessWidget {
                         );
                       }
 
+                      // iOS 함수 키(AC/⌫/±/%)는 밝은 회색 배경에 검정 글리프를 쓴다.
+                      CalculatorButton functionButton(ButtonType type, ValueSetter<String> onPressed) {
+                        return CalculatorButton(
+                          button: type,
+                          buttonColor: functionColor,
+                          foregroundColor: Colors.black,
+                          buttonPressed: onPressed,
+                        );
+                      }
+
                       return Column(
                         children: [
                           Row(
                             spacing: gap,
                             children: [
                               cell(
-                                CalculatorButton(
+                                functionButton(
                                   // 빈 화면이거나 결과가 있으면 AC(전체 지움), 식을 입력 중이면 ⌫(백스페이스).
-                                  button: (state.result != '0' || state.equation == '0')
-                                      ? ButtonType.clear
-                                      : ButtonType.delete,
-                                  buttonColor: functionColor,
-                                  foregroundColor: functionForeground,
-                                  buttonPressed: (String val) {
+                                  (state.result != '0' || state.equation == '0') ? ButtonType.clear : ButtonType.delete,
+                                  (String val) {
                                     if (val == 'AC') {
                                       bloc.add(const CalculatorEvent.clear());
                                     } else {
@@ -182,19 +186,12 @@ class CalculatorView extends StatelessWidget {
                                 ),
                               ),
                               cell(
-                                CalculatorButton(
-                                  button: ButtonType.plusMinus,
-                                  buttonColor: functionColor,
-                                  foregroundColor: functionForeground,
-                                  buttonPressed: (_) => bloc.add(const CalculatorEvent.flipSign()),
-                                ),
+                                functionButton(ButtonType.plusMinus, (_) => bloc.add(const CalculatorEvent.flipSign())),
                               ),
                               cell(
-                                CalculatorButton(
-                                  button: ButtonType.percent,
-                                  buttonColor: functionColor,
-                                  foregroundColor: functionForeground,
-                                  buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
+                                functionButton(
+                                  ButtonType.percent,
+                                  (String val) => bloc.add(CalculatorEvent.input(val)),
                                 ),
                               ),
                               cell(operatorButton(ButtonType.division)),
