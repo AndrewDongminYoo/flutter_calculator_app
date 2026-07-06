@@ -117,7 +117,7 @@ void main() {
       expect(backgroundColor, equals(testColor));
     });
 
-    testWidgets('maintains aspect ratio of 1:1', (WidgetTester tester) async {
+    testWidgets('uses a circle shape by default', (WidgetTester tester) async {
       await tester.pumpApp(
         Scaffold(
           body: Column(
@@ -132,8 +132,28 @@ void main() {
         ),
       );
 
-      final aspectRatio = tester.widget<AspectRatio>(find.byType(AspectRatio));
-      expect(aspectRatio.aspectRatio, equals(1.0));
+      final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
+      expect(button.style?.shape?.resolve({}), isA<CircleBorder>());
+    });
+
+    testWidgets('uses a stadium shape when wide', (WidgetTester tester) async {
+      await tester.pumpApp(
+        Scaffold(
+          body: Column(
+            children: [
+              CalculatorButton(
+                button: ButtonType.zero,
+                buttonColor: Colors.grey,
+                buttonPressed: onPressed,
+                wide: true,
+              ),
+            ],
+          ),
+        ),
+      );
+
+      final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
+      expect(button.style?.shape?.resolve({}), isA<StadiumBorder>());
     });
   });
 }
