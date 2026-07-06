@@ -48,11 +48,12 @@ class CalculatorRepositoryImpl implements CalculatorRepository {
 
   /// 단항 퍼센트를 리터럴 분수로 변환한다.
   ///
-  /// 예: `50%` → `0.5`, `89%*98%` → `0.89*0.98`.
-  /// 로컬 datasource가 괄호를 지원하지 않으므로 값 자체로 치환한다.
+  /// 예: `50%` → `0.5`, `89%*98%` → `0.89*0.98`, `.5%` → `0.005`.
+  /// 숫자 패턴은 선행 0이 없는 소수(`.5`)까지 포함한다. 로컬 datasource가
+  /// 괄호를 지원하지 않으므로 값 자체로 치환한다.
   String _normalizePercent(String expression) {
     return expression.replaceAllMapped(
-      RegExp(r'(\d+\.?\d*)%'),
+      RegExp(r'(\d+\.?\d*|\.\d+)%'),
       (Match match) => '${double.parse(match.group(1)!) / 100}',
     );
   }

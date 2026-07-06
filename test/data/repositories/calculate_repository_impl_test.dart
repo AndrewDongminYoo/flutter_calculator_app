@@ -109,5 +109,7 @@ void main() {
 
     expect(await realRepository.calculate('50%'), equals(0.5));
     expect(await realRepository.calculate('200*10%'), equals(20.0));
+    // 선행 0이 없는 소수 퍼센트(예: '.' '5' '%')도 처리한다.
+    expect(await realRepository.calculate('.5%'), equals(0.005));
   });
 }
