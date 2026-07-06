@@ -14,6 +14,7 @@ class CalculatorButton extends StatelessWidget {
     required this.buttonPressed,
     this.isSelected = false,
     this.wide = false,
+    this.contentPadding = EdgeInsets.zero,
   });
 
   final ButtonType button;
@@ -25,6 +26,9 @@ class CalculatorButton extends StatelessWidget {
 
   /// iPhone의 넓은 '0' 키처럼 두 칸을 차지하는 알약형 버튼으로 렌더링한다.
   final bool wide;
+
+  /// 자식(글리프) 주변 패딩. 넓은 '0' 키의 글리프를 첫 칸 위로 좌측 정렬할 때 사용한다.
+  final EdgeInsetsGeometry contentPadding;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +48,7 @@ class CalculatorButton extends StatelessWidget {
         backgroundColor: backgroundColor,
         disabledBackgroundColor: backgroundColor,
         elevation: 0,
-        padding: EdgeInsets.zero,
+        padding: contentPadding,
       ),
       child: switch (button) {
         .delete => Assets.svgs.delete.svg(

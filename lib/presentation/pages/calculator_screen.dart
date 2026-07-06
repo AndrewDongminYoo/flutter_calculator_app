@@ -233,6 +233,8 @@ class CalculatorView extends StatelessWidget {
                                   button: ButtonType.zero,
                                   buttonColor: digitColor,
                                   wide: true,
+                                  // iPhone처럼 '0' 글리프를 첫 칸 중앙(위 숫자 열과 정렬)에 둔다.
+                                  contentPadding: EdgeInsets.only(right: unit + gap),
                                   buttonPressed: (String val) => bloc.add(CalculatorEvent.input(val)),
                                 ),
                                 wide: true,
