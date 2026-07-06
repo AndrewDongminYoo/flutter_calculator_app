@@ -163,7 +163,10 @@ class CalculatorView extends StatelessWidget {
                             children: [
                               cell(
                                 CalculatorButton(
-                                  button: state.result != '0' ? ButtonType.clear : ButtonType.delete,
+                                  // 빈 화면이거나 결과가 있으면 AC(전체 지움), 식을 입력 중이면 ⌫(백스페이스).
+                                  button: (state.result != '0' || state.equation == '0')
+                                      ? ButtonType.clear
+                                      : ButtonType.delete,
                                   buttonColor: functionColor,
                                   buttonPressed: (String val) {
                                     if (val == 'AC') {

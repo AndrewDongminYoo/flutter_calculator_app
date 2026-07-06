@@ -93,6 +93,31 @@ void main() {
     expect(find.text('0'), findsWidgets); // 초기화 후 결과가 0인지 체크
   });
 
+  testWidgets('shows AC (not backspace) on the initial empty screen', (WidgetTester tester) async {
+    await tester.pumpApp(
+      BlocProvider<CalculatorBloc>(
+        create: (context) => CalculatorBloc(
+          repository: CalculatorRepositoryImpl(
+            localDatasource: mockLocalDatasource,
+            remoteDatasource: mockRemoteDatasource,
+            connectivity: mockConnectivity,
+          ),
+        ),
+        child: const CalculatorView(),
+      ),
+    );
+
+    final clearFinder = find.byWidgetPredicate(
+      (widget) => widget is CalculatorButton && widget.button == ButtonType.clear,
+    );
+    final deleteFinder = find.byWidgetPredicate(
+      (widget) => widget is CalculatorButton && widget.button == ButtonType.delete,
+    );
+
+    expect(clearFinder, findsOneWidget);
+    expect(deleteFinder, findsNothing);
+  });
+
   testWidgets('CalculatorScreen buttonPressed for delete and flipSign', (WidgetTester tester) async {
     await tester.pumpApp(
       BlocProvider<CalculatorBloc>(
