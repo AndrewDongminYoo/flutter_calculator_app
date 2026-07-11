@@ -1,5 +1,11 @@
 # Calculator
 
+<p align="center">
+  <img src="./doc/images/app_icon.png" alt="Calculator app icon" width="128" height="128">
+  <br>
+  <sub>App icon by <a href="https://macosicons.com/u/andrewjaguirre">andrewjaguirre</a> via <a href="https://macosicons.com">macOSicons</a></sub>
+</p>
+
 [![calculator][workflows_badge]][workflow_action]
 [![codecov][coverage_badges]][codecov_webpage]
 [![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
