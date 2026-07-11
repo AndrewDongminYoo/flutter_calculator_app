@@ -34,10 +34,6 @@ lint:
     - trufflehog@3.93.3
     - yamllint@1.38.0
   ignore:
-    - linters:
-        - osv-scanner
-      paths:
-        - "**/Podfile.lock"
     - paths:
         - android/gradlew
       linters:
