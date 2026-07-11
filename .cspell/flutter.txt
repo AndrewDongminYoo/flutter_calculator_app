@@ -1,6 +1,7 @@
 # Custom Dictionary Words
 allprojects
 amannn
+andrewjaguirre
 androidx
 APARTMENTTHREADED
 APIENTRY
