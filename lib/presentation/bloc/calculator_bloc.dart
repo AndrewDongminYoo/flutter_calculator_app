@@ -83,15 +83,17 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     final expression = state.equation.replaceAll('×', '*').replaceAll('÷', '/');
 
     try {
-      var result = '${await _repository.calculate(expression)}';
+      final value = await _repository.calculate(expression);
 
-      // 소수점 제거 로직(소수점 이하가 0이면 정수로 표시)
-      if (result.contains('.')) {
-        final splitDecimal = result.split('.');
-        if (int.parse(splitDecimal[1]) == 0) {
-          result = splitDecimal[0];
-        }
+      // 0으로 나누기 등으로 나온 비유한 값(Infinity/NaN)은 사용자용 에러 라벨로 표시한다.
+      if (!value.isFinite) {
+        emit(state.copyWith(result: 'Error', expression: expression));
+        return;
       }
+
+      // 소수점 이하가 0이면 정수로 표시한다. double.toString() 문자열을 파싱하면 지수 표기(1e-7 등)에서
+      // 깨지므로 수치로 판정하고, toStringAsFixed(0)으로 정수 문자열을 만든다(큰 값에서도 오버플로가 없다).
+      final result = value == value.roundToDouble() ? value.toStringAsFixed(0) : '$value';
 
       emit(
         state.copyWith(

@@ -117,7 +117,7 @@ void main() {
     );
 
     blocTest<CalculatorBloc, CalculatorState>(
-      'handles invalid expressions gracefully',
+      'emits Error label when the result is non-finite (division by zero)',
       build: () {
         when(mockRepository.calculate('1/0')).thenAnswer((_) async => double.infinity);
         return calculatorBloc;
@@ -125,13 +125,33 @@ void main() {
       seed: () => const CalculatorState(equation: '1÷0'),
       act: (bloc) => bloc.add(const Evaluate()),
       expect: () => [
-        predicate<CalculatorState>(
-          (state) =>
-              state.equation == '1÷0' && state.expression == '1/0' && double.parse(state.result) == double.infinity,
-        ),
+        const CalculatorState(equation: '1÷0', expression: '1/0', result: 'Error'),
       ],
       verify: (_) {
         verify(mockRepository.calculate('1/0')).called(1);
+      },
+    );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'renders the value (not Error) when the result uses exponent notation',
+      build: () {
+        // 1 / 7000000 == 1.4285714285714285e-7 — toString()이 지수 표기라 소수점 파싱이 깨졌었다.
+        when(mockRepository.calculate('1/7000000')).thenAnswer((_) async => 1 / 7000000);
+        return calculatorBloc;
+      },
+      seed: () => const CalculatorState(equation: '1÷7000000'),
+      act: (bloc) => bloc.add(const Evaluate()),
+      expect: () => [
+        predicate<CalculatorState>(
+          (state) =>
+              state.equation == '1÷7000000' &&
+              state.expression == '1/7000000' &&
+              state.result != 'Error' &&
+              double.parse(state.result) == 1 / 7000000,
+        ),
+      ],
+      verify: (_) {
+        verify(mockRepository.calculate('1/7000000')).called(1);
       },
     );
 
