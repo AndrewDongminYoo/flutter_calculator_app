@@ -240,5 +240,55 @@ void main() {
         verify(mockRepository.calculate('4*2.5')).called(1);
       },
     );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'Paste keeps only digits, dot and sign, replacing the whole equation',
+      build: () => calculatorBloc,
+      seed: () => const CalculatorState(equation: '99'),
+      act: (bloc) => bloc.add(const Paste('₩1,234.50 원')),
+      expect: () => [
+        const CalculatorState(equation: '1234.50'),
+      ],
+    );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'Paste preserves a leading zero instead of swallowing it',
+      build: () => calculatorBloc,
+      act: (bloc) => bloc.add(const Paste('0.5')),
+      expect: () => [
+        const CalculatorState(equation: '0.5'),
+      ],
+    );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'Paste emits nothing when the text has no digits',
+      build: () => calculatorBloc,
+      act: (bloc) => bloc.add(const Paste('없음')),
+      expect: () => <CalculatorState>[],
+    );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'hasResult stays true when the answer is zero',
+      build: () {
+        when(mockRepository.calculate('2-2')).thenAnswer((_) async => 0.0);
+        return calculatorBloc;
+      },
+      seed: () => const CalculatorState(equation: '2-2'),
+      act: (bloc) => bloc.add(const Evaluate()),
+      verify: (bloc) {
+        expect(bloc.state.result, equals('0'));
+        expect(bloc.state.hasResult, isTrue);
+      },
+    );
+
+    blocTest<CalculatorBloc, CalculatorState>(
+      'hasResult becomes false once the equation is edited again',
+      build: () => calculatorBloc,
+      seed: () => const CalculatorState(equation: '2+3', expression: '2+3', result: '5'),
+      act: (bloc) => bloc.add(const Input('7')),
+      verify: (bloc) {
+        expect(bloc.state.hasResult, isFalse);
+      },
+    );
   });
 }

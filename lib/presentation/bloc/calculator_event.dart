@@ -16,4 +16,7 @@ class CalculatorEvent with _$CalculatorEvent {
 
   // = 입력 (수식 계산)
   const factory CalculatorEvent.evaluate() = Evaluate;
+
+  // 클립보드 텍스트를 식으로 붙여넣기 (숫자로 정제한 뒤 식 전체를 대체)
+  const factory CalculatorEvent.paste(String text) = Paste;
 }

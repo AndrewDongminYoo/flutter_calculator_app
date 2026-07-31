@@ -1,4 +1,8 @@
+// 🎯 Dart imports:
+import 'dart:async';
+
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -28,6 +32,65 @@ String _pendingOperator(String equation) {
   return const ['÷', '×', '-', '+'].contains(last) ? last : '';
 }
 
+/// 식과 결과를 같은 규격(화면 폭 전체, 오른쪽 아래 정렬, 한 줄 축소)으로 표시한다.
+Widget _display(BuildContext context, String value, {required double minFontSize, required TextStyle style}) {
+  return Container(
+    alignment: Alignment.bottomRight,
+    width: context.getWidth(),
+    padding: const EdgeInsets.symmetric(horizontal: 24),
+    child: AutoSizeText(value, maxLines: 1, minFontSize: minFontSize, textAlign: TextAlign.right, style: style),
+  );
+}
+
+/// 결과 텍스트를 롱탭했을 때 iOS 네이티브 스타일의 복사 메뉴를 표시한다.
+///
+/// bloc과 로케일은 화면 컨텍스트에서 미리 읽는다. 메뉴는 루트 오버레이(= BlocProvider 바깥)에
+/// 삽입되므로 빌더 컨텍스트에서는 둘 다 조회할 수 없다.
+void _showCopyMenu(BuildContext context, Offset globalPosition, CalculatorState state) {
+  final bloc = context.read<CalculatorBloc>();
+  final localizations = CupertinoLocalizations.of(context);
+  // 계산된 결과가 있을 때만 복사를 제공하고, 그 외에는 붙여넣기를 제공한다.
+  final canCopy = state.hasResult;
+
+  void close() => ContextMenuController.removeAny();
+
+  Future<void> copy() async {
+    await Clipboard.setData(ClipboardData(text: state.result));
+    close();
+  }
+
+  Future<void> paste() async {
+    final data = await Clipboard.getData(Clipboard.kTextPlain);
+    if (data?.text case final pasted?) {
+      bloc.add(CalculatorEvent.paste(pasted));
+    }
+    close();
+  }
+
+  unawaited(HapticFeedback.mediumImpact());
+  ContextMenuController().show(
+    context: context,
+    contextMenuBuilder: (_) => Stack(
+      children: [
+        // 메뉴 외부를 탭하면 닫힘
+        Positioned.fill(
+          child: GestureDetector(onTapDown: (_) => close(), behavior: HitTestBehavior.opaque),
+        ),
+        CupertinoTextSelectionToolbar(
+          anchorAbove: globalPosition - const Offset(0, 8),
+          anchorBelow: globalPosition + const Offset(0, 8),
+          children: [
+            CupertinoTextSelectionToolbarButton(
+              onPressed: canCopy ? copy : paste,
+              child: Text(canCopy ? localizations.copyButtonLabel : localizations.pasteButtonLabel),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
 class CalculatorScreen extends StatelessWidget {
   const CalculatorScreen({super.key});
 
@@ -55,14 +118,6 @@ class CalculatorView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<CalculatorBloc>();
 
-    // iOS 스타일 상태바 설정 (하얀색 아이콘)
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-        statusBarIconBrightness: Brightness.light,
-      ),
-    );
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: BlocBuilder<CalculatorBloc, CalculatorState>(
@@ -79,33 +134,24 @@ class CalculatorView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Container(
-                        alignment: Alignment.bottomRight,
-                        width: context.getWidth(),
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: AutoSizeText(
-                          state.equation,
-                          maxLines: 1,
-                          minFontSize: 24,
-                          textAlign: TextAlign.right,
-                          style: const TextStyle(
-                            color: Colors.white54,
-                            fontFamily: FontFamily.sFProDisplay,
-                            fontSize: 48,
-                            fontWeight: FontWeight.w300,
-                          ),
+                      _display(
+                        context,
+                        state.equation,
+                        minFontSize: 24,
+                        style: const TextStyle(
+                          color: Colors.white54,
+                          fontFamily: FontFamily.sFProDisplay,
+                          fontSize: 48,
+                          fontWeight: FontWeight.w300,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Container(
-                        alignment: Alignment.bottomRight,
-                        width: context.getWidth(),
-                        padding: const EdgeInsets.symmetric(horizontal: 24),
-                        child: AutoSizeText(
+                      GestureDetector(
+                        onLongPressStart: (details) => _showCopyMenu(context, details.globalPosition, state),
+                        child: _display(
+                          context,
                           state.result,
-                          maxLines: 1,
                           minFontSize: 40,
-                          textAlign: TextAlign.right,
                           style: const TextStyle(
                             color: Colors.white,
                             fontFamily: FontFamily.sFProDisplay,
@@ -175,7 +221,7 @@ class CalculatorView extends StatelessWidget {
                               cell(
                                 functionButton(
                                   // 빈 화면이거나 결과가 있으면 AC(전체 지움), 식을 입력 중이면 ⌫(백스페이스).
-                                  (state.result != '0' || state.equation == '0') ? ButtonType.clear : ButtonType.delete,
+                                  (state.hasResult || state.equation == '0') ? ButtonType.clear : ButtonType.delete,
                                   (String val) {
                                     if (val == 'AC') {
                                       bloc.add(const CalculatorEvent.clear());

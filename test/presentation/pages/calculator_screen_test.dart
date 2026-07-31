@@ -206,9 +206,13 @@ void main() {
     // 결과가 1인지 확인
     expect(find.text('1'), findsWidgets);
 
-    // 마지막에 clear(AC)로 초기화
-    await tester.tapButton(ButtonType.minus);
+    // 결과가 나온 직후에는 AC(전체 지움)가 노출된다.
     await tester.tapButton(ButtonType.clear);
+    expect(find.text('0'), findsWidgets);
+
+    // 식을 이어서 입력하면 함수키가 ⌫(백스페이스)로 바뀐다.
+    await tester.tapButton(ButtonType.minus);
+    await tester.tapButton(ButtonType.delete);
 
     // 결과가 0인지 확인
     expect(find.text('0'), findsWidgets);

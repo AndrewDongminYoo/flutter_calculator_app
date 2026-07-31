@@ -18,6 +18,7 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     on<FlipSign>(_onFlipSign);
     on<Input>(_onInput);
     on<Evaluate>(_onEvaluate);
+    on<Paste>(_onPaste);
   }
 
   final CalculatorRepository _repository;
@@ -32,7 +33,8 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     final currentEquation = state.equation;
     if (currentEquation.isNotEmpty && currentEquation != '0') {
       final newEquation = currentEquation.length > 1 ? currentEquation.substring(0, currentEquation.length - 1) : '0';
-      emit(state.copyWith(equation: newEquation));
+      // 식이 바뀌었으므로 직전 계산 결과는 더 이상 이 식의 결과가 아니다.
+      emit(state.copyWith(equation: newEquation, expression: ''));
     }
   }
 
@@ -59,10 +61,10 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
 
     if (minusIsSign) {
       // 기존 부호 제거
-      emit(state.copyWith(equation: prefix.substring(0, prefix.length - 1) + number));
+      emit(state.copyWith(equation: prefix.substring(0, prefix.length - 1) + number, expression: ''));
     } else {
       // 부호 추가
-      emit(state.copyWith(equation: '$prefix-$number'));
+      emit(state.copyWith(equation: '$prefix-$number', expression: ''));
     }
   }
 
@@ -71,12 +73,22 @@ class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
     final buttonText = event.input;
     final currentEquation = state.equation;
 
+    // 식이 바뀌었으므로 직전 계산 결과는 더 이상 이 식의 결과가 아니다.
     if (currentEquation == '0') {
       // 0인 상태에서 새로 입력 시 해당 값으로 대체
-      emit(state.copyWith(equation: buttonText));
+      emit(state.copyWith(equation: buttonText, expression: ''));
     } else {
-      emit(state.copyWith(equation: currentEquation + buttonText));
+      emit(state.copyWith(equation: currentEquation + buttonText, expression: ''));
     }
+  }
+
+  void _onPaste(Paste event, Emitter<CalculatorState> emit) {
+    // 클립보드에는 통화 기호나 천 단위 구분자가 섞여 있을 수 있으므로 숫자 모양만 남긴다.
+    final cleaned = event.text.replaceAll(RegExp('[^0-9.-]'), '');
+    if (cleaned.isEmpty) {
+      return;
+    }
+    emit(state.copyWith(equation: cleaned, result: '0', expression: ''));
   }
 
   Future<void> _onEvaluate(Evaluate event, Emitter<CalculatorState> emit) async {

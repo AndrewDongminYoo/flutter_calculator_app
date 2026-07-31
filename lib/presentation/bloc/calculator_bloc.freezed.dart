@@ -126,6 +126,28 @@ class Evaluate implements CalculatorEvent {
 }
 
 /// @nodoc
+
+class Paste implements CalculatorEvent {
+  const Paste(this.text);
+
+  final String text;
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is Paste && (identical(other.text, text) || other.text == text));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, text);
+
+  @override
+  String toString() {
+    return 'CalculatorEvent.paste(text: $text)';
+  }
+}
+
+/// @nodoc
 mixin _$CalculatorState {
   String get equation;
   String get result;
@@ -206,12 +228,12 @@ class _$CalculatorStateCopyWithImpl<$Res> implements $CalculatorStateCopyWith<$R
 
 /// @nodoc
 
-class _CalculatorState implements CalculatorState {
+class _CalculatorState extends CalculatorState {
   const _CalculatorState({
     this.equation = '0',
     this.result = '0',
     this.expression = '',
-  });
+  }) : super._();
 
   @override
   @JsonKey()
