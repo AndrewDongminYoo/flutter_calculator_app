@@ -55,9 +55,7 @@ jobs:
           very_good packages get --recursive --ignore="!*"
 
       - name: ✨ Check Formatting
-        run: |
-          git restore lib/l10n/gen/app_localizations*.dart
-          dart format --line-length 120 --set-exit-if-changed lib test
+        run: dart format --line-length 120 --set-exit-if-changed lib test
 
       - name: 🕵️ Analyze
         run: flutter analyze lib test
@@ -68,7 +66,7 @@ jobs:
       - name: 🎯 Filter Coverage Files
         run: |
           sudo apt-get update && sudo apt-get install -y lcov
-          lcov --remove coverage/lcov.info "**/*.g.dart" "**/l10n/gen/**.dart" -o coverage/lcov_filtered.info --ignore-errors unused
+          lcov --remove coverage/lcov.info "**/*.g.dart" -o coverage/lcov_filtered.info --ignore-errors unused
 
       - name: 📈 Upload filtered coverage to Codecov
         uses: codecov/codecov-action@v7
