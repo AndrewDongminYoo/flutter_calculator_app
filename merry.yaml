@@ -33,7 +33,6 @@ generate:
   (description): Runs code generation builders and sorts imports to set up project files.
   (scripts):
     - dart run build_runner build
-    - $gen-l10n
 
 format:
   (description): Applies automated fixes, sorts imports, and formats the codebase to ensure consistent code quality.
@@ -86,17 +85,3 @@ version:
   release:
     (description): Bumps version, generates CHANGELOG, commits, tags, and publishes a GitHub release.
     (scripts): dart scripts/release.dart
-
-# --- Localization scripts ----------------------------------------------------
-gen-l10n:
-  (scripts): |
-    flutter gen-l10n \
-      --format \
-      --arb-dir=lib/l10n/arb \
-      --template-arb-file=app_ko.arb \
-      --output-localization-file=app_localizations.dart \
-      --output-dir=lib/l10n/gen \
-      --required-resource-attributes \
-      --no-nullable-getter \
-      --preferred-supported-locales=ko,en \
-      --header-file=gen_header
