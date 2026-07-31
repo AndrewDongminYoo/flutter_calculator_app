@@ -65,6 +65,14 @@ flutter:
         - asset: assets/fonts/SFProDisplay_Regular.otf
           weight: 400
 
+  config:
+    enable-android: true
+    enable-ios: true
+    enable-macos-desktop: true
+    enable-web: true
+    cli-animations: false
+    enable-swift-package-manager: true
+
 # https://pub.dev/packages/flutter_gen_runner
 flutter_gen:
   line_length: 120 # Optional (default: 80)
