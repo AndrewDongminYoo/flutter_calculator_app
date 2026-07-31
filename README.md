@@ -202,14 +202,13 @@ The project follows a modular structure:
 
 ```log
 lib/
-├── app/                         # Core app files
+├── app/                         # MaterialApp root
 ├── core/                        # Shared utilities
-├── features/                    # Feature-based modular structure
-│   └── calculator/              # Calculator feature
-│       ├── data/                # Data layer (datasources, models)
-│       ├── domain/              # Domain layer (entities, usecases)
-│       ├── presentation/        # Presentation layer (UI, CLI)
-├── l10n/                        # Localization resources
+├── data/                        # Data layer (datasources, repository impl)
+├── domain/                      # Domain layer (repository interface)
+├── presentation/                # Presentation layer (bloc, UI, CLI)
+├── gen/                         # flutter_gen output — do not edit
+└── main.dart                    # App entry point
 ```
 
 ---
@@ -296,46 +295,13 @@ Result: 5.0
 
 ## Localization 🌐
 
-This project supports multiple locales:
+The calculator draws only glyphs and digits, so it ships no ARB files of its own.
+`lib/app/app.dart` registers the three `flutter_localizations` delegates and declares
+`supportedLocales: [ko, en]`, which is what makes SDK-provided labels — such as the
+copy/paste menu on the result display — follow the device locale.
 
-### Adding New Locales
-
-1. Add ARB files in `lib/l10n/arb` for the new locale:
-
-```log
-├── l10n
-│   ├── arb
-│   │   ├── app_en.arb
-│   │   └── app_ko.arb
-```
-
-2. Update localized strings in each file:
-
-`app_en.arb`
-
-```arb
-{
-    "@@locale": "en",
-    "appTitle": "Calculator"
-}
-```
-
-`app_ko.arb`
-
-```arb
-{
-    "@@locale": "ko",
-    "appTitle": "계산기"
-}
-```
-
-3. Generate the localizations:
-
-```sh
-flutter gen-l10n --arb-dir="lib/l10n/arb"
-```
-
-Alternatively, run `flutter run` and code generation will take place automatically.
+To add app-owned strings later, create `lib/l10n/arb/app_ko.arb` and `app_en.arb`, point
+a `l10n.yaml` at them, and run `flutter gen-l10n`.
 
 ## License
 

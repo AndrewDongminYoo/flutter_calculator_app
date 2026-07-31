@@ -78,6 +78,7 @@ Each phase is independently shippable and verifiable.
 
 1. Map evaluation failures to a user-facing `Error` string (l10n key), instead of `e.runtimeType.toString()`.
    → verify: enter `1/0` and an unsupported expression; display reads `Error`, not `UnsupportedError`.
+   Note: the app-owned l10n scaffolding was removed on 2026-07-31; using an l10n key here means re-adding ARB files and a `l10n.yaml` first.
 2. Implement `%` semantics.
    Decide unary (`n%` → `n/100`) vs contextual (`a + b%` → `a + a*b/100`); unary is simpler and covers the common case.
    → verify: `50 %` → `0.5`; no exception.
