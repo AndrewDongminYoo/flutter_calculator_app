@@ -10,7 +10,7 @@ import 'package:calculator/presentation/pages/calculator_screen.dart';
 
 void main() {
   group('App', () {
-    testWidgets('renders CounterPage', (WidgetTester tester) async {
+    testWidgets('renders CalculatorScreen', (WidgetTester tester) async {
       // Calculator is portrait-only; default test surface (800×600) triggers
       // overflow because AspectRatio(1) buttons become 185px tall × 5 rows.
       tester.view.physicalSize = const Size(1170, 2532); // 390×844 logical at 3.0 dpr

@@ -2,10 +2,8 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-// 🌎 Project imports:
-import 'package:calculator/l10n/gen/app_localizations.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(Widget widget) {
@@ -18,8 +16,12 @@ extension PumpApp on WidgetTester {
 
     return pumpWidget(
       MaterialApp(
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+        ],
+        supportedLocales: const [Locale('ko'), Locale('en')],
         home: widget,
       ),
     );

@@ -3,13 +3,14 @@ import 'dart:async';
 import 'dart:developer';
 
 // 🐦 Flutter imports:
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 
 // 🌎 Project imports:
-import 'package:calculator/app/view/app.dart';
+import 'package:calculator/app/app.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -34,7 +35,15 @@ Future<void> main() async {
 
   Bloc.observer = const AppBlocObserver();
 
-  // Add cross-flavor configuration here
+  // 검정 배경 위에 흰색 상태바 아이콘 (iOS 계산기 스타일). 빌드마다 부를 필요가 없어
+  // runApp 전에 한 번만 설정한다.
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarBrightness: Brightness.dark,
+      statusBarIconBrightness: Brightness.light,
+      statusBarColor: Color(0x00000000),
+    ),
+  );
 
   runApp(const App());
 }
