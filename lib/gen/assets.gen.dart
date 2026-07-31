@@ -46,9 +46,7 @@ class $AssetsSvgsGen {
   List<SvgGenImage> get values => [calculator, delete];
 }
 
-class Assets {
-  const Assets._();
-
+abstract final class Assets {
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsSvgsGen svgs = $AssetsSvgsGen();
 }
