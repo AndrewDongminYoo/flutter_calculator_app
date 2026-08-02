@@ -31,20 +31,20 @@ A few others are real defects (raw exception text leaking to the UI, broken `%`)
 
 Severity: **P1** breaks parity or is a defect, **P2** noticeable divergence, **P3** polish.
 
-| # | Gap | iPhone behavior | Current behavior | Evidence | Sev |
-|---|-----|-----------------|------------------|----------|-----|
-| 1 | Wide `0` key | `0` spans two columns, left-aligned digit | `0` is a single circle | `calculator_screen.dart:250-254` | P1 |
-| 2 | Placeholder key | No extra key; `0` fills the slot | Dead 🧮 button occupies the freed cell (`onPressed: {}`) | `calculator_screen.dart:245-249`, `button_type.dart` `calculator('')` | P1 |
-| 3 | Error text | Shows `Error` | Shows raw `UnsupportedError` (Dart type name) | `calculator_bloc.dart:86` (`e.runtimeType.toString()`) | P1 |
-| 4 | `%` operator | Applies percent to current operand | No-op `replaceAll('%','%')` → local eval throws → `UnsupportedError` | `calculator_bloc.dart:66`; screenshot 3 | P1 |
-| 5 | Operator selected state | Pressed operator inverts (white bg, orange glyph) until next input | Operators are static orange, no pending-op indicator | `calculator_screen.dart:152-156` etc.; no `selectedOperator` in state | P2 |
-| 6 | Thousands separators | `44,253,432` | `44253432` (raw string) | `calculator_screen.dart:106` renders `state.result` verbatim | P2 |
-| 7 | Live-input display | Big number reflects what you are typing | Big number stays `0` while typing; input grows in the small gray line | `calculator_screen.dart:84-118` (equation = small, result = large) | P2 |
-| 8 | Clear key semantics | Empty → `AC`; after entry → `C` (clears current entry only) | `result=='0'` → ⌫ delete icon; else `AC` (delete-based, not AC/C) | `calculator_screen.dart:132-140` | P2 |
-| 9 | Top-left menu icon | Not present in the standard keypad | Non-functional orange list icon | `calculator_screen.dart:70-78` (`onPressed: {}`) | P2 |
-| 10 | Sign flip scope | Flips only the current operand | Prefixes `-` to the whole equation string (`12+3` → `-12+3`) | `calculator_bloc.dart:39-50` | P3 |
-| 11 | Press feedback | Button dims on touch + haptic tick | Default Material ripple, no haptic | `calculator_button.dart:26-38` | P3 |
-| 12 | Function-key gray | iOS `#A5A5A5` (light gray) | `#5C5C60` (darker) | `calculator_screen.dart:133,144,149` | P3 |
+| #   | Gap                     | iPhone behavior                                                    | Current behavior                                                      | Evidence                                                              | Sev |
+| --- | ----------------------- | ------------------------------------------------------------------ | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --- |
+| 1   | Wide `0` key            | `0` spans two columns, left-aligned digit                          | `0` is a single circle                                                | `calculator_screen.dart:250-254`                                      | P1  |
+| 2   | Placeholder key         | No extra key; `0` fills the slot                                   | Dead 🧮 button occupies the freed cell (`onPressed: {}`)              | `calculator_screen.dart:245-249`, `button_type.dart` `calculator('')` | P1  |
+| 3   | Error text              | Shows `Error`                                                      | Shows raw `UnsupportedError` (Dart type name)                         | `calculator_bloc.dart:86` (`e.runtimeType.toString()`)                | P1  |
+| 4   | `%` operator            | Applies percent to current operand                                 | No-op `replaceAll('%','%')` → local eval throws → `UnsupportedError`  | `calculator_bloc.dart:66`; screenshot 3                               | P1  |
+| 5   | Operator selected state | Pressed operator inverts (white bg, orange glyph) until next input | Operators are static orange, no pending-op indicator                  | `calculator_screen.dart:152-156` etc.; no `selectedOperator` in state | P2  |
+| 6   | Thousands separators    | `44,253,432`                                                       | `44253432` (raw string)                                               | `calculator_screen.dart:106` renders `state.result` verbatim          | P2  |
+| 7   | Live-input display      | Big number reflects what you are typing                            | Big number stays `0` while typing; input grows in the small gray line | `calculator_screen.dart:84-118` (equation = small, result = large)    | P2  |
+| 8   | Clear key semantics     | Empty → `AC`; after entry → `C` (clears current entry only)        | `result=='0'` → ⌫ delete icon; else `AC` (delete-based, not AC/C)     | `calculator_screen.dart:132-140`                                      | P2  |
+| 9   | Top-left menu icon      | Not present in the standard keypad                                 | Non-functional orange list icon                                       | `calculator_screen.dart:70-78` (`onPressed: {}`)                      | P2  |
+| 10  | Sign flip scope         | Flips only the current operand                                     | Prefixes `-` to the whole equation string (`12+3` → `-12+3`)          | `calculator_bloc.dart:39-50`                                          | P3  |
+| 11  | Press feedback          | Button dims on touch + haptic tick                                 | Default Material ripple, no haptic                                    | `calculator_button.dart:26-38`                                        | P3  |
+| 12  | Function-key gray       | iOS `#A5A5A5` (light gray)                                         | `#5C5C60` (darker)                                                    | `calculator_screen.dart:133,144,149`                                  | P3  |
 
 ## Two buckets — defects vs intentional divergence
 

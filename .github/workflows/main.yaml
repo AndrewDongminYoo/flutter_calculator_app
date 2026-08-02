@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: 🤖 Ensure Commit is Semantic
         if: github.event_name == 'pull_request'
-        uses: amannn/action-semantic-pull-request@v6.1.1
+        uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
         with:
           validateSingleCommit: false
           ignoreLabels: |
@@ -40,10 +40,10 @@ jobs:
 
     steps:
       - name: 📚 Git Checkout with Submodules
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: 🐦 Setup Flutter
-        uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
         with:
           channel: stable
           cache: true
@@ -69,7 +69,7 @@ jobs:
           lcov --remove coverage/lcov.info "**/*.g.dart" -o coverage/lcov_filtered.info --ignore-errors unused
 
       - name: 📈 Upload filtered coverage to Codecov
-        uses: codecov/codecov-action@v7
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage/lcov_filtered.info
@@ -88,10 +88,10 @@ jobs:
 
     steps:
       - name: 📚 Git Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: 🪄 Spell Check
-        uses: streetsidesoftware/cspell-action@v8.4.0
+        uses: streetsidesoftware/cspell-action@de2a73e963e7443969755b648a1008f77033c5b2 # v8.4.0
         with:
           incremental_files_only: false
           root: .
