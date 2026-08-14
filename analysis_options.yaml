@@ -56,6 +56,14 @@ analyzer:
   errors:
     cascade_invocations: ignore
     dangling_library_doc_comments: ignore
+  exclude:
+    - build/**
+    - android/**
+    - ios/**
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
   plugins:
     - custom_lint
 
