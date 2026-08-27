@@ -38,8 +38,8 @@ format:
   (description): Applies automated fixes, sorts imports, and formats the codebase to ensure consistent code quality.
   (scripts):
     - dart fix --apply
-    - dart format --line-length 120 .
     - dart run import_sorter:main
+    - dart format --line-length 120 .
 
 hard:
   (description): Forces an upgrade of Flutter and its packages to their latest versions and updates Swift package dependencies for iOS.
