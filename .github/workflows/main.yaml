@@ -40,7 +40,7 @@ jobs:
           very_good packages get --recursive --ignore="!*"
 
       - name: ✨ Check Formatting
-        run: dart format --line-length 120 --set-exit-if-changed lib test
+        run: dart format --set-exit-if-changed lib test
 
       - name: 🕵️ Analyze
         run: flutter analyze lib test

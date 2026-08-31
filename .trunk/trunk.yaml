@@ -27,9 +27,9 @@ lint:
   enabled:
     - grype@0.110.0
     - pinact@4.0.0
-    - cspell@10.0.1
+    - cspell@10.1.1
     - actionlint@1.7.10
-    - checkov@3.3.8
+    - checkov@3.3.15
     - git-diff-check
     - ktlint@1.8.0
     - markdownlint@0.49.1
@@ -38,7 +38,7 @@ lint:
     - prettier@3.9.6
     - shellcheck@0.11.0
     - shfmt@3.13.1
-    - svgo@4.0.2
+    - svgo@4.1.0
     - trufflehog@3.93.3
     - yamllint@1.38.0
   ignore:
@@ -59,10 +59,18 @@ actions:
       run: |
         #!/usr/bin/env bash
         set -euo pipefail
-        if dart run import_sorter:main -e | grep -qE 'Sorted [1-9]'; then
+        # Same pipeline as `merry format`: import_sorter drops the blank line
+        # between package: and relative project imports, dart format puts it
+        # back, so the pair is only idempotent when both run. Width comes from
+        # analysis_options.yaml (formatter.page_width).
+        dart run import_sorter:main -e >/dev/null
+        dart format . >/dev/null
+        # Block only when formatting changed a file staged for this commit.
+        # ponytail: compares worktree to index, so an unstaged edit made after
+        # git add also trips this; stash the worktree first if that bites.
+        staged=$(git diff --cached --name-only --diff-filter=ACM -- '*.dart')
+        if [ -n "$staged" ] && ! git diff --quiet -- $staged; then
           exit 1
-        else
-          exit 0
         fi
       packages_file: pubspec.yaml
       triggers:
