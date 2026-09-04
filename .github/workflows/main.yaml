@@ -28,16 +28,13 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: 🐦 Setup Flutter
-        uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        uses: AndrewDongminYoo/merry-setup@874b91d59e81270c32242743235261b06ae1fce8 # v1.0.0
         with:
-          channel: stable
+          sdk: flutter
           cache: true
-          cache-key: flutter-:os:-:channel:-:version:-:arch:-:hash:-${{ hashFiles('**/pubspec.lock') }}
-
-      - name: 📦 Install Dependencies
-        run: |
-          flutter pub global activate very_good_cli
-          very_good packages get --recursive --ignore="!*"
+          merry: false
+          dart-packages: very_good_cli
+          bootstrap: flutter
 
       - name: ✨ Check Formatting
         run: dart format --set-exit-if-changed lib test
