@@ -25,11 +25,12 @@ lint:
     # config. Use `merry format` / `merry analyze` (see CLAUDE.md) instead.
     - dart
   enabled:
+    - pinact@4.0.0
     - grype@0.110.0
     - pinact@4.0.0
-    - cspell@10.1.1
+    - cspell@10.2.2
     - actionlint@1.7.10
-    - checkov@3.3.15
+    - checkov@3.3.16
     - git-diff-check
     - ktlint@1.8.0
     - markdownlint@0.49.1
