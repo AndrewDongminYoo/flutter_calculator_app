@@ -2,13 +2,13 @@ part of 'calculator_bloc.dart';
 
 @Freezed(copyWith: true)
 sealed class CalculatorState with _$CalculatorState {
-  const factory CalculatorState({
+  const factory({
     @Default('0') String equation,
     @Default('0') String result,
     @Default('') String expression,
   }) = _CalculatorState;
 
-  const CalculatorState._();
+  const new _();
 
   /// 화면에 표시된 [result]가 현재 [equation]을 평가해서 나온 값인지 여부.
   ///

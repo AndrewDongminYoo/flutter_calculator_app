@@ -7,7 +7,7 @@ import 'package:calculator/gen/fonts.gen.dart';
 import 'package:calculator/presentation/enums/button_type.dart';
 
 class CalculatorButton extends StatelessWidget {
-  const CalculatorButton({
+  const new({
     super.key,
     required this.button,
     required this.buttonColor,

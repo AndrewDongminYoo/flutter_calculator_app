@@ -13,7 +13,7 @@ String? _read() => stdin.readLineSync();
 // coverage:ignore-end
 
 class CalculatorCLI {
-  CalculatorCLI(
+  new(
     this.datasource, {
     this.print = _print,
     this.scanner = _read,

@@ -92,7 +92,7 @@ void _showCopyMenu(BuildContext context, Offset globalPosition, CalculatorState 
 }
 
 class CalculatorScreen extends StatelessWidget {
-  const CalculatorScreen({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +112,7 @@ class CalculatorScreen extends StatelessWidget {
 }
 
 class CalculatorView extends StatelessWidget {
-  const CalculatorView({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -27,6 +27,6 @@ enum ButtonType {
   // 소수점
   dot('.');
 
-  const ButtonType(this.text);
+  new(this.text);
   final String text;
 }
