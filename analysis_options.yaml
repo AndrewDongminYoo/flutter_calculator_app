@@ -62,8 +62,6 @@ analyzer:
     - windows/**
     - macos/**
     - linux/**
-  plugins:
-    - custom_lint
 
 # Formatter settings
 # https://github.com/dart-lang/dart_style/wiki/Configuration

@@ -11,7 +11,7 @@ part 'calculator_bloc.freezed.dart';
 
 class CalculatorBloc extends Bloc<CalculatorEvent, CalculatorState> {
   // The public `repository` parameter intentionally differs from the private backing field.
-  CalculatorBloc({required CalculatorRepository repository})
+  new({required CalculatorRepository repository})
     // ignore: prefer_initializing_formals
     : _repository = repository,
       super(const CalculatorState()) {

@@ -22,15 +22,15 @@ dependencies:
 
 dev_dependencies:
   bloc_test: ^10.0.0
-  build_runner: ^2.16.0
+  build_runner: ^2.16.1
   flutter_gen_runner: ^5.15.0
   flutter_test:
     sdk: flutter
-  freezed: ^4.0.0
+  freezed: ^4.0.1
   import_sorter: ^4.6.0
   mockito: ^5.8.1
   mocktail: ^1.0.5
-  very_good_analysis: ^10.3.0
+  very_good_analysis: ^11.0.0
 
 import_sorter:
   emojis: true

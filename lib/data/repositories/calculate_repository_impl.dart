@@ -10,7 +10,7 @@ import 'package:calculator/data/datasources/calculator_remote_datasource.dart';
 import 'package:calculator/domain/repositories/calculator_repository.dart';
 
 class CalculatorRepositoryImpl implements CalculatorRepository {
-  CalculatorRepositoryImpl({
+  new({
     required this.localDatasource,
     required this.remoteDatasource,
     required this.connectivity,

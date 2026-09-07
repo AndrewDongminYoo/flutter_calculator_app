@@ -99,7 +99,9 @@ class Input implements CalculatorEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, input);
+  int get hashCode {
+    return Object.hash(runtimeType, input);
+  }
 
   @override
   String toString() {
@@ -140,7 +142,9 @@ class Paste implements CalculatorEvent {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, text);
+  int get hashCode {
+    return Object.hash(runtimeType, text);
+  }
 
   @override
   String toString() {
@@ -165,20 +169,30 @@ mixin _$CalculatorState {
 
   @override
   bool operator ==(Object other) {
+    final _this = this as CalculatorState;
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is CalculatorState &&
-            (identical(other.equation, equation) || other.equation == equation) &&
-            (identical(other.result, result) || other.result == result) &&
-            (identical(other.expression, expression) || other.expression == expression));
+            (identical(other.equation, _this.equation) || other.equation == _this.equation) &&
+            (identical(other.result, _this.result) || other.result == _this.result) &&
+            (identical(other.expression, _this.expression) || other.expression == _this.expression));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, equation, result, expression);
+  int get hashCode {
+    final _this = this as CalculatorState;
+    return Object.hash(
+      runtimeType,
+      _this.equation,
+      _this.result,
+      _this.expression,
+    );
+  }
 
   @override
   String toString() {
-    return 'CalculatorState(equation: $equation, result: $result, expression: $expression)';
+    final _this = this as CalculatorState;
+    return 'CalculatorState(equation: ${_this.equation}, result: ${_this.result}, expression: ${_this.expression})';
   }
 }
 
@@ -265,7 +279,9 @@ class _CalculatorState extends CalculatorState {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, equation, result, expression);
+  int get hashCode {
+    return Object.hash(runtimeType, equation, result, expression);
+  }
 
   @override
   String toString() {

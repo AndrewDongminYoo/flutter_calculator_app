@@ -9,7 +9,7 @@ import 'package:calculator/gen/fonts.gen.dart';
 import 'package:calculator/presentation/pages/calculator_screen.dart';
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const new({super.key});
 
   @override
   Widget build(BuildContext context) {
