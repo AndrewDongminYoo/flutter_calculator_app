@@ -10,7 +10,7 @@ set -euo pipefail
 # To move to a newer merry-setup, change MERRY_SETUP_REVISION to another full commit SHA.
 # The options below describe this project and change only when its toolchain does.
 
-readonly MERRY_SETUP_REVISION=a946d67a2071735250fc244842bcd4015052ec47
+readonly MERRY_SETUP_REVISION=2f17c0afc7a8b876255c03ec228691059bce5048
 readonly MERRY_SETUP_URL="https://raw.githubusercontent.com/AndrewDongminYoo/merry-setup/${MERRY_SETUP_REVISION}/bin/merry-setup"
 readonly MERRY_SETUP_BIN="${HOME}/.merry-setup/bin/merry-setup-${MERRY_SETUP_REVISION}"
 

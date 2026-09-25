@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: 🐦 Setup Flutter
-        uses: AndrewDongminYoo/merry-setup@60bf417368a81c8c189200bc2a19754cc565ef65 # v1.0.1
+        uses: AndrewDongminYoo/merry-setup@2f17c0afc7a8b876255c03ec228691059bce5048 # v1.0.2
         with:
           sdk: flutter
           cache: true
