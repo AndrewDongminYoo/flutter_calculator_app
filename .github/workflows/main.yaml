@@ -1,7 +1,7 @@
 name: calculator
 
 concurrency:
-  group: $-$
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions: read-all
@@ -16,7 +16,6 @@ on:
 
 jobs:
   build:
-    if: ${{ !contains(fromJSON('["dependabot[bot]", "renovate[bot]", "snyk-bot", "allcontributors[bot]"]'), github.actor) }}
     defaults:
       run:
         working-directory: .
@@ -52,6 +51,7 @@ jobs:
 
       - name: 📈 Upload filtered coverage to Codecov
         uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        if: ${{ !contains(fromJSON('["dependabot[bot]", "renovate[bot]", "snyk-bot", "allcontributors[bot]"]'), github.actor) }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: coverage/lcov_filtered.info
@@ -61,7 +61,6 @@ jobs:
           verbose: true
 
   spell-check:
-    if: ${{ !contains(fromJSON('["dependabot[bot]", "renovate[bot]", "snyk-bot", "allcontributors[bot]"]'), github.actor) }}
     defaults:
       run:
         working-directory: .
