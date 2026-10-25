@@ -3,7 +3,9 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+      day: monday
+      timezone: Asia/Seoul
     labels: [dependencies, bot, github_actions]
     commit-message:
       prefix: ci
@@ -13,7 +15,10 @@ updates:
   - package-ecosystem: pub
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+      day: monday
+      timezone: Asia/Seoul
+    open-pull-requests-limit: 3
     labels: [dependencies, bot, dart]
     commit-message:
       prefix: fix

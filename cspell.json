@@ -12,7 +12,7 @@
       "path": "./.cspell/flutter.txt"
     }
   ],
-  "ignoreWords": [],
+  "ignoreWords": ["timezone"],
   "ignorePaths": [".gitignore", "**/project.pbxproj"],
   "useGitignore": true,
   "allowCompoundWords": true,
