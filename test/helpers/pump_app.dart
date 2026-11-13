@@ -1,9 +1,6 @@
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 
 extension PumpApp on WidgetTester {
   Future<void> pumpApp(Widget widget) {
@@ -16,11 +13,7 @@ extension PumpApp on WidgetTester {
 
     return pumpWidget(
       MaterialApp(
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
+        localizationsDelegates: GlobalMaterialLocalizations.delegates,
         supportedLocales: const [Locale('ko'), Locale('en')],
         home: widget,
       ),

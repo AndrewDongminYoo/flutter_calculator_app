@@ -1,8 +1,5 @@
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:material_ui/material_ui.dart';
 
 // 🌎 Project imports:
 import 'package:calculator/gen/fonts.gen.dart';
@@ -22,11 +19,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       // 앱 자체 문구는 글리프와 숫자뿐이라 ARB가 없다. 델리게이트는 복사·붙여넣기 같은
       // 시스템 제공 라벨을 기기 로케일에 맞춰 표시하기 위해 등록한다.
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       supportedLocales: const [Locale('ko'), Locale('en')],
       home: const CalculatorScreen(),
     );

@@ -1,5 +1,5 @@
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:material_ui/material_ui.dart';
 
 extension ContextSize on BuildContext {
   /// 현재 [MediaQuery]의 너비를 반환합니다.
