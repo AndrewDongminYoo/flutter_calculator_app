@@ -202,7 +202,7 @@ packages:
     source: hosted
     version: "7.3.2"
   connectivity_plus_platform_interface:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: connectivity_plus_platform_interface
       sha256: "3c09627c536d22fd24691a905cdd8b14520de69da52c7a97499c8be5284a32ed"
@@ -827,7 +827,7 @@ packages:
     source: hosted
     version: "1.4.0"
   vector_graphics:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: vector_graphics
       sha256: "06081e4f2d8f17c306aa58989520694b463ad411bc7c7b93e76afa3e41ca17ac"
