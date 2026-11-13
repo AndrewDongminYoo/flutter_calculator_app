@@ -112,7 +112,10 @@ Three flavors: `development`, `staging`, `production`. Build commands in `merry.
 ## Localization
 
 The app has no ARB files: every string it draws is a glyph or a digit.
-`lib/app/app.dart` still registers the three `flutter_localizations` delegates and
-declares `supportedLocales: [ko, en]` so that SDK-provided labels — the copy/paste
-context menu on the result display, for one — follow the device locale instead of being
-hardcoded. Add app-owned ARB files only when the UI grows real prose.
+`lib/app/app.dart` still registers `GlobalMaterialLocalizations.delegates` (Cupertino,
+Material and Widgets) from `material_ui` and declares `supportedLocales: [ko, en]` so
+that SDK-provided labels — the copy/paste context menu on the result display, for one —
+follow the device locale instead of being hardcoded.
+Do not import `flutter_localizations` next to `material_ui`: both export a
+`GlobalMaterialLocalizations`, so the names collide. Add app-owned ARB files (with an
+`l10n.yaml` and `flutter: generate: true`) only when the UI grows real prose.
