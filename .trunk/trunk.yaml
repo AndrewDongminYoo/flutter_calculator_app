@@ -33,7 +33,7 @@ lint:
   enabled:
     - actionlint@1.7.12
     - checkov@3.4.5
-    - cspell@10.4.1
+    - cspell@10.5.1
     - git-diff-check
     - ktlint@1.8.0
     - markdownlint@0.50.0
