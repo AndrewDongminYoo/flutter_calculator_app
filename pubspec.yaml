@@ -9,20 +9,20 @@ environment:
 
 dependencies:
   auto_size_text: ^3.0.0
-  bloc: ^9.2.1
+  bloc: ^9.2.2
   connectivity_plus: ^7.3.2
   cupertino_ui: ^1.1.7
   flutter:
     sdk: flutter
-  flutter_bloc: ^9.1.1
-  flutter_svg: ^2.5.0
+  flutter_bloc: ^9.1.2
+  flutter_svg: ^2.5.1
   freezed_annotation: ^3.1.0
   material_ui: ^1.11.1
   math_expressions: ^3.2.0
   vector_graphics: ^1.3.1
 
 dev_dependencies:
-  bloc_test: ^10.0.0
+  bloc_test: ^10.0.1
   build_runner: ^2.16.2
   connectivity_plus_platform_interface: ^2.1.0
   flutter_gen_runner: ^5.15.0
